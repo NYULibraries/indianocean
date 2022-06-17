@@ -8,10 +8,6 @@ Nice to have:
 
 - Docker Compose
 
-```
-$ npm install
-```
-
 To build, run any of the script with build-*.
 
 Example:
