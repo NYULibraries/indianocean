@@ -8,6 +8,8 @@ Nice to have:
 
 - Docker Compose
 
+Do not run `$npm install`. The build will be taken care using Docker.
+
 To build, run any of the script with build-*.
 
 Example:
