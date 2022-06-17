@@ -1,84 +1,35 @@
-/* jshint laxcomma: true */
+YUI().use('node', 'event', 'handlebars', 'jsonp', 'router', 'gallery-paginator', function (Y) {
+  'use strict';
+  var itemsTemplateSource = Y.one('#items').getHTML()
+  var itemsTemplate = Y.Handlebars.compile(itemsTemplateSource)
+  var nrSource = Y.one('#noresults').getHTML()
+  var noresultsTemplate = Y.Handlebars.compile(nrSource)
+  var router = new Y.Router()
+  var transactions = [];      
 
-YUI().use(
-    'node'
-  , 'event'
-  , 'handlebars'
-  , 'jsonp'
-  , 'router'    
-  , 'gallery-paginator'
-  , function (Y) {
-
-    'use strict';
-
-    var itemsTemplateSource = Y.one('#items').getHTML()
-      , itemsTemplate = Y.Handlebars.compile(itemsTemplateSource)
-      , nrSource = Y.one('#noresults').getHTML()
-      , noresultsTemplate = Y.Handlebars.compile(nrSource)
-      , router = new Y.Router()
-      , transactions = [];      
-
-    function getRoute () {
-
-        var pageQueryString = getParameterByName('page')
-          , sortQueryString = getParameterByName('sort')
-          , qQueryString = getParameterByName('q')
-          , page = ( pageQueryString ) ? pageQueryString : 1
-          , q = ( qQueryString ) ? qQueryString : ''
-          , route = router.getPath() + '?q=' + q + '&page=' + page;
-        
-        // throw error if q is empty?
-
-        if ( sortQueryString ) {
-            route = route + '&sort=' + sortQueryString;
-        }
-        
-        return route;
-
-    }
+  function getRoute() {
+    var pageQueryString = getParameterByName('page');
+    var sortQueryString = getParameterByName('sort');
+    var qQueryString = getParameterByName('q');
+    var page = ( pageQueryString ) ? pageQueryString : 1;
+    var q = ( qQueryString ) ? qQueryString : '';
+    var route = router.getPath() + '?q=' + q + '&page=' + page;
+    if (sortQueryString) {
+      route = route + '&sort=' + sortQueryString;
+    }        
+    return route;
+  }
     
-    function getParameterByName(name) {
-        
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)")
-          , results = regex.exec(location.search);
-
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
+  function getParameterByName(name) {        
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");        
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)")
+    var results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
     
-    /**  
-    
-    Unused until subject page is available
-
-    var = subjectsList = Y.one('#subjecsList')
-        , subjects = JSON.parse(subjectsList.get('innerHTML'))
-
-    function findById ( tid ) {
-        for ( var i = 0; i < subjects.length; i++) {
-    	    if (subjects[i].tid == tid) {
-    	        return subjects[i];
-    	    }
-    	}
-    }
-    	    
-    Y.Handlebars.registerHelper('subject', function (value) {
-    	
-        var subject = findById ( value );
-        
-    	if (subject) {
-    	    return '<a href="' + appRoot + '/subject?tid=' + subject.tid + '">' + subject.term + '</a>';
-    	}
-
-    });
-    
-    */
-
-    function removeQueryDiacritics( str ) {
-    
-        var diacriticsMap = {};
-
-        var replacementList = [
+  function removeQueryDiacritics(str) {    
+    var diacriticsMap = {};
+    var replacementList = [
       {
         base: ' ',
         chars: "\u00A0",
@@ -398,246 +349,190 @@ YUI().use(
         
         return removeDiacritics( str );
     
-    }    
+  }    
 
-    router.route( router.getPath(), function ( req ) {
-    
-        var node = Y.one('[data-name="items"]')
-          , data = node.getData()
-          , rows = ( req.query.rows ) ? req.query.rows : ( ( data.rows ) ? data.rows : 10 ) 
-          , sort = ( req.query.sort ) ? req.query.sort : ( ( data.sort ) ? data.sort : Y.one('#browse-select').get('value') )           
-          , page = ( req.query.page ) ? parseInt( req.query.page, 10 ) : 0
-          , query = ( req.query.q ) ? req.query.q : ''
-          , start =  0;          
-        Y.one('.search_holder [name="q"]').set('value', query);
-        
-        if ( page <= 1 ) {
-            start = 0;
-        }
-        
-        else {
-            start = ( page * rows ) - rows;
-        }
-
-    	initRequest ( {
-		    container : node
-	      , start : start
-	      , page : page
-    	  , rows : rows
-    	  , sort : sort
-	      , q : removeQueryDiacritics ( query )
-		} );
-        
-    });
-    
-    function onSelectChange( ) {
-        router.replace( getRoute() );
+  router.route( router.getPath(), function (req) {
+    var node = Y.one('[data-name="items"]')
+    var data = node.getData()
+    var rows = ( req.query.rows ) ? req.query.rows : ( ( data.rows ) ? data.rows : 10 ) 
+    var sort = ( req.query.sort ) ? req.query.sort : ( ( data.sort ) ? data.sort : Y.one('#browse-select').get('value') )           
+    var page = ( req.query.page ) ? parseInt( req.query.page, 10 ) : 0
+    var query = ( req.query.q ) ? req.query.q : ''
+    var start =  0;          
+    Y.one('.search_holder [name="q"]').set('value', query);        
+    if ( page <= 1 ) {
+      start = 0;
+    } else {
+      start = ( page * rows ) - rows;
     }
+    initRequest({
+		  container: node, 
+      start: start, 
+      page: page, 
+      rows: rows, 
+      sort: sort, 
+      q: removeQueryDiacritics(query)
+		});    
+  });
     
-    function onFailure( response, args ) {
+  function onSelectChange() {
+    router.replace(getRoute());
+  }
+    
+  function onFailure(response, args) {    	
+    // mover a onFailure
+    var data = args.container.getData();
+    var requestError = data.requesterror;      
+    if (!requestError) {
+      args.container.setAttribute( 'data-requesterror', 1 );
+      requestError = 1;
+    } else { 
+      requestError = parseInt(requestError, 10) + 1;
+      args.container.setAttribute( 'data-requesterror', requestError );                
+    }
     	
-        // mover a onFailure
-        var data = args.container.getData()
-          , requestError = data.requesterror;
-          
-        if ( !requestError ) {
-            args.container.setAttribute( 'data-requesterror', 1 );
-            requestError = 1;
-        }
-        else { 
-            requestError = parseInt(requestError, 10) + 1;
-            args.container.setAttribute( 'data-requesterror', requestError );                
-        }
-    	
-        /** there try 3 more times before giving up */
-        if ( requestError < 3 ) {
-            router.replace( getRoute () );
-        }
-        else {
-        	Y.log('onFailure: there was a problem with this request');
-        }
+    /** there try 3 more times before giving up */
+    if ( requestError < 3 ) {
+      router.replace( getRoute () );
+    } else {
+      Y.log('onFailure: there was a problem with this request');
     }
+  }
     
-    function onTimeout() {
-        onFailure();
-    }
+  function onTimeout() {
+    onFailure();
+  }
     
-    function update ( state ) {
-    	
-    	this.setPage( state.page, true );
-		
-	    this.setRowsPerPage(state.rowsPerPage, true);
-	    
-	    router.save( router.getPath() + '?q=' + getParameterByName('q') + '&page=' + state.page );
+  function update(state) {  	
+    this.setPage( state.page, true );		
+	  this.setRowsPerPage(state.rowsPerPage, true);	    
+	  router.save( router.getPath() + '?q=' + getParameterByName('q') + '&page=' + state.page );
+  }
 
+  function initPaginator(page, totalRecords, rowsPerPage) {        
+    Y.one('#paginator').empty();
+    var paginatorConfiguration = { 
+      totalRecords: totalRecords, 
+      rowsPerPage: rowsPerPage, 
+      initialPage : page, 
+      template: '{FirstPageLink} {PageLinks} {NextPageLink}'
     }
-    function initPaginator( page, totalRecords, rowsPerPage ) {
-        
-        Y.one('#paginator').empty();
-        var paginatorConfiguration = {
-                totalRecords: totalRecords
-              , rowsPerPage: rowsPerPage
-              , initialPage : page
-              , template: '{FirstPageLink} {PageLinks} {NextPageLink}'        
-            }
-          , paginator = new Y.Paginator( paginatorConfiguration );
+    var paginator = new Y.Paginator(paginatorConfiguration);
+    paginator.on('changeRequest', update);
+    if (totalRecords > rowsPerPage) {
+      paginator.render('#paginator');
+    }
+  }
 
-        paginator.on( 'changeRequest', update );
-          
-        if (totalRecords > rowsPerPage) {
-          paginator.render('#paginator');
-        }
-
-    } 
-
+  function onSuccess(response, args) {
+    try {    
+      var node = args.container;
+      var resultsnum = Y.one('.resultsnum');
+      var querytextNode = Y.one('.s-query');
+      var page = ( args.page ) ? args.page : 1;
+      var numfound = parseInt(response.response.numFound, 10);
+      var numfoundNode = resultsnum.one('.numfound');
+      var start = parseInt(response.response.start, 10);
+      var displayStart = ( start < 1 ) ? 1 : (start + 1);
+      var startNode = resultsnum.one('.start');
+      var docslengthNode = resultsnum.one('.docslength');
+      var docslength = parseInt(response.response.docs.length, 10);
+      var q = getParameterByName('q');
+      var body = Y.one('body');
   
-
-    function onSuccess ( response, args ) {
-
-        try {
-        
-            var node = args.container
-              , resultsnum = Y.one('.resultsnum')
-              , querytextNode = Y.one('.s-query')
-              , page = ( args.page ) ? args.page : 1
-              , numfound = parseInt(response.response.numFound, 10)
-              , numfoundNode = resultsnum.one('.numfound')
-              , start = parseInt(response.response.start, 10)
-              , displayStart = ( start < 1 ) ? 1 : (start + 1)
-              , startNode = resultsnum.one('.start')
-              , docslengthNode = resultsnum.one('.docslength')
-              , docslength = parseInt(response.response.docs.length, 10)
-              , q = getParameterByName('q')
-              , appRoot = Y.one('body').getAttribute('data-app');
-            
-            Y.one('body').removeClass('io-loading');            
+      Y.one('body').removeClass('io-loading');            
               
-            if ( q ) { 
-                    querytextNode.set('innerHTML', q);
-                }
+      if (q) {
+        querytextNode.set('innerHTML', q);
+      }
                 
-            if ( numfound > 0 ) {
-              
-                // first transaction; enable paginator
-                if ( transactions.length < 1 ) {
-                    initPaginator( page , numfound, docslength );
-                }
-
-                // store called to avoid making the request multiple times
-                transactions.push ( this.url );
-
-                node.setAttribute( "data-numFound", numfound );
-
-                node.setAttribute( "data-start", start );
-
-                node.setAttribute( "data-docsLength", docslength );
-            
-                startNode.set( 'innerHTML', displayStart );
-
-                docslengthNode.set('innerHTML', start + docslength );
-            
-                numfoundNode.set('innerHTML', numfound);
-            
-                
-
-                // render HTML and append to container
-                node.append(
-                    itemsTemplate({
-                        items : response.response.docs,
-                        app: { appRoot : appRoot }
-                    })
-                );
-                
-                Y.one('body').removeClass('items-no-results');
-
-                args.container.setAttribute( 'data-requesterror', 0 );
-
+      if (numfound > 0) {              
+        // first transaction; enable paginator
+        if ( transactions.length < 1 ) {
+          initPaginator( page , numfound, docslength );
+        }
+        // store called to avoid making the request multiple times
+        transactions.push(this.url);
+        node.setAttribute("data-numFound", numfound);
+        node.setAttribute("data-start", start);
+        node.setAttribute("data-docsLength", docslength);    
+        startNode.set('innerHTML', displayStart);
+        docslengthNode.set('innerHTML', start + docslength);
+        numfoundNode.set('innerHTML', numfound);
+        // render HTML and append to container
+        node.append(
+          itemsTemplate({
+            items : response.response.docs,
+            app: { 
+              appRoot: body.getAttribute('data-app'),
+              viewer: body.getAttribute('data-viewer'),
             }
-            
-            // no results
-            else {
-              
-              Y.one('body').addClass('items-no-results');
-
-              node.append(noresultsTemplate());
-            
-            }
-
-        }
-
-        catch (e) {
-
-        }
-
+          })
+        );
+        Y.one('body').removeClass('items-no-results');
+        args.container.setAttribute( 'data-requesterror', 0);
+      } else {        
+        Y.one('body').addClass('items-no-results');
+        node.append(noresultsTemplate());            
+      }
+    } catch (e) {}
+  }
+    
+  function initRequest(options) {
+    var start = 0;
+    var page = 0;
+    var sortData = Y.one('#browse-select :checked');
+    var sortBy = sortData.get('value');
+    var sortDir = sortData.getAttribute( "data-sort-dir" );
+    var data = options.container.getData();
+    var source = Y.one('body').getAttribute('data-discoUrl');
+    var fl = ( data.fl ) ? data.fl : '*';
+    var rows = ( data.rows ) ? data.rows : 10;
+    var fq = [];
+    Y.one('body').addClass('io-loading');      
+    /** find all data-fq and push the value into fq Array*/
+    for (var prop in data) {
+      if (data.hasOwnProperty(prop )) {
+        if (prop.match('fq-')) {
+        	fq.push( prop.replace('fq-', '') + ':' + data[prop] );
+      	}
+      }
     }
-    
-    function initRequest ( options ) {
-    
-        var start = 0
-          , page = 0
-          , sortData = Y.one('#browse-select :checked')
-          , sortBy = sortData.get('value')
-          , sortDir = sortData.getAttribute( "data-sort-dir" )
-          , data = options.container.getData()
-          , source = Y.one('body').getAttribute('data-discoUrl')
-          , fl = ( data.fl ) ? data.fl : '*'
-          , rows = ( data.rows ) ? data.rows : 10
-          , fq = [];
-
-      Y.one('body').addClass('io-loading');
-      
-      /** find all data-fq and push the value into fq Array*/
-      for ( var prop in data ) {
-          if ( data.hasOwnProperty( prop ) ) {
-        	    if ( prop.match('fq-') ) {
-        	    	fq.push( prop.replace('fq-', '') + ':' + data[prop] );
-      	    }
-          }
-      }
-
-      if ( options.page ) {
-          page = parseInt( options.page, 10 );
-      }
-
-      if ( options.start ) {
-          start = parseInt( options.start, 10 );
-      }
-
-      if ( options.rows ) {
-          rows = parseInt( options.rows, 10 );
-      }
-      
-      source = source 
-             + "?"
-             + "wt=json"
-             + "&json.wrf=callback={callback}"
-             + "&fl=" + fl
-             + "&fq=" + fq.join("&fq=")
-             + "&rows=" + rows
-             + "&start=" + start
-             + "&sort=" + sortBy + "%20" + sortDir;
-
-        if ( options.q ) {
-        	source = source + '&q=' + options.q;
-        }
-                           
-        options.container.empty();
-
-        Y.jsonp( source, {
-            on: {
-                success: onSuccess,
-                failure: onFailure,
-                timeout: onTimeout
-            },
-            args: options,
-            timeout: 3000
-        });
-    
+    if (options.page) {
+      page = parseInt(options.page, 10);
     }
+    if (options.start) {
+      start = parseInt(options.start, 10);
+    }
+    if (options.rows) {
+      rows = parseInt(options.rows, 10);
+    }
+    source = source 
+      + "?"
+      + "wt=json"
+      + "&json.wrf=callback={callback}"
+      + "&fl=" + fl
+      + "&fq=" + fq.join("&fq=")
+      + "&rows=" + rows
+      + "&start=" + start
+      + "&sort=" + sortBy + "%20" + sortDir;
+    if (options.q) {
+      source = source + '&q=' + options.q;
+    }                           
+    options.container.empty();
+    Y.jsonp(source, {
+      on: {
+        success: onSuccess,
+        failure: onFailure,
+        timeout: onTimeout
+      },
+      args: options,
+      timeout: 3000
+    });  
+  }
 
-    router.replace( getRoute () );
+  router.replace(getRoute ());
 
-    // Sort
-    Y.one('body').delegate('change', onSelectChange, '#browse-select');    
+  Y.one('body').delegate('change', onSelectChange, '#browse-select');    
 
 });

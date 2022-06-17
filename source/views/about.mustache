@@ -5,14 +5,12 @@
   {{> header }}
   <main class="main container-fluid" role="main">
      {{#title}}
-      <h2  class="page-title">{{{html}}}</h2>
+      <h2 class="page-title">{{{html}}}</h2>
       {{/title}}
-    {{#content}}
-  
+    {{#content}}  
       {{#main}}
-      <div class="maintext {{class}}" >{{{html}}}</div>
-      {{/main}}
-  
+        <div class="maintext {{class}}" >{{{html}}}</div>
+      {{/main}}  
     {{/content}}
   </main>
   {{> footer }}

@@ -1,68 +1,58 @@
 {
   "appName": "Indian Ocean Digital Collection",
-  "environment": "production",
-  "local":
-  {
+  "environment": "local",
+  "local": {
     "appUrl": "http://localhost/indianocean",
     "appRoot": "/indianocean",
-    "discoUrl": "http://stagediscovery.dlib.nyu.edu:8983/solr/viewer/select",
-    "sass":
-    {
+    "discoUrl": "https://discovery1.dlib.nyu.edu/solr/viewer/select",
+    "viewer": "https://dev-sites.dlib.nyu.edu/viewer",
+    "sass": {
       "build": "external",
-      "options":
-      {
+      "options": {
         "style": "expanded",
         "debugInfo": false,
         "lineNumbers": false
       }
     }
   },
-
   "development":  {
     "appUrl": "http://devweb1.dlib.nyu.edu/indianocean",
     "appRoot": "/indianocean",
     "discoUrl": "http://dev-discovery.dlib.nyu.edu:8983/solr/viewer/select",
-    "sass":
-    {
+    "viewer": "https://dev-sites.dlib.nyu.edu/viewer",
+    "sass": {
       "build": "internal",
-      "options":
-      {
+      "options": {
         "style": "compressed",
         "debugInfo": false,
-        "lineNumbers": false,
-        "sourcemap": "none"
+        "lineNumbers": false
       }
     }
   },
-  "stage":
-  {
-    "appUrl": "http://stageweb1.dlib.nyu.edu/indianocean",
+  "stage": {
+    "appUrl": "https://stageweb1.dlib.nyu.edu/indianocean",
     "appRoot": "/indianocean",
-    "discoUrl": "http://stagediscovery.dlib.nyu.edu:8983/solr/viewer/select",
-    "sass":
-    {
+    "discoUrl": "https://discovery1.dlib.nyu.edu/solr/viewer/select",
+    "viewer": "https://stage-sites.dlib.nyu.edu/viewer",
+    "sass": {
       "build": "inline",
-      "options":
-      {
+      "options": {
         "style": "compressed",
         "debugInfo": false,
-        "lineNumbers": false,
-        "sourcemap": "none"
+        "lineNumbers": false
       }
     }
   },
-  "production":
-  {
-    "appUrl": "http://dlib.nyu.edu/indianocean",
+  "production": {
+    "appUrl": "https://dlib.nyu.edu/indianocean",
     "appRoot": "/indianocean",
-    "discoUrl": "http://discovery1.dlib.nyu.edu:8983/solr/viewer/select",
-    "sass":
-    {
+    "discoUrl": "http://discovery1.dlib.nyu.edu/solr/viewer/select",
+    "viewer": "https://sites.dlib.nyu.edu/viewer",    
+    "sass": {
       "build": "inline",
       "options":
       {
-        "style": "compressed",
-        "sourcemap": "none"
+        "style": "compressed"
       }
     }
   }

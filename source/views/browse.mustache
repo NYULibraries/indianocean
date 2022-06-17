@@ -1,16 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>{{> head }}</head>
-<body data-app="{{ appUrl }}" data-appRoot="{{ appRoot }}"  data-discoUrl="{{ discoUrl }}" class="{{ bodyClass }}">
+<body data-app="{{appUrl}}" data-viewer="{{viewer}}" data-appRoot="{{appRoot}}"  data-discoUrl="{{discoUrl}}" class="{{bodyClass}}">
   {{> header }}
   <main class="main container-fluid" role="main">
     <header>
       {{#title}}
         <h2  class="page-title" >{{{html}}}</h2>
       {{/title}}
-
-      <div class="resultsnum">Showing results <span class="start"></span> - <span class="docslength"></span> of <span class="numfound"></span></div>
-        
+      <div class="resultsnum">Showing results <span class="start"></span> - <span class="docslength"></span> of <span class="numfound"></span></div>        
       <div class="filters">
         <select id="browse-select" aria-label="Search Sort Results">
           <option data-sort-dir="asc" value="ss_sauthor" selected>Sort by Author</option>
