@@ -1,12 +1,18 @@
 Indian Ocean Digital Collections 
 ========
 
-Requirement
-- Docker
+## Prerequisites
+
+In order to clone the repository, and build.
+
+You'll need the following tools:
+
+- [Git](https://git-scm.com)
+- [Docker](https://www.docker.com/)
 
 Nice to have:
 
-- Docker Compose
+- [Docker Compose](https://docs.docker.com/compose/)
 
 Do not run `npm install`. The file package.json includes a list of scripts to build and deploy.
 
@@ -24,12 +30,12 @@ If `npm` is not available, see `.scripts` in package.json for commands,
 $ rm -rf ./build && docker build -o build . --build-arg APP_ENV=local
 ```
 
-To see the site locally
+To see/run the site locally:
 
 ```
 $ docker-compose up -d
 ```
 
-#### Test URL
+### Test URL
 
 Open the URL http://localhost
