@@ -1,0 +1,19 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+
+const { identifier } = Astro.params
+
+const pageTitle = `Page ${identifier}`
+const pageDescription = `This is page ${identifier}`
+
+---
+
+<DefaultLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <iframe role="main" title="Viewer" class="widget book" id="book" name="book" allowfullscreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/${identifier}/1`}>
+</iframe>
+</DefaultLayout>
+
+<style lang="scss"></style>

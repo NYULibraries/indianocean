@@ -1,0 +1,69 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import { Card, Pagination } from 'accessible-astro-components'
+
+const pageTitle = 'Browse titles'
+const pageDescription = 'Monographs, Maps, Postcards, Prints'
+
+export async function getStaticPaths({ paginate }) {
+  const collectionCode = 'io'
+  const rows = 12
+  const start = 0
+  const url = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=ss_representative_image,bundle,ss_identifier,ss_book_identifier,ss_title,sm_author,sm_publisher,ss_spublisher,ss_pubdate,sm_collection_partner_label,sm_subject_label,ss_publocation,sm_field_publication_location&fq=hash:705lna&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
+  const pageSize = 15
+  const response = await fetch(url)
+  const data = await response.json()
+    return paginate(data.response.docs, { pageSize, total: data.response.numFound })
+}
+
+const { page } = Astro.props
+
+---
+
+<DefaultLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <section class="my-12">
+    <div class="space-content container">
+      <h1>{pageTitle}</h1>
+    </div>
+  </section>
+  <section class="my-12">
+    <div class="container">
+      <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p>
+      <ul class="my-3">
+        {
+          page.data.map((post) => (
+            <li>
+              <Card
+                url={'/books/' + post.ss_identifier}
+                title={post.ss_title}
+                footer={'userId:' + post.ss_identifier}
+              >
+              Author:
+              {
+                post.sm_author.map((author) => (
+                  <p>{author}</p>
+                ))
+              }
+              </Card>
+            </li>
+          ))
+        }
+      </ul>
+      <div>
+        <Pagination
+          firstPage={page.url.prev ? '/blog' : null}
+          previousPage={page.url.prev ? page.url.prev : null}
+          nextPage={page.url.next ? page.url.next : null}
+          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
+          currentPage={page.currentPage}
+          totalPages={Math.round(page.total / page.size)}
+        />
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style lang="scss"></style>
