@@ -1,42 +1,30 @@
 {
-  "name": "indianocean-site",
+  "name": "indianocean",
+  "description": "The NYU Indian Ocean Collection for scholars who may need access to the Indian Ocean materials.",
   "version": "1.0.0",
-  "description": "Indian Ocean",
-  "main": "Gruntfile.js",
-  "devDependencies": {
-    "diacritics": "^1.2.1",
-    "grunt": "1.5.3",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-copy": "1.0.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-contrib-sass": "^0.8.1",
-    "grunt-contrib-uglify": "5.2.1",
-    "grunt-curl": "2.5.1",
-    "handlebars": "4.7.7",
-    "hogan.js": "^3.0.2",
-    "request": "2.88.2",
-    "underscore": "^1.7.0"
-  },
+  "author": "New York University - Digital Library Technology Services",
+  "homepage": "https://dlib.nyu.edu/indianocean/",
   "scripts": {
-    "build-stage": "rm -rf ./build && docker build -o build . --build-arg APP_ENV=stage --no-cache",
-    "build-production": "rm -rf ./build && docker build -o build . --build-arg APP_ENV=production --no-cache",
-    "build-dev": "rm -rf ./build && docker build -o build . --build-arg APP_ENV=development --no-cache",
-    "build-local": "rm -rf ./build && docker build -o build . --build-arg APP_ENV=local",
-    "deploy-dev": "rsync -avzhe ssh ./build/ devweb1:/home/ortiz/indianocean/",
-    "deploy-stage": "rsync -avzhe ssh ./build/ stageweb1:/home/ortiz/indianocean/",
-    "deploy-production": "rsync -avzhe ssh ./build/ web1:/home/ortiz/indianocean/"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
-  "author": "NYU Digital Library Technology Services",
-  "license": "ISC",
-  "homepage": "http://dlib.nyu.edu/indianocean",
-  "dependencies": {
-    "html-entities": "^1.1.2",
-    "html-minifier": "^0.7.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NYULibraries/indianocean.git"
+  "devDependencies": {
+    "@astrojs/mdx": "^0.15.2",
+    "@astrojs/partytown": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "accessible-astro-components": "^1.6.4",
+    "astro": "^2.0.1",
+    "astro-compress": "1.1.28",
+    "astro-icon": "^0.7.3",
+    "eslint": "^8.33.0",
+    "eslint-plugin-astro": "^0.23.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "prettier": "^2.8.3",
+    "prettier-plugin-astro": "^0.8.0",
+    "sass": "^1.49.9",
+    "svgo": "^2.8.0"
   }
 }

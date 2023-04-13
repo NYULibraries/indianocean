@@ -1,0 +1,90 @@
+---
+const appUrl = 'http://192.168.0.8:3000'
+const appName = 'Indian Ocean Digital Collection'
+const menu = {
+  items: [
+    {
+      label: 'Home',
+      route: appUrl,
+      class: 'Homelink',
+    },
+    {
+      label: 'About',
+      route: `${appUrl}/about`,
+      class: 'Aboutlink',
+    },
+    {
+      label: 'Browse',
+      route: `${appUrl}/browse`,
+      class: 'Browselink',
+    },
+  ],
+  partners: [
+    {
+      id: 'fales',
+      label: 'Fales Library and Special Collections',
+      url: 'http://www.nyu.edu/library/bobst/research/fales/'
+    },
+    {
+      id: 'sochum',
+      label: 'Social Sciences and Humanities Department',
+      url: 'http://guides.nyu.edu/cat.php?cid=20969'
+    },
+    {
+      id: 'nyuad',
+      label: 'NYU Abu Dhabi',
+      url: 'http://nyuad.nyu.edu/'
+    },
+    {
+      id: 'dlts',
+      label: 'Digital Library Technology Services',
+      url: 'http://dlib.nyu.edu/dlts/'
+    }
+  ],
+}
+
+// navButton.min.js
+// search_form.min.js
+---
+
+<header>
+  <div class="header-wrapper">
+    <header class="header-main container-fluid" role="banner">
+      <h1 class="sitename"><a href={appUrl}>{appName}</a></h1>
+    </header>
+  </div>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid"> 
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed widget" data-toggle="collapse"> 
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="40px" height="30px" viewBox="0 0 40 30" overflow="visible" xml:space="preserve">
+            <defs> </defs>
+            <rect y="0" fill="#FFFFFF" width="40" height="3"></rect>
+            <rect y="7" fill="#FFFFFF" width="40" height="3"></rect>
+            <rect y="14" fill="#FFFFFF" width="40" height="3"></rect>
+          </svg> 
+          <span class="sr-only">Toggle navigation</span> 
+        </button>  
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse" >
+        <ul class="nav navbar-nav">
+          {
+            menu.items.map((item) => (
+              <li><a href={item.route} class={item.class}>{item.label}</a></li>
+            ))
+          }
+        </ul>
+        <div class="search_holder widget navbar-form navbar-right">
+          <form method="get" action={`${appUrl}/search`} role="search">
+            <input name="q" type="text" placeholder="Search titles, subjects, authors..." title="Enter the terms you wish to search for." aria-label="Search">
+          <input type="submit" class="submit-search" aria-label="Submit Search">
+          </form>
+        </div>
+      </div>
+      <!-- /.navbar-collapse --> 
+    </div>
+    <!-- /.container-fluid --> 
+  </nav>
+</header>
