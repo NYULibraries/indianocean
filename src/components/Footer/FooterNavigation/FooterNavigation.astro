@@ -1,0 +1,42 @@
+---
+import ExternalSvg from "../../Assets/ExternalSvg.astro";
+import NavigationItem from "../../Navigation/NavigationItem.astro";
+
+const appUrl = 'http://localhost:3000'
+
+const FooterNavigationItems = [
+    {
+      label: 'Home',
+      route: appUrl,
+      class: 'Homelink',
+    },
+    {
+      label: 'About',
+      route: `${appUrl}/about`,
+      class: 'Aboutlink',
+    },
+    {
+      label: 'Browse',
+      route: `${appUrl}/browse`,
+      class: 'Browselink',
+    },
+  ]
+---
+ <footer class="footer-main container-fluid">
+      <ul class="footer-nav" role="navigation">
+        {
+          FooterNavigationItems.map((item) => {
+            const { route, class: className, label } = item
+            return (
+                <NavigationItem route={route} className={className} label={label}/>
+            )
+          })
+        }
+        <li class="accessibility-link">
+          <a class="external" href=" https://www.nyu.edu/footer/accessibility.html" target="_blank">Accessibility <ExternalSvg/></a>
+        </li>
+        <li class="feedback-link">
+          <a href="https://nyu.qualtrics.com/jfe/form/SV_8zQOuCi9g0JUVsV?site=indianocean&l=f" target="_blank">Send Feedback <ExternalSvg/></a>
+        </li>       
+      </ul>
+    </footer>
