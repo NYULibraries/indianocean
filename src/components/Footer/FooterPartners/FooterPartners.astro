@@ -1,0 +1,39 @@
+---
+import Logo from "../../Assets/Logo.astro";
+import FooterPartnerItems from "./FooterPartnerItems.astro";
+
+const FooterLogo = {href:"http://nyu.edu/",src:"/images/nyu_short_white.svg", alt:"NYU"};
+const partners = [
+    {
+      id: 'fales',
+      label: 'Fales Library and Special Collections',
+      url: 'http://www.nyu.edu/library/bobst/research/fales/'
+    },
+    {
+      id: 'sochum',
+      label: 'Social Sciences and Humanities Department',
+      url: 'http://guides.nyu.edu/cat.php?cid=20969'
+    },
+    {
+      id: 'nyuad',
+      label: 'NYU Abu Dhabi',
+      url: 'http://nyuad.nyu.edu/'
+    },
+    {
+      id: 'dlts',
+      label: 'Digital Library Technology Services',
+      url: 'http://dlib.nyu.edu/dlts/'
+    }
+  ];
+---
+
+<footer class="footer-main container-fluid" role="contentinfo">
+    <Logo href={FooterLogo.href} src={FooterLogo.src} alt={FooterLogo.alt} />
+  <div class="partner-wrapper">
+    {
+      partners.map((item) => (
+        <FooterPartnerItems id={item.id} url={item.url} label={item.label}/>
+      ))
+    }
+  </div>
+</footer>
