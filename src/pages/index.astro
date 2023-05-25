@@ -1,5 +1,6 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro'
+import FilterDropdown from '../components/Content/FilterDropdown.astro'
 
 interface Document {
   ss_representative_image: string
@@ -46,14 +47,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
   <header>
     <h2 class="page-title">{pageTitle}</h2>
     <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-    <div class="filters">
-      <select id="browse-select" aria-label="Search Sort Results">
-        <option data-sort-dir="asc" value="ss_longlabel" selected>Sort by Title</option>
-        <option data-sort-dir="asc" value="ss_sauthor">Sort by Author</option>
-        <option data-sort-dir="asc" value="ss_ssubject">Sort by Subject</option>
-        <option data-sort-dir="asc" value="ss_publocation">Sort by Place</option>
-      </select>
-    </div>
+  <FilterDropdown/>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
