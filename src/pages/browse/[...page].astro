@@ -8,7 +8,7 @@ const pageDescription = 'Monographs, Maps, Postcards, Prints'
 export async function getStaticPaths({ paginate }) {
   const collectionCode = 'io'
   const rows = 12
-  const start = 0
+  const start = 1
   const url = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=ss_representative_image,bundle,ss_identifier,ss_book_identifier,ss_title,sm_author,sm_publisher,ss_spublisher,ss_pubdate,sm_collection_partner_label,sm_subject_label,ss_publocation,sm_field_publication_location&fq=hash:705lna&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
   const pageSize = 15
   const response = await fetch(url)
