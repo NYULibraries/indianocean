@@ -9,8 +9,10 @@ export async function getStaticPaths() {
   const pageSize = 15
   const response = await fetch(url)
   const data = await response.json()
-    return [
-			{params:	{identifier:'book'}}]
+	const books = data.response.docs.map((item)=>{
+		return {params: {identifier: item.ss_identifier}}
+	})
+		return books;
 }
 
 const { identifier } = Astro.params

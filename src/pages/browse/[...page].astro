@@ -9,8 +9,10 @@ export async function getStaticPaths() {
   const pageSize = 15
   const response = await fetch(url)
   const data = await response.json()
-    return [
-			{params:	{identifier:'book'}}]
+	const books = data.response.docs.map((item)=>{
+		return {params: {identifier: item.ss_identifier}}
+	})
+		return books;
 }
 
 const { identifier } = Astro.params
@@ -27,7 +29,7 @@ const pageDescription = `This is page ${identifier}`
   <header>
     <h2 class="page-title">{pageTitle}</h2>
     <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-  <FilterDropdown/>
+  <!-- <FilterDropdown/> -->
   </header>
   <div class="widget">
     <div class="item-list flex-container">
@@ -95,7 +97,7 @@ const pageDescription = `This is page ${identifier}`
       <div id="paginator" class="pagination"></div>
     </div>
   </div>
-  <!-- <section class="my-12">
+	<section class="my-12">
     <div class="space-content container">
       <h1>{pageTitle}</h1>
     </div>
@@ -134,7 +136,7 @@ const pageDescription = `This is page ${identifier}`
         />
       </div>
     </div>
-  </section> -->
+  </section>
 </DefaultLayout>
 
-<style lang="scss"></style>
+

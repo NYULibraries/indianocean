@@ -1,7 +1,8 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
-import FilterDropdown from '../../components/Content/FilterDropdown.astro'
-import { Pagination } from 'accessible-astro-components'
+import FilterDropdown from '../../components/Content/FilterDropdown.jsx'
+import { Card, Pagination } from 'accessible-astro-components'
+import '../../components/Styles/CardStyles.astro'
 
 interface Document {
   ss_representative_image: string
@@ -44,7 +45,6 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props
-console.log(page)
 
 export function getDocumentTypeByBundle(bundle: string): string | undefined {
   return {
@@ -103,8 +103,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
               }
               , {document.ss_pubdate}
             </div>
-          </div>
-          <div class="md_provider">
+						          <div class="md_provider">
             <span class="md_label">Provider:</span>
             {
               document.sm_collection_partner_label.map((collectionPartner) => (
@@ -120,6 +119,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
               ))
             }
           </div>
+          </div>
         </article>
       ))
     }
@@ -132,3 +132,5 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     </div>
   </div>
 </DefaultLayout>
+
+
