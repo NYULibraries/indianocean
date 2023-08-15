@@ -1,7 +1,38 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import FilterDropdown from '../../components/Content/FilterDropdown.astro'
+import { Pagination } from 'accessible-astro-components'
 
-export async function getStaticPaths() {
+interface Document {
+  ss_representative_image: string
+  bundle: string
+  ss_identifier: string
+  ss_book_identifier: string
+  ss_title: string
+  sm_author: string[]
+  sm_publisher: string[]
+  ss_spublisher: string
+  ss_pubdate: string
+  sm_collection_partner_label: string[]
+  sm_subject_label: string[]
+  ss_publocation: string
+  sm_field_publication_location: string[]
+  sm_field_identifier: string;
+  ss_title_long: string;
+}
+
+const appRoot = '/'
+const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
+const pageTitle = 'Browse titles'
+const pageDescription = 'Powered by NYU Digital Library Technology Services'
+const start = 1
+const rows = 12
+const apiUrl = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=*&fq=hash:705lna&fq=sm_collection_code:io&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
+const data = await fetch(apiUrl).then((res) => res.json())
+const documents: Document[] = data.response.docs
+const numFound: number = data.response.numFound
+
+export async function getStaticPaths({ paginate }) {
   const collectionCode = 'io'
   const rows = 12
   const start = 1
@@ -9,14 +40,18 @@ export async function getStaticPaths() {
   const pageSize = 15
   const response = await fetch(url)
   const data = await response.json()
-    return [
-			{params:	{identifier:'book'}}]
+    return paginate(data.response.docs, { pageSize, total: data.response.numFound })
 }
 
-const { identifier } = Astro.params
-const pageTitle = `Page ${identifier}`
-const pageDescription = `This is page ${identifier}`
+const { page } = Astro.props
+console.log(page)
 
+export function getDocumentTypeByBundle(bundle: string): string | undefined {
+  return {
+    'dlts_book': 'books',
+    'dlts_map': 'maps',
+  }[bundle]
+}
 
 ---
 
@@ -88,53 +123,12 @@ const pageDescription = `This is page ${identifier}`
         </article>
       ))
     }
-    <article class="item"></article>
-    <article class="item"></article>
     </div>
     <div class="text-center">
-      <div id="paginator" class="pagination"></div>
+      <div id="paginator" class="pagination">
+				<Pagination
+				firstPage={page ? '/':null}></Pagination>
+				</div>
     </div>
   </div>
-  <!-- <section class="my-12">
-    <div class="space-content container">
-      <h1>{pageTitle}</h1>
-    </div>
-  </section>
-  <section class="my-12">
-    <div class="container">
-      <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p>
-      <ul class="my-3">
-        {
-          page.data.map((post) => (
-            <li>
-              <Card
-                url={'/books/' + post.ss_identifier}
-                title={post.ss_title}
-                footer={'userId:' + post.ss_identifier}
-              >
-              Author:
-              {
-                post.sm_author.map((author) => (
-                  <p>{author}</p>
-                ))
-              }
-              </Card>
-            </li>
-          ))
-        }
-      </ul>
-      <div>
-        <Pagination
-          firstPage={page.url.prev ? '/blog' : null}
-          previousPage={page.url.prev ? page.url.prev : null}
-          nextPage={page.url.next ? page.url.next : null}
-          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
-          currentPage={page.currentPage}
-          totalPages={Math.round(page.total / page.size)}
-        />
-      </div>
-    </div>
-  </section> -->
 </DefaultLayout>
-
-<style lang="scss"></style>

@@ -5,9 +5,8 @@ const { frontmatter } = Astro.props
 ---
 
 <DefaultLayout title={frontmatter.title}>
-  <div class="container">
-    <div class="space-content my-12">
+		<h2 class="page-title">{frontmatter.title}</h2>
+    <div class="maintext">
       <slot />
     </div>
-  </div>
 </DefaultLayout>
