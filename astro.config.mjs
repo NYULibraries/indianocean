@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import compress from 'astro-compress';
+import react from '@astrojs/react'
 import mdx from '@astrojs/mdx';
 import lambdaAdapter from '@common-web/astro-lambda-edge';
 
@@ -12,6 +13,6 @@ export default defineConfig({
   },
   // site: 'https://dlib.nyu.edu/indianocean',
   // base: '/indianocean',
-  integrations: [mdx()]
+  integrations: [mdx(), react()]
   // adapter: lambdaAdapter()
 });

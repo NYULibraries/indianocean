@@ -27,5 +27,10 @@
     "prettier-plugin-astro": "^0.8.1",
     "sass": "^1.49.9",
     "svgo": "^2.8.0"
+  },
+  "dependencies": {
+    "@astrojs/react": "^2.2.1",
+    "@nanostores/react": "^0.7.1",
+    "nanostores": "^0.9.3"
   }
 }
