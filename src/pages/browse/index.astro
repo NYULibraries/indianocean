@@ -1,8 +1,6 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import FilterDropdown from '../../components/Content/FilterDropdown.jsx'
-import { Card, Pagination } from 'accessible-astro-components'
-import '../../components/Styles/CardStyles.astro'
 
 interface Document {
   ss_representative_image: string
@@ -45,6 +43,7 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props
+console.log(documents)
 
 export function getDocumentTypeByBundle(bundle: string): string | undefined {
   return {
@@ -66,8 +65,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
   </header>
   <div class="widget">
     <div class="item-list flex-container">
-    {
-      documents.map((document) => (
+      {documents.map((document) => (
         <article class="item">
           <div class="card">
             <div class="thumbs">
@@ -126,8 +124,6 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     </div>
     <div class="text-center">
       <div id="paginator" class="pagination">
-				<Pagination
-				firstPage={page ? '/':null}></Pagination>
 				</div>
     </div>
   </div>

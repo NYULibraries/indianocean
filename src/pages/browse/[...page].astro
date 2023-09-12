@@ -126,14 +126,14 @@ const pageDescription = `This is page ${identifier}`
         }
       </ul>
       <div>
-        <Pagination
-          firstPage={page.url.prev ? '/blog' : null}
-          previousPage={page.url.prev ? page.url.prev : null}
-          nextPage={page.url.next ? page.url.next : null}
-          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
-          currentPage={page.currentPage}
-          totalPages={Math.round(page.total / page.size)}
-        />
+        // <Pagination
+        //   firstPage={page.url.prev ? '/blog' : null}
+        //   previousPage={page.url.prev ? page.url.prev : null}
+        //   nextPage={page.url.next ? page.url.next : null}
+        //   lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
+        //   currentPage={page.currentPage}
+        //   totalPages={Math.round(page.total / page.size)}
+        // />
       </div>
     </div>
   </section>
