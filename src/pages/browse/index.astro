@@ -43,7 +43,7 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props
-console.log(documents)
+// console.log(documents)
 
 export function getDocumentTypeByBundle(bundle: string): string | undefined {
   return {
@@ -61,7 +61,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
   <header>
     <h2 class="page-title">{pageTitle}</h2>
     <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-  <FilterDropdown/>
+  <FilterDropdown client:load/>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
