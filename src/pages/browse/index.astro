@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import FilterDropdown from '../../components/Content/FilterDropdown.jsx'
+import PaginationCarousel from '../../components/Content/Pagination/PaginationCarousel'
 
 interface Document {
   ss_representative_image: string
@@ -124,6 +125,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     </div>
     <div class="text-center">
       <div id="paginator" class="pagination">
+				<PaginationCarousel totalpages={numFound} client:load/>
 				</div>
     </div>
   </div>

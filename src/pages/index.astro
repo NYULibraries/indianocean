@@ -32,11 +32,10 @@ const start = 1
 const rows = 12
 const sortState = sort.get();
 console.log(sortState)
-const apiUrl = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=*&fq=hash:705lna&fq=sm_collection_code:io&rows=${rows}&start=${start}&sort=ss_ssubject%20asc`
+const apiUrl = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=*&fq=hash:705lna&fq=sm_collection_code:io&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
 const data = await fetch(apiUrl).then((res) => res.json())
 const documents: Document[] = data.response.docs
 const numFound: number = data.response.numFound
-let arr = [1,2,3,4,5,6,7,8,9]
 // export async function getStaticPaths({ paginate }) {
 //   const collectionCode = 'io'
 //   const rows = 12
@@ -133,7 +132,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     <div class="text-center">
       <div id="paginator" class="pagination">
 				</div>
-			<PaginationCarousel totalpages={arr} client:load/>
+			<PaginationCarousel totalelements={numFound} client:load/>
     </div>
   </div>
 </DefaultLayout>
