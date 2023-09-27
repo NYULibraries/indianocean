@@ -17,7 +17,6 @@
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "astro": "^2.0.1",
-    "astro-compress": "1.1.28",
     "astro-icon": "^0.7.3",
     "eslint": "^8.33.0",
     "eslint-plugin-astro": "^0.23.0",
@@ -28,8 +27,12 @@
     "svgo": "^2.8.0"
   },
   "dependencies": {
-    "@astrojs/react": "^2.2.1",
+    "@astrojs/react": "^2.3.2",
     "@nanostores/react": "^0.7.1",
-    "nanostores": "^0.9.3"
+    "antd": "^5.9.3",
+    "astro-compress": "^2.0.15",
+    "nanostores": "^0.9.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

@@ -1,0 +1,25 @@
+---
+import { Suspense } from 'react'
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import SearchBody from '../../components/Search/SearchBody'
+
+const pageTitle = 'Browse titles'
+const pageDescription = 'Powered by NYU Digital Library Technology Services'
+
+function Loading() {
+  return <h2>Loading...</h2>;
+}
+
+---
+
+<DefaultLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <header>
+
+	</header>
+	<Suspense fallback={<Loading />}>
+	  <SearchBody client:only/>
+	</Suspense>
+</DefaultLayout>
