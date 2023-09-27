@@ -2,8 +2,10 @@
 import NavigationItem from "./Navigation/NavigationItem.astro";
 import NavigationMobileMenu from "./Navigation/NavigationMobileMenu.astro";
 
-const appUrl = 'http://192.168.0.8:3000'
+const appUrl = 'http://localhost:3000'
+
 const appName = 'Indian Ocean Digital Collection'
+
 const HeaderNavigationItems = [
     {
       label: 'Home',
@@ -21,10 +23,6 @@ const HeaderNavigationItems = [
       class: 'Browselink',
     },
   ]
-
-
-// navButton.min.js
-// search_form.min.js
 ---
 
 <header>
@@ -50,9 +48,15 @@ const HeaderNavigationItems = [
         </ul>
         <div class="search_holder widget navbar-form navbar-right">
           <form method="get" action={`${appUrl}/search`} role="search">
-            <input name="q" type="text" placeholder="Search titles, subjects, authors..." title="Enter the terms you wish to search for." aria-label="Search">
-          <input type="submit" class="submit-search" aria-label="Submit Search">
+            <input value="" name="q" type="text" placeholder="Search titles, subjects, authors..." title="Enter the terms you wish to search for." aria-label="Search">
+            <input type="submit" class="submit-search" aria-label="Submit Search">
           </form>
+					<script>
+            // Get the URL of the current page
+            const url = new URL(window.location.href)
+            // Get the value of 'q' from the query string
+						document.querySelector('input[name="q"]').value = url.searchParams.get('q') ? url.searchParams.get('q') : ''
+					</script>
         </div>
       </div>
       <!-- /.navbar-collapse -->
