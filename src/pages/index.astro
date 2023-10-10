@@ -3,7 +3,7 @@ import DefaultLayout from '../layouts/DefaultLayout.astro'
 import Searchbar from '../components/Search/Searchbar'
 import FilterDropdown from '../components/Content/FilterDropdown.jsx'
 import PaginationCarousel from '../components/Content/Pagination/PaginationCarousel'
-import { sort } from '../stores/sort'
+import { sort } from '../stores/sortField'
 import '../components/Styles/CardStyles.astro'
 
 interface Document {
@@ -30,8 +30,8 @@ const pageTitle = 'Monographs, Maps, Postcards, Prints'
 const pageDescription = 'Monographs, Maps, Postcards, Prints'
 const start = 1
 const rows = 12
-const sortState = sort.get();
-console.log(sortState)
+// const sortState = sort.get();
+// console.log(sortState)
 const apiUrl = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=*&fq=hash:705lna&fq=sm_collection_code:io&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
 const data = await fetch(apiUrl).then((res) => res.json())
 const documents: Document[] = data.response.docs
@@ -65,7 +65,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
   <header>
     <h2 class="page-title">{pageTitle}</h2>
     <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-  <FilterDropdown client:load/>
+  <FilterDropdown client:only/>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
@@ -132,7 +132,6 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     <div class="text-center">
       <div id="paginator" class="pagination">
 				</div>
-			<PaginationCarousel totalelements={numFound} client:load/>
     </div>
   </div>
 </DefaultLayout>
