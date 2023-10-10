@@ -1,8 +1,11 @@
 import {atom} from 'nanostores';
+import { url } from '../utils/url';
 
 export type SortType = 'ss_longlabel' | 'ss_sauthor' | 'ss_ssubject' | 'ss_publocation'
 
-export const sort = atom<SortType>('ss_ssubject')
+const urlSortField:any = url.searchParams.get('sortField')
+
+export const sort = atom<SortType>(urlSortField ? urlSortField : 'ss_longlabel')
 
 export function changeSortStore(type:any){
 	sort.set(type)

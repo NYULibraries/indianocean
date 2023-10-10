@@ -62,7 +62,7 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
   <header>
     <h2 class="page-title">{pageTitle}</h2>
     <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-  <FilterDropdown client:load/>
+  <FilterDropdown client:only/>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
@@ -124,9 +124,6 @@ export function getDocumentTypeByBundle(bundle: string): string | undefined {
     }
     </div>
     <div class="text-center">
-      <div id="paginator" class="pagination">
-				<PaginationCarousel totalpages={numFound} client:load/>
-				</div>
     </div>
   </div>
 </DefaultLayout>

@@ -10,13 +10,13 @@ export async function getStaticPaths() {
   const response = await fetch(url)
   const data = await response.json()
     return [
-			{params:	{identifier: 'fales_io_map000002' }}]
+			{params:	{identifier: 'fales_io_map000002'}}]
 }
 
 const { identifier } = Astro.params
 const pageTitle = `Page ${identifier}`
 const pageDescription = `This is page ${identifier}`
-console.log(identifier)
+
 
 ---
 
@@ -24,8 +24,7 @@ console.log(identifier)
   title={pageTitle}
   description={pageDescription}
 >
-  <h2>{identifier}</h2>
-  <iframe role="main" title="Viewer" class="widget book" id="book" name="book" width="500px" height="300px" allowfullscreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/${identifier}/1`}>
+  <iframe role="main" title="Viewer" class="widget book" id="book" name="book" allowfullscreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/${identifier}/1`}>
 </iframe>
 </DefaultLayout>
 

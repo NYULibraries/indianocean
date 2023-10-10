@@ -1,8 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 import SearchResult from './SearchResult'
 
-import { Pagination } from 'antd'
+import { Pagination, Spin, ConfigProvider } from 'antd'
+
+import theme from '../Styles/themeConfig'
+
+import FilterDropdown from '../Content/FilterDropdown'
+
+import { sort } from '../../stores/sortField'
+
+import { useStore } from "@nanostores/react"
+
+import { search, pageNumber, defaultQuery } from '../../utils/url'
+
+export function Loading(){
+	return <div>Loading...</div>
+}
 
 function SearchBody () {
 
@@ -10,14 +24,13 @@ function SearchBody () {
 
 	const [numFound, setNumFound] = useState([])
 
+	const [sortDir, setSortDir] = useState('asc')
+
+	const $sortField = useStore(sort)
+
 	const onChange = (page) => {
-
-		const sortField = 'ss_sauthor'
-
-		const sortDir = 'asc'
-
-		window.location.href = `/search?q=${search}&page=${page}&sortField=${sortField}&sortDir=${sortDir}`
-
+		console.log($sortField)
+		window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${sortDir}`
   }
 
   // Create an asynchronous function to fetch the data
@@ -31,10 +44,6 @@ function SearchBody () {
 			const start = (pageNumber - 1) * rows
 
 			const collectionCode = 'io'
-
-			const sortField = 'ss_sauthor'
-
-			const sortDir = 'asc'
 
 			const language = 'en'
 
@@ -58,7 +67,7 @@ function SearchBody () {
 
 			const fl = fields.join()
 
-			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${sortField}%20${sortDir}`
+			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${$sortField}%20${sortDir}`
 
 			const response = await fetch(apiUrl)
 
@@ -77,20 +86,13 @@ function SearchBody () {
   // Use the useEffect hook to fetch data when the component mounts
   useEffect(() => {
     fetchData()
-  }, []) // The empty dependency array ensures this effect runs once when the component mounts
-
-	const defaultQuery = '*:*'
-
-  // Get the URL of the current page
-  const url = new URL(window.location.href)
-
-	const search = url.searchParams.get('q') ? url.searchParams.get('q') : defaultQuery
-
-  // Get the value of 'q' from the query string
-  const pageNumber = url.searchParams.get('page') ? parseInt(url.searchParams.get('page'), 10) : 1
+  }, [$sortField]) // The empty dependency array ensures this effect runs once when the component mounts
 
 	return (
+		<Suspense fallback={<Loading/>}>
+			<ConfigProvider theme={theme}>
 		<div>
+			<FilterDropdown/>
 			{documents ? (
 			<>
         {search !== defaultQuery ? (
@@ -102,13 +104,13 @@ function SearchBody () {
         {
           documents.map(document => {
 						return (
-              <SearchResult data={document}/>
+              <SearchResult data={document} key={document.entity_id}/>
             )
 					}
 				)
       }
-      <article class="item"></article>
-      <article class="item"></article>
+      <article className="item"></article>
+      <article className="item"></article>
     </div>
 		{numFound > 12 && (
       <Pagination
@@ -118,6 +120,7 @@ function SearchBody () {
         pageSize={12}
         hideOnSinglePage={true}
         total={numFound}
+				style={{textAlign:'center'}}
       />
     )}
 			</>
@@ -125,6 +128,8 @@ function SearchBody () {
         <div>Loading...</div>
       )}
 		</div>
+		</ConfigProvider>
+		</Suspense>
 	)
 
 }

@@ -1,18 +1,29 @@
 import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle'
 
+import { useState, useEffect } from 'react'
+
+import { Spin } from 'antd'
+
 function SearchResult(props) {
 
 	const document = props.data
 
+	const [isLoaded, setIsLoaded] = useState(false)
+
 	const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
+
+	const imageLoad = () => {
+		setIsLoaded(true);
+	}
 
 	return (
 		<article className="item" key={document.entity_id}>
 			<div className="card">
 				<div className="thumbs">
+					{!isLoaded && <Spin size='large'/>}
 					<div className="clipper">
 						<a href={`${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
-							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,/0/default.jpg`} alt="" title={document.ss_title_long} role="presentation"/>
+							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,/0/default.jpg`} alt="" title={document.ss_title_long} onLoad={imageLoad} role="presentation"/>
 						</a>
 					</div>
 				</div>
