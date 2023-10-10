@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const response = await fetch(url)
   const data = await response.json()
 	const books = data.response.docs.map((item)=>{
-		return {params: {identifier: item.sm_field_identifier}}
+		return {params: {identifier: 'fales'}}
 	})
 		return books;
 }
