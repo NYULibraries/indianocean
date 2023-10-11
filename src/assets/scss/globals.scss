@@ -9,9 +9,9 @@
 @import "partials/header";
 @import "partials/search";
 
-//  End Bootstrap 
+//  End Bootstrap
 
-// Start Indian Ocean Styles 
+// Start Indian Ocean Styles
 
 html {
   font-size: $font-size-base;
@@ -156,13 +156,19 @@ body {
     margin-top: -8px;
     margin-bottom: 8px;
     float: left;
-    // elaborate ruse for cropping the thumbnails 
+		position: relative;
+    // elaborate ruse for cropping the thumbnails
     .clipper {
       position: relative;
       top: -10px;
       overflow: hidden;
       @include box-shadow(rgba(#666, 0.5) 1px 1px 5px);
     }
+		.clipperNoshadow{
+			position: relative;
+      top: -10px;
+      overflow: hidden;
+		}
     a {
       display: block;
       position: relative;
@@ -175,11 +181,14 @@ body {
       margin-left: -10%;
       margin-top: -10%;
     }
+		.imagePlaceholder{
+			opacity: 0;
+	  }
   }
 }
 
 .card {
- // wrapper and inner padding to respect an IE 10 flexbox / box-sizing bug 
+ // wrapper and inner padding to respect an IE 10 flexbox / box-sizing bug
   padding: 8px 12px 8px 8px;
 }
 
