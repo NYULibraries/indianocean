@@ -10,8 +10,6 @@ const Map = () => {
 
 	const [isLoaded, setIsLoaded] = useState(false)
 
-	const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
-
 	const mapLoad = () => {
 		setIsLoaded(true);
 	}
@@ -34,7 +32,7 @@ const Map = () => {
 		return 0
 	}
 
-	calculateAvailableHeight()
+	window.addEventListener('resize', calculateAvailableHeight)
 
 const handleResize = throttle(()=>{
 	setViewport({width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0), height: window.innerHeight})
@@ -43,16 +41,18 @@ const handleResize = throttle(()=>{
 
 
 useEffect(()=>{
-		window.addEventListener('resize', handleResize)
-	return()=>{
-		window.removeEventListener('resize',handleResize)
-	}
+	// 	window.addEventListener('resize', handleResize)
+	// return()=>{
+	// 	window.removeEventListener('resize',handleResize)
+	// }
 },[viewport])
 
 	return (
 		<>
-			{/* {!isLoaded && <MapPlaceholder height={calculateAvailableHeight()}/>} */}
-			<iframe style={{height:`${calculateAvailableHeight()}px`}} role="main" title="Viewer" className="widget book" id="book" name="book" allowFullScreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/fales_io_map000002/1`}/>
+			{!isLoaded && <MapPlaceholder height={calculateAvailableHeight()}/>}
+			<div className={!isLoaded?'mapContainerLoading':undefined}>
+			<iframe onLoad={mapLoad} style={{height:`${calculateAvailableHeight()}px`}} role="main" title="Viewer" className="widget book" id="book" name="book" allowFullScreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/fales_io_map000002/1`}/>
+			</div>
 		</>
 	)
 }
