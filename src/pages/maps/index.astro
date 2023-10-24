@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import MapLayout from '../../layouts/MapLayout.astro'
 
 export async function getStaticPaths() {
   const collectionCode = 'io'
@@ -20,12 +20,12 @@ const pageDescription = `This is page ${identifier}`
 
 ---
 
-<DefaultLayout
+<MapLayout
   title={pageTitle}
   description={pageDescription}
 >
   <iframe role="main" title="Viewer" class="widget book" id="book" name="book" allowfullscreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/${identifier}/1`}>
 </iframe>
-</DefaultLayout>
+</MapLayout>
 
 <style lang="scss"></style>

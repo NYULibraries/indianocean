@@ -24,13 +24,10 @@ function SearchBody () {
 
 	const [numFound, setNumFound] = useState([])
 
-	const [sortDir, setSortDir] = useState('asc')
-
 	const $sortField = useStore(sort)
 
 	const onChange = (page) => {
-		console.log($sortField)
-		window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${sortDir}`
+		window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${'asc'}`
   }
 
   // Create an asynchronous function to fetch the data
@@ -67,7 +64,7 @@ function SearchBody () {
 
 			const fl = fields.join()
 
-			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${$sortField}%20${sortDir}`
+			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${$sortField}%20${'asc'}`
 
 			const response = await fetch(apiUrl)
 

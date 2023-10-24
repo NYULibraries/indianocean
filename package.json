@@ -33,6 +33,7 @@
     "@nanostores/react": "^0.7.1",
     "antd": "^5.9.3",
     "astro-compress": "^2.0.15",
+    "lodash.throttle": "^4.1.1",
     "nanostores": "^0.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

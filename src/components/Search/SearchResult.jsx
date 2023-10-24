@@ -2,7 +2,7 @@ import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle'
 
 import { useState } from 'react'
 
-import { Spin } from 'antd'
+import SearchPlaceholder from './SearchPlaceholder'
 
 function SearchResult(props) {
 
@@ -20,10 +20,10 @@ function SearchResult(props) {
 		<article className="item" key={document.entity_id}>
 			<div className="card">
 				<div className="thumbs">
-					{!isLoaded && <Spin size='large' style={{'position':'relative', 'marginTop': '37.5%','marginLeft': '37.5%'}}/>}
+					{!isLoaded && <SearchPlaceholder/>}
 					<div className={isLoaded?'clipper':'clipperNoshadow imagePlaceholder'}>
-						<a href={`${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
-							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,/0/default.jpg`} alt="" title={document.ss_title_long} onLoad={imageLoad} role="presentation"/>
+						<a href={`/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
+							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,175/0/default.jpg`} alt="" title={document.ss_title_long} onLoad={imageLoad} role="presentation"/>
 						</a>
 					</div>
 				</div>

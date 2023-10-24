@@ -182,9 +182,19 @@ body {
       margin-top: -10%;
     }
 		.imagePlaceholder{
-			opacity: 0;
+			display: none;
 	  }
   }
+}
+.searchplaceholder{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 120%;
+	height: 150px;
+  margin-left: -10%;
+  margin-top: -10%;
+	background-color: #FCF7F0;
 }
 
 .card {
@@ -331,7 +341,8 @@ body.book {
 .widget {
   &.book {
     width: 100%;
-    opacity: 0;
+		height: auto;
+    opacity: 1;
   }
 }
 
