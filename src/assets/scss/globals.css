@@ -849,7 +849,18 @@ body {
   margin-top: -10%;
 }
 .item .thumbs .imagePlaceholder {
-  opacity: 0;
+  display: none;
+}
+
+.searchplaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120%;
+  height: 150px;
+  margin-left: -10%;
+  margin-top: -10%;
+  background-color: #FCF7F0;
 }
 
 .card {
@@ -996,7 +1007,8 @@ body.book #book {
 
 .widget.book {
   width: 100%;
-  opacity: 0;
+  height: auto;
+  opacity: 1;
 }
 
 .bubblingG {
@@ -1025,32 +1037,15 @@ body.book #book {
 }
 
 #bubblingG_1 {
-  -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 #bubblingG_2 {
-  -webkit-animation-delay: 0.39s;
   animation-delay: 0.39s;
 }
 
 #bubblingG_3 {
-  -webkit-animation-delay: 0.78s;
   animation-delay: 0.78s;
-}
-@-webkit-keyframes bubblingG {
-  0% {
-    width: 10px;
-    height: 10px;
-    background-color: #74A2BD;
-    -webkit-transform: translateY(0);
-  }
-  100% {
-    width: 24px;
-    height: 24px;
-    background-color: #F9F1E7;
-    -webkit-transform: translateY(-21px);
-  }
 }
 @keyframes bubblingG {
   0% {
