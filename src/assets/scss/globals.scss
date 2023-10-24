@@ -197,6 +197,17 @@ body {
 	background-color: #FCF7F0;
 }
 
+.mapContainerLoading{
+	display: none;
+}
+
+.mapPlaceholder{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #FCF7F0;
+}
+
 .card {
  // wrapper and inner padding to respect an IE 10 flexbox / box-sizing bug
   padding: 8px 12px 8px 8px;
