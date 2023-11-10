@@ -1,6 +1,6 @@
 ---
-import MapLayout from '../../layouts/MapLayout.astro'
-import Map from '../../components/Content/Maps/Map';
+import BookLayout from '../../layouts/BookLayout.astro'
+import Book from '../../components/Content/Books/Book';
 
 export function getDocumentTypeByBundle(bundle: string): string | undefined {
   return {
@@ -19,12 +19,12 @@ const pageDescription = 'b'
 
 ---
 
-<MapLayout
+<BookLayout
   title={pageTitle}
   description={pageDescription}
 >
-	<Map client:only/>
-</MapLayout>
+	<Book client:only/>
+</BookLayout>
 
 <style lang="scss"></style>
 

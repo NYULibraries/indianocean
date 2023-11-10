@@ -7,3 +7,20 @@
           </svg>
           <span class="sr-only">Toggle navigation</span>
         </button>
+
+				<script>
+					const button = document.querySelector('button') as HTMLElement
+					const navbar = document.querySelector('.navbar-collapse') as HTMLElement
+					let collapsed = true
+					if (button && navbar){
+						button.addEventListener('click',()=>{
+						if(collapsed){
+							navbar.style.height = '238px'
+						}else{
+							navbar.style.height='0px'
+						}
+						collapsed = !collapsed
+					})
+					}
+
+				</script>
