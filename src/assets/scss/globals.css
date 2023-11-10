@@ -385,6 +385,7 @@ tbody.collapse.in {
   -webkit-overflow-scrolling: touch;
   height: 0;
   overflow-y: hidden;
+  transition: height 0.3s ease-out;
 }
 .navbar-collapse:before, .navbar-collapse:after {
   content: " ";
@@ -860,6 +861,17 @@ body {
   height: 150px;
   margin-left: -10%;
   margin-top: -10%;
+  background-color: #FCF7F0;
+}
+
+.mapContainerLoading {
+  display: none;
+}
+
+.mapPlaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #FCF7F0;
 }
 

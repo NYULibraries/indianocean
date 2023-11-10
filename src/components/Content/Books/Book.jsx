@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react'
 
-import MapPlaceholder from './MapPlaceholder';
+import MapPlaceholder from '../Maps/MapPlaceholder';
 
 import { id } from '../../../utils/url';
 
-const Map = () => {
+const Book = () => {
 
 	const [isLoaded, setIsLoaded] = useState(false)
 
@@ -30,19 +30,19 @@ const Map = () => {
 	}
 
 	window.addEventListener('resize', calculateAvailableHeight)
-	
+
 	useEffect(()=>{
-			window.history.pushState({},"",`/maps/${id}`)
+			window.history.pushState({},"",`/books/${id}`)
 	},[])
 
 	return (
 		<>
 			{!isLoaded && <MapPlaceholder height={calculateAvailableHeight()}/>}
 			<div className={!isLoaded?'mapContainerLoading':undefined}>
-			<iframe onLoad={mapLoad} style={{height:calculateAvailableHeight()}} role="main" title="Viewer" className="widget book" id="book" name="book" allowFullScreen="" src={`https://sites.dlib.nyu.edu/viewer/maps/${id}`}/>
+			<iframe onLoad={mapLoad} style={{height:calculateAvailableHeight()}} role="main" title="Viewer" className="widget book" id="book" name="book" allowFullScreen="" src={`https://sites.dlib.nyu.edu/viewer/books/${id}`}/>
 			</div>
 		</>
 	)
 }
 
-export default Map
+export default Book

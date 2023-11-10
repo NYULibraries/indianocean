@@ -41,7 +41,7 @@
             border-color: $link-color;
         }
     }
-   
+
 }
 
 //
@@ -98,6 +98,7 @@
     -webkit-overflow-scrolling: touch;
     height: 0;
     overflow-y: hidden;
+		transition: height .3s ease-out;
     @media (min-width: $grid-float-breakpoint) {
         width: auto;
         height: auto;
