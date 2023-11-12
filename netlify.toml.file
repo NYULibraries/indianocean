@@ -1,4 +1,5 @@
 [[redirects]]
-  from = "/search/*"
+  from = "/search/maps/*"
   to = "/maps"
   status = 200
+	force = true
