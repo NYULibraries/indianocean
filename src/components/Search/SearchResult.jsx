@@ -22,13 +22,13 @@ function SearchResult(props) {
 				<div className="thumbs">
 					{!isLoaded && <SearchPlaceholder/>}
 					<div className={isLoaded?'clipper':'clipperNoshadow imagePlaceholder'}>
-						<a href={`/${getDocumentTypeByBundle(document.bundle)}?id=${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
+						<a href={`/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
 							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,175/0/default.jpg`} alt="" title={document.ss_title_long} onLoad={imageLoad} role="presentation"/>
 						</a>
 					</div>
 				</div>
 				<h1 className="md_title">
-					<a href={`${getDocumentTypeByBundle(document.bundle)}?id=${document.sm_field_identifier}/1`}>{document.ss_title_long}</a>
+					<a href={`${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1`}>{document.ss_title_long}</a>
 				</h1>
 				<div className="md_authors">
 					<span className="md_label">Author:</span>

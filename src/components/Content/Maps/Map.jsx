@@ -30,10 +30,10 @@ const Map = () => {
 	}
 
 	window.addEventListener('resize', calculateAvailableHeight)
-	
-	useEffect(()=>{
-			window.history.pushState({},"",`/maps/${id}`)
-	},[])
+
+	// useEffect(()=>{
+	// 		window.history.pushState({},"",`/maps/${id}`)
+	// },[])
 
 	return (
 		<>
