@@ -11,4 +11,7 @@
  // Get the last part of the URL
  export const id = url.searchParams.get('id') ? url.searchParams.get('id') : ''
 
+//  Get root of URL
+ export const root = url.protocol + '//' + url.hostname + (url.port ? ':' + url.port : '');
+
 
