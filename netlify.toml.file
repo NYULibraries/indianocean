@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/search/maps/*"
-  to = "https://search-page-componet--transcendent-rolypoly-3c7503.netlify.app/search/maps/"
-  status = 404
-	
+  from = "search/*"
+  to = "maps/index.html"
+  status = 200
+

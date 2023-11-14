@@ -11,6 +11,10 @@ export default defineConfig({
     port: 3000,
     host: true
   },
+	redirects:{
+		'/maps/*':'/maps'
+		},
+	output: 'static',
   // site: 'https://dlib.nyu.edu/indianocean',
   // base: '/indianocean',
   integrations: [mdx(), react()]

@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 
 import MapPlaceholder from './MapPlaceholder';
 
-import { id } from '../../../utils/url';
+import { getID, id } from '../../../utils/url';
 
 const Map = () => {
 
@@ -32,7 +32,8 @@ const Map = () => {
 	window.addEventListener('resize', calculateAvailableHeight)
 
 	// useEffect(()=>{
-	// 		window.history.pushState({},"",`/maps/${id}`)
+	// 		window.history.pushState({},"",`/maps/2u38u`)
+	// 		console.log(getID(window.location.href))
 	// },[])
 
 	return (
