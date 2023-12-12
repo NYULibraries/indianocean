@@ -1,11 +1,10 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro'
-import Searchbar from '../components/Search/Searchbar'
-import FilterDropdown from '../components/Content/FilterDropdown.jsx'
-import PaginationCarousel from '../components/Content/Pagination/PaginationCarousel'
-import { sort } from '../stores/sortField'
+import SearchResult from '../components/Search/SearchResult'
+import SearchPagination from '../components/SearchPagination'
 
 interface Document {
+  entity_id: string
   ss_representative_image: string
   bundle: string
   ss_identifier: string
@@ -23,114 +22,40 @@ interface Document {
   ss_title_long: string;
 }
 
-const appRoot = '/'
-const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
+const discovery = 'https://discovery1.dlib.nyu.edu/solr/viewer'
 const pageTitle = 'Monographs, Maps, Postcards, Prints'
-const pageDescription = 'Monographs, Maps, Postcards, Prints'
+const pageDescription = ''
 const start = 1
 const rows = 12
-// const sortState = sort.get();
-// console.log(sortState)
-const apiUrl = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=*&fq=hash:705lna&fq=sm_collection_code:io&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
+const sortField = 'ss_sauthor'
+const sortDir = 'asc'
+const collectionCode = 'io'
+const q = "*:*"
+const fl = "*"
+const apiUrl = `${discovery}/select?wt=json&q=${q}&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=${sortField}%20${sortDir}`
 const data = await fetch(apiUrl).then((res) => res.json())
 const documents: Document[] = data.response.docs
-const numFound: number = data.response.numFound
-// export async function getStaticPaths({ paginate }) {
-//   const collectionCode = 'io'
-//   const rows = 12
-//   const start = 1
-//   const url = `https://discovery1.dlib.nyu.edu/solr/viewer/select?wt=json&q=*&fl=ss_representative_image,bundle,ss_identifier,ss_book_identifier,ss_title,sm_author,sm_publisher,ss_spublisher,ss_pubdate,sm_collection_partner_label,sm_subject_label,ss_publocation,sm_field_publication_location&fq=hash:705lna&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=ss_sauthor%20asc`
-//   const pageSize = 15
-//   const response = await fetch(url)
-//   const data = await response.json()
-//     return paginate(data.response.docs, { pageSize, total: data.response.numFound })
-// }
-
-// const { page } = Astro.props
-
-export function getDocumentTypeByBundle(bundle: string): string | undefined {
-  return {
-    'dlts_book': 'books',
-    'dlts_map': 'maps',
-  }[bundle]
-}
+const numFound = Number(data.response.numFound)
+const currentPage = 1
 
 ---
-
 <DefaultLayout
   title={pageTitle}
   description={pageDescription}
 >
   <header>
     <h2 class="page-title">{pageTitle}</h2>
-    <div class="resultsnum">Showing items <span class="start">{start}</span> - <span class="docslength">{rows}</span> of <span class="numfound">{numFound}</span></div>
-  <FilterDropdown client:only/>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
-    {
-      documents.map((document) => (
-        <article class="item">
-          <div class="card">
-            <div class="thumbs">
-              <div class="clipper">
-                <a href={`${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabindex="-1">
-                  <img src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,/0/default.jpg`} alt="" title={document.ss_title_long} role="presentation">
-                </a>
-              </div>
-            </div>
-            <h1 class="md_title">
-              <a href={`/book/${document.sm_field_identifier}/1`}>{document.ss_title_long}</a>
-            </h1>
-            <div class="md_authors">
-              <span class="md_label">Author:</span>
-              {
-                document.sm_author.map((author) => (
-                  <span class="md_author">{author}</span>
-                ))
-              }
-            </div>
-            <div class="md_publisher">
-              <span class="md_label">Publisher:</span>
-              {
-                document.sm_field_publication_location.map((location) => (
-                  <span>{location}</span>
-                ))
-              }
-              ,
-              {
-                document.sm_publisher.map((publisher) => (
-                  <span>{publisher}</span>
-                ))
-              }
-              , {document.ss_pubdate}
-            </div>
-          </div>
-          <div class="md_provider">
-            <span class="md_label">Provider:</span>
-            {
-              document.sm_collection_partner_label.map((collectionPartner) => (
-                <span>{collectionPartner}</span>
-              ))
-            }
-          </div>
-          <div class="md_subjects">
-            <span class="md_label">Subjects:</span>
-            {
-              document.sm_subject_label.map((subject) => (
-                <a class="md_subject" href={`${appRoot}}/search?q=${subject}`}>{subject}</a>
-              ))
-            }
-          </div>
-        </article>
-      ))
-    }
-    <article class="item"></article>
-    <article class="item"></article>
+      {
+        documents.map(document => <SearchResult client:load data={document} key={document.entity_id} />)
+      }
+      <article class="item"></article>
+      <article class="item"></article>
     </div>
-    <div class="text-center">
-      <div id="paginator" class="pagination">
-				</div>
+    <div>
+		  { numFound > 12 && ( <SearchPagination currentPage={currentPage} numFound={numFound} rows={rows} client:load /> ) }
     </div>
   </div>
 </DefaultLayout>

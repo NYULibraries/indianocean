@@ -1,12 +1,11 @@
-import {atom} from 'nanostores';
-import { url } from '../utils/url';
+// import {atom} from 'nanostores'
 
-export type SortType = 'ss_longlabel' | 'ss_sauthor' | 'ss_ssubject' | 'ss_publocation'
+// export type SortType = 'ss_longlabel' | 'ss_sauthor' | 'ss_ssubject' | 'ss_publocation'
 
-const urlSortField:any = url.searchParams.get('sortField')
+// const urlSortField:any = url.searchParams.get('sortField')
 
-export const sort = atom<SortType>(urlSortField ? urlSortField : 'ss_longlabel')
+// export const sort = atom<SortType>(urlSortField ? urlSortField : 'ss_longlabel')
 
-export function changeSortStore(type:any){
-	sort.set(type)
-}
+// export function changeSortStore(type:any){
+// 	sort.set(type)
+// }

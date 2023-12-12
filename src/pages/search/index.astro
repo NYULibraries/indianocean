@@ -2,7 +2,6 @@
 
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import SearchBody from '../../components/Search/SearchBody'
-import FilterDropdown from '../../components/Content/FilterDropdown'
 
 const pageTitle = 'Browse titles'
 const pageDescription = 'Powered by NYU Digital Library Technology Services'
@@ -13,7 +12,6 @@ const pageDescription = 'Powered by NYU Digital Library Technology Services'
   title={pageTitle}
   description={pageDescription}
 >
-  <header>
-	</header>
-	  <SearchBody client:only/>
+  <header></header>
+	<SearchBody client:only/>
 </DefaultLayout>

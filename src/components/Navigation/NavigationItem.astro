@@ -1,9 +1,16 @@
 ---
-interface Props{
+interface Props {
     route:string;
     className: string;
     label: string;
 }
-const{route, className, label} = Astro.props;
+
+const { route, className, label } = Astro.props
 ---
-<li><a href={route} class={className}>{label}</a></li>
+
+<li>
+  <a
+    href={route}
+    class={className}
+  >{label}</a>
+</li>
