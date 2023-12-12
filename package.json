@@ -8,7 +8,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+		"preview": "vite preview --port 8080"
   },
   "devDependencies": {
     "@astrojs/mdx": "^0.15.2",

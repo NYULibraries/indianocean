@@ -1,34 +1,27 @@
 import { useState, useEffect, Suspense } from 'react'
-
+import { ConfigProvider } from 'antd'
 import SearchResult from './SearchResult'
-
-import { Pagination, Spin, ConfigProvider } from 'antd'
-
+import SearchLabel from '../SearchLabel'
+import SearchInformation from '../SearchInformation'
+import SearchPagination from '../SearchPagination'
+import Loading from '../Loading'
 import theme from '../Styles/themeConfig'
-
 import FilterDropdown from '../Content/FilterDropdown'
-
-import { sort } from '../../stores/sortField'
-
-import { useStore } from "@nanostores/react"
-
-import { search, pageNumber, defaultQuery } from '../../utils/url'
-
-export function Loading(){
-	return <div>Loading...</div>
-}
 
 function SearchBody () {
 
-  const [documents, setDocuments] = useState([])
+  const [ data, setData ] = useState([])
 
-	const [numFound, setNumFound] = useState([])
+  // Get the URL of the current page
+  const url = new URL(window.location.href)
 
-	const $sortField = useStore(sort)
+  // Get the value of 'q' from the query string
+  const search = url.searchParams.get('q') ? url.searchParams.get('q') : '*:*'
 
-	const onChange = (page) => {
-		window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${'asc'}`
-  }
+  // Get the value of 'page' from the query string
+  const pageNumber = url.searchParams.get('page') ? parseInt(url.searchParams.get('page'), 10) : 1
+
+  const rows = 12
 
   // Create an asynchronous function to fetch the data
   const fetchData = async () => {
@@ -64,15 +57,17 @@ function SearchBody () {
 
 			const fl = fields.join()
 
-			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${$sortField}%20${'asc'}`
+      const sortField = 'ss_longlabel'
+
+      const sortDir = 'asc'
+
+			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${sortField}%20${sortDir}`
 
 			const response = await fetch(apiUrl)
 
 			const data = await response.json()
 
-      setDocuments(data.response.docs)
-
-			setNumFound(data.response.numFound)
+      setData(data)
 
     } catch (error) {
       // Handle errors here, e.g., display an error message or log the error
@@ -83,49 +78,28 @@ function SearchBody () {
   // Use the useEffect hook to fetch data when the component mounts
   useEffect(() => {
     fetchData()
-  }, [$sortField]) // The empty dependency array ensures this effect runs once when the component mounts
+  }, []) // The empty dependency array ensures this effect runs once when the component mounts
 
 	return (
-		<Suspense fallback={<Loading/>}>
+		<Suspense fallback={<Loading />}>
 			<ConfigProvider theme={theme}>
-		<div>
-			<FilterDropdown/>
-			{documents ? (
-			<>
-        {search !== defaultQuery ? (
-          <h2 className="page-title">Search Results for: <span className="s-query">{search}</span></h2>
-        ) : (
-          <h2 className="page-title">Browse titles</h2>
-        )}
-        <div className="item-list flex-container">
-        {
-          documents.map(document => {
-						return (
-              <SearchResult data={document} key={document.entity_id}/>
-            )
-					}
-				)
-      }
-      <article className="item"></article>
-      <article className="item"></article>
-    </div>
-		{numFound > 12 && (
-      <Pagination
-        current={pageNumber}
-        onChange={onChange}
-        showSizeChanger={false}
-        pageSize={12}
-        hideOnSinglePage={true}
-        total={numFound}
-				style={{textAlign:'center'}}
-      />
-    )}
-			</>
-			) : (
-        <div>Loading...</div>
-      )}
-		</div>
-		</ConfigProvider>
+        <>
+          <header>
+            <FilterDropdown />
+            <SearchLabel query={search} />
+            <SearchInformation response={data} />
+          </header>
+          <br/>
+          <div className="item-list flex-container">
+            {
+              data?.response?.docs.map(document => <SearchResult data={document} key={document.entity_id} />)
+            }
+            <article className="item"></article>
+            <article className="item"></article>
+          </div>
+          { data?.response?.numFound > rows && ( <SearchPagination currentPage={pageNumber} numFound={data?.response?.numFound} rows={rows} /> ) }
+        </>
+      </ConfigProvider>
 		</Suspense>
 	)
 

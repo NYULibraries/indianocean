@@ -1,0 +1,37 @@
+---
+import BookLayout from '../../layouts/BookLayout.astro'
+import Map from '../../components/Content/Maps/Map';
+
+export async function getStaticPaths() {
+	const viewer = 'https://sites.dlib.nyu.edu/viewer'
+	const start = 0
+	const rows = '1000'
+	const collection = 'io'
+	const type = 'dlts_map'
+  const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => response.json());
+	return data.response.docs.map(doc => {
+    return {
+      params: {
+				identifier: doc.identifier
+			},
+      props: { doc },
+    };
+  });
+}
+
+const { identifier } = Astro.params
+
+const pageDescription = 'b'
+
+const { title } = Astro.props
+
+const viewer = 'https://sites.dlib.nyu.edu/viewer'
+
+---
+
+<BookLayout
+  title={title}
+  description={pageDescription}>
+	<Map viewer={viewer} title={title} identifier={identifier} client:only/>
+</BookLayout>
+

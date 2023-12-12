@@ -1,37 +1,48 @@
-import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle'
-
 import { useState } from 'react'
-
-import SearchPlaceholder from './SearchPlaceholder'
-
-import { root } from '../../utils/url'
+import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle'
+import SearchPlaceholder from '../Search/SearchPlaceholder'
 
 function SearchResult(props) {
 
 	const document = props.data
 
-	const [isLoaded, setIsLoaded] = useState(false)
+	const [ isLoaded, setIsLoaded ] = useState(false)
 
 	const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
 
 	const imageLoad = () => {
-		setIsLoaded(true);
+		setIsLoaded(true)
 	}
 
+  const bundle = getDocumentTypeByBundle(document.bundle)
+
+  const type = bundle.substring(0, bundle.length - 1) // remove the trailing 's' from the bundle name
+
+  const identifier = document.sm_field_identifier[0]
+
+  const label = document.ss_title_long
 
 	return (
-		<article className="item" key={document.entity_id}>
+		<article className="item" key={identifier}>
 			<div className="card">
 				<div className="thumbs">
-					{!isLoaded && <SearchPlaceholder/>}
-					<div className={isLoaded?'clipper':'clipperNoshadow imagePlaceholder'}>
-						<a href={`${root}/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
-							<img width="150" lazy="true" src={`${viewerUrl}/api/image/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1/full/150,175/0/default.jpg`} alt="" title={document.ss_title_long} onLoad={imageLoad} role="presentation"/>
+					{ !isLoaded && <SearchPlaceholder /> }
+					<div className={ isLoaded ? 'clipper' : 'clipperNoshadow imagePlaceholder' }>
+						<a href={`/${type}/${identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
+							<img
+                width="150"
+                lazy="true"
+                src={`${viewerUrl}/api/image/${bundle}/${identifier}/1/full/150,175/0/default.jpg`}
+                alt=""
+                title={label}
+                onLoad={imageLoad}
+                role="presentation"
+              />
 						</a>
 					</div>
 				</div>
 				<h1 className="md_title">
-					<a href={`${root}/${getDocumentTypeByBundle(document.bundle)}/${document.sm_field_identifier}/1`}>{document.ss_title_long}</a>
+					<a href={`/${type}/${identifier}`}>{label}</a>
 				</h1>
 				<div className="md_authors">
 					<span className="md_label">Author:</span>

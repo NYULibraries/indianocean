@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "search/*"
-  to = "maps/index.html"
-  status = 200
-
