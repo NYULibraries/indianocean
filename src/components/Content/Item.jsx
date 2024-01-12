@@ -47,14 +47,14 @@ const Item = (props) => {
 		document.sm_collection_partner_label.map((collectionPartner) => (
 			<span>{collectionPartner}</span>
 		))
-	  }
+	}
     </div>
     <div class="md_subjects">
-	    <span class="md_label">Subjects:</span>
-	    {
+   <span class="md_label">Subjects:</span>
+   {
           document.sm_subject_label.map((subject) => (
-			        <a class="md_subject" href={`${appRoot}}/search?q=${subject}`}>{subject}</a>
-    			))
+       <a class="md_subject" href={`${appRoot}}/search?q=${subject}`}>{subject}</a>
+		))
         }
       </div>
     </article>

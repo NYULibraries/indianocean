@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import MapPlaceholder from '../Maps/MapPlaceholder'
-import calculateAvailableHeight from '../../calculateAvailableHeight'
+import calculateAvailableHeight from '../../../utils/getAvailableHeight'
 
 const Book = (props) => {
 

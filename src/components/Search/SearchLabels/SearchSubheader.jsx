@@ -1,4 +1,4 @@
-function SearchInformation(props) {
+function SearchSubheader(props) {
   const response = props.response?.response
   if (response) {
     const { numFound, start } = response
@@ -14,4 +14,4 @@ function SearchInformation(props) {
   }
 }
 
-export default SearchInformation
+export default SearchSubheader

@@ -1,7 +1,7 @@
 import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle'
 
 const appRoot	= '/'
-const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
+const viewerUrl = import.meta.env.PUBLIC_VIEWERURL
 
 const BookItem = (props) => {
 	const { document } = props
