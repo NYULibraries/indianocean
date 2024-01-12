@@ -1,11 +1,10 @@
 ---
 import NavigationItem from "./Navigation/NavigationItem.astro";
 import NavigationMobileMenu from "./Navigation/NavigationMobileMenu.astro";
-import SearchForm from './SearchForm'
+import SearchForm from './Search/SearchTools/SearchForm'
 
-const appUrl = 'http://localhost:3000'
-
-const appName = 'Indian Ocean Digital Collection'
+const appUrl = import.meta.env.PUBLIC_APPURL
+const appName = import.meta.env.PUBLIC_APPNAME
 
 const HeaderNavigationItems = [
     {

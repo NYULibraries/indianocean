@@ -9,6 +9,7 @@ function SearchResult(props) {
 	const [ isLoaded, setIsLoaded ] = useState(false)
 
 	const viewerUrl = 'https://sites.dlib.nyu.edu/viewer'
+	// const viewerURL = PUBLIC_VIEWERURL
 
 	const imageLoad = () => {
 		setIsLoaded(true)

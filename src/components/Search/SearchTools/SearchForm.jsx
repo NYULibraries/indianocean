@@ -1,9 +1,4 @@
-function onSubmit(event) {
-  // event.preventDefault()
-  // console.log('onSubmit')
-}
-
-function SearchForm(props) {
+function SearchForm() {
   const appUrl = ''
   const actionPath = `${appUrl}/search`
   // Get the URL of the current page
@@ -17,7 +12,7 @@ function SearchForm(props) {
     value = ''
   }
   return (
-    <form method="get" action={actionPath} role="search" onSubmit={onSubmit}>
+    <form method="get" action={actionPath} role="search">
       <input
         id="q"
         name="q"

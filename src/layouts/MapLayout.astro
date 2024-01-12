@@ -4,7 +4,7 @@ import SiteMeta from '../components/SiteMeta.astro'
 import Header from '../components/Header.astro'
 
 const {
-  title = 'Indian Ocean Digital Collection',
+  title = import.meta.env.PUBLIC_APPNAME,
   description = '',
   url,
   image = '',

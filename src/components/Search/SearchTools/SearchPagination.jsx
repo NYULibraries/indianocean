@@ -1,5 +1,5 @@
 import {  ConfigProvider, Pagination } from 'antd'
-import theme from './Styles/themeConfig'
+import theme from '../../Styles/themeConfig'
 
 const onChange = (page) => {
   const searchParams = new URLSearchParams(window.location.href)

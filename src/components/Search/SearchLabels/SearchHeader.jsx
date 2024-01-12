@@ -1,6 +1,6 @@
-function SearchLabel(props) {
+function SearchHeader(props) {
   const { query } = props
-  console.log('query', query)
+
   if (query === '*:*') {
     return <h2 className="page-title">Browse titles</h2>
   } else {
@@ -8,4 +8,4 @@ function SearchLabel(props) {
   }
 }
 
-export default SearchLabel
+export default SearchHeader

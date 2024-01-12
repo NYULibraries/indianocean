@@ -1,12 +1,12 @@
 import { useState, useEffect, Suspense } from 'react'
 import { ConfigProvider } from 'antd'
 import SearchResult from './SearchResult'
-import SearchLabel from '../SearchLabel'
-import SearchInformation from '../SearchInformation'
-import SearchPagination from '../SearchPagination'
+import SearchHeader from './SearchLabels/SearchHeader'
+import SearchSubheader from './SearchLabels/SearchSubheader'
+import SearchPagination from './SearchTools/SearchPagination'
 import Loading from '../Loading'
 import theme from '../Styles/themeConfig'
-import FilterDropdown from '../Content/FilterDropdown'
+import FilterDropdown from '../Content/Filter/FilterDropdown'
 
 function SearchBody () {
 
@@ -86,8 +86,8 @@ function SearchBody () {
         <>
           <header>
             <FilterDropdown />
-            <SearchLabel query={search} />
-            <SearchInformation response={data} />
+            <SearchHeader query={search} />
+            <SearchSubheader response={data} />
           </header>
           <br/>
           <div className="item-list flex-container">
