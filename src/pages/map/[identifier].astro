@@ -1,13 +1,13 @@
 ---
-import BookLayout from '../../layouts/BookLayout.astro'
+import MapLayout from '../../layouts/MapLayout.astro'
 import Map from '../../components/Content/Maps/Map';
 
 export async function getStaticPaths() {
-	const viewer = 'https://sites.dlib.nyu.edu/viewer'
+	const viewer = import.meta.env.PUBLIC_VIEWERURL
 	const start = 0
 	const rows = '1000'
-	const collection = 'io'
-	const type = 'dlts_map'
+	const collection = import.meta.env.PUBLIC_COLLECTIONCODE
+	const type = import.meta.env.PUBLIC_MAP
   const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => response.json());
 	return data.response.docs.map(doc => {
     return {
@@ -21,17 +21,17 @@ export async function getStaticPaths() {
 
 const { identifier } = Astro.params
 
-const pageDescription = 'b'
+const pageDescription = 'books'
 
 const { title } = Astro.props
 
-const viewer = 'https://sites.dlib.nyu.edu/viewer'
+const viewer = import.meta.env.PUBLIC_VIEWERURL
 
 ---
 
-<BookLayout
+<MapLayout
   title={title}
   description={pageDescription}>
 	<Map viewer={viewer} title={title} identifier={identifier} client:only/>
-</BookLayout>
+</MapLayout>
 

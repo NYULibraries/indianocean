@@ -3,11 +3,11 @@ import BookLayout from '../../layouts/BookLayout.astro'
 import Book from '../../components/Content/Books/Book';
 
 export async function getStaticPaths() {
-	const viewer = 'https://sites.dlib.nyu.edu/viewer'
+	const viewer = import.meta.env.PUBLIC_VIEWERURL
 	const start = 0
 	const rows = '1000'
-	const collection = 'io'
-	const type = 'dlts_book'
+	const collection = import.meta.env.PUBLIC_COLLECTIONCODE
+	const type = import.meta.env.PUBLIC_BOOK
   const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => response.json());
 	return data.response.docs.map(doc => {
     return {
@@ -25,7 +25,7 @@ const pageDescription = 'b'
 
 const { title } = Astro.props
 
-const viewer = 'https://sites.dlib.nyu.edu/viewer'
+const viewer = import.meta.env.PUBLIC_VIEWERURL
 
 ---
 
