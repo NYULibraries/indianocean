@@ -1,4 +1,5 @@
 function SearchHeader(props) {
+	
   const { query } = props
 
   if (query === '*:*') {

@@ -27,15 +27,15 @@ function SearchBody () {
   const fetchData = async () => {
     try {
 
-			const discoveryUrl = 'https://discovery1.dlib.nyu.edu/solr/viewer'
+			const discoveryUrl = import.meta.env.PUBLIC_DISCOVERYURL
 
-			const rows = 12
+			const rows = import.meta.env.PUBLIC_ROWS
 
 			const start = (pageNumber - 1) * rows
 
-			const collectionCode = 'io'
+			const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE
 
-			const language = 'en'
+			const language = import.meta.env.PUBLIC_LANGUAGE
 
 			// const fields = [
 			// 	'entity_id',

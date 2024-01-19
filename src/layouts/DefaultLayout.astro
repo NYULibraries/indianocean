@@ -5,10 +5,10 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer/Footer.astro'
 
 const {
-  siteName = import.meta.env.PUBLIC_APPNAME,
+  siteName = import.meta.env.PUBLIC_SITENAME,
   title = import.meta.env.PUBLIC_APPNAME,
-  description = 'Powered by NYU Digital Library Technology Services',
-  url = 'https://dlib.nyu.edu/indianocean',
+  description = import.meta.env.PUBLIC_POWEREDBYDESC,
+  url = import.meta.env.PUBLIC_URL,
   image = '',
   author = 'NYU Digital Library Technology Services',
 } = Astro.props

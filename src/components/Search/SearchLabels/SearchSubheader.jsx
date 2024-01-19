@@ -1,5 +1,7 @@
 function SearchSubheader(props) {
+	
   const response = props.response?.response
+
   if (response) {
     const { numFound, start } = response
     const documentsLength = response.docs.length
