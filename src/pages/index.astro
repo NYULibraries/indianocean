@@ -22,14 +22,14 @@ interface Document {
   ss_title_long: string;
 }
 
-const discovery = 'https://discovery1.dlib.nyu.edu/solr/viewer'
-const pageTitle = 'Monographs, Maps, Postcards, Prints'
+const discovery = import.meta.env.PUBLIC_DISCOVERYURL
+const pageTitle = import.meta.env.PUBLIC_PAGETITLE
 const pageDescription = ''
 const start = 1
-const rows = 12
+const rows = import.meta.env.PUBLIC_ROWS
 const sortField = 'ss_sauthor'
 const sortDir = 'asc'
-const collectionCode = 'io'
+const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE
 const q = "*:*"
 const fl = "*"
 const apiUrl = `${discovery}/select?wt=json&q=${q}&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=${sortField}%20${sortDir}`

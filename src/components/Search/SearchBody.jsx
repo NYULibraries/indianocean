@@ -37,22 +37,6 @@ function SearchBody () {
 
 			const language = import.meta.env.PUBLIC_LANGUAGE
 
-			// const fields = [
-			// 	'entity_id',
-			// 	'bundle',
-			// 	'ss_language',
-			// 	'ss_noid',
-			// 	'ss_manifest',
-			// 	'ss_title_long',
-			// 	'ss_subtitle',
-			// 	'sm_author',
-			// 	'iass_pubyear',
-			// 	'ss_publication_date_text',
-			// 	'ss_publication_location',
-			// 	'iass_subject',
-			// 	'sm_field_identifier',
-			// ]
-
 			const fields = [ '*' ]
 
 			const fl = fields.join()

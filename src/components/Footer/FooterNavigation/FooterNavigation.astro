@@ -4,23 +4,7 @@ import NavigationItem from "../../Navigation/NavigationItem.astro";
 
 const appUrl = import.meta.env.PUBLIC_APPURL
 
-const FooterNavigationItems = [
-    {
-      label: 'Home',
-      route: appUrl,
-      class: 'Homelink',
-    },
-    {
-      label: 'About',
-      route: `${appUrl}/about`,
-      class: 'Aboutlink',
-    },
-    {
-      label: 'Browse',
-      route: `${appUrl}/browse`,
-      class: 'Browselink',
-    },
-  ]
+const FooterNavigationItems = JSON.parse(import.meta.env.PUBLIC_NAVITEMS)
 ---
  <footer class="footer-main container-fluid">
       <ul class="footer-nav" role="navigation">
