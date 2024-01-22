@@ -1,13 +1,14 @@
 ---
 import '../assets/scss/globals.scss'
 import SiteMeta from '../components/SiteMeta.astro'
-import Header from '../components/Header.astro'
+import Header from '../components/Header/Header.astro'
 
 const {
   siteName = import.meta.env.PUBLIC_SITENAME,
-  title = import.meta.env.PUBLIC_APPNAME,
+  title = import.meta.env.PUBLIC_MAPTITLE,
   description = import.meta.env.PUBLIC_POWEREDBYDESC,
   url = import.meta.env.PUBLIC_URL,
+	type = import.meta.env.PUBLIC_TYPE,
   image = '',
   author = 'NYU Digital Library Technology Services',
 } = Astro.props
@@ -21,20 +22,13 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.ico">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <meta property="og:site_name" content={siteName}>
-    <meta property="og:title" content="Map">
+    <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
-    <meta property="og:type" content="website">
+    <meta property="og:type" content={type}>
     <meta property="og:url" content={url}>
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
-    <SiteMeta
-      title={title}
-      description={description.substring(0, 100)}
-      url={url}
-      image={image}
-      author={author}
-    />
   </head>
   <body class="book">
     <Header />

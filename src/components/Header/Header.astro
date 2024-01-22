@@ -1,33 +1,17 @@
 ---
-import NavigationItem from "./Navigation/NavigationItem.astro";
-import NavigationMobileMenu from "./Navigation/NavigationMobileMenu.astro";
-import SearchForm from './Search/SearchTools/SearchForm'
+import NavigationItem from "../Navigation/NavigationItem.astro";
+import NavigationMobileMenu from "../Navigation/NavigationMobileMenu.astro";
+import SearchForm from '../Search/SearchTools/SearchForm'
 
 const appUrl = import.meta.env.PUBLIC_APPURL
-const appName = import.meta.env.PUBLIC_APPNAME
+const siteName = import.meta.env.PUBLIC_SITENAME
 
-const HeaderNavigationItems = [
-    {
-      label: 'Home',
-      route: '/',
-      class: 'Homelink',
-    },
-    {
-      label: 'About',
-      route: `about`,
-      class: 'Aboutlink',
-    },
-    {
-      label: 'Browse',
-      route: `/search`,
-      class: 'Browselink',
-    },
-  ]
+const HeaderNavigationItems = JSON.parse(import.meta.env.PUBLIC_NAVITEMS)
 ---
 <Fragment>
   <div class="header-wrapper">
     <header class="header-main container-fluid" role="banner">
-      <h1 class="sitename"><a href={appUrl}>{appName}</a></h1>
+      <h1 class="sitename"><a href={appUrl}>{siteName}</a></h1>
     </header>
   </div>
   <nav class="navbar navbar-default" role="navigation">
