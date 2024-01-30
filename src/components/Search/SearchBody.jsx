@@ -63,7 +63,7 @@ function SearchBody () {
 			<ConfigProvider theme={theme}>
         <>
           <header>
-            <FilterDropdown />
+            { data?.response?.numFound > 0 && <FilterDropdown />}
             <SearchHeader query={search} />
             <SearchSubheader response={data} />
           </header>
