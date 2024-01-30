@@ -1,25 +1,18 @@
-function FilterDropdown() {
+import { changeSortStore, sort} from '../../../stores/sortField'
+import { useStore } from '@nanostores/react'
+import { search, pageNumber } from '../../../utils/url'
 
-  const searchParams = new URLSearchParams(window.location.href)
+const FilterDropdown = () => {
+	const $sortField = useStore(sort)
 
-  const sortField = searchParams.get('sortDir') ? searchParams.get('sortDir') : 'asc'
-
-	const changeSortType = (e) => {
-    e.preventDefault()
-    const sortField = e.target.value
-    const searchParams = new URLSearchParams(window.location.href)
-    const sortDir = searchParams.get('sortDir') ? searchParams.get('sortDir') : 'asc'
-    const page = searchParams.get('sortField') ? searchParams.get('page') : 0
-    let q = document.querySelector('#q').value
-    if (q === '') {
-      q = '*:*'
-    }
-    window.location.href = `/search?q=${q}&page=${page}&sortField=${sortField}&sortDir=${sortDir}`
+	const changeSortType = (e)=>{
+		window.history.pushState({},"",`/search?q=${search}&page=${pageNumber}&sortField=${e}&sortDir=${'asc'}`)
+		changeSortStore(e)
 	}
 
 	return (
 		<div className="filters">
-      <select id="browse-select" aria-label="Search Sort Results" defaultValue={sortField} onChange={ changeSortType }>
+      <select id="browse-select" aria-label="Search Sort Results" defaultValue={$sortField} onChange={e=>changeSortType(e.target.value)}>
         <option data-sort-dir="asc" value="ss_longlabel">Sort by Title</option>
         <option data-sort-dir="asc" value="ss_sauthor">Sort by Author</option>
         <option data-sort-dir="asc" value="ss_ssubject">Sort by Subject</option>
@@ -30,5 +23,6 @@ function FilterDropdown() {
 }
 
 export default FilterDropdown
+
 
 
