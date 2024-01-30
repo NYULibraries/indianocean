@@ -1,4 +1,6 @@
 import { useState, useEffect, Suspense } from 'react'
+import { useStore } from "@nanostores/react"
+import { sort } from '../../stores/sortField'
 import { ConfigProvider } from 'antd'
 import SearchResult from './SearchResult'
 import SearchHeader from './SearchLabels/SearchHeader'
@@ -12,6 +14,12 @@ import {search, pageNumber} from '../../utils/url'
 function SearchBody () {
 
   const [ data, setData ] = useState([])
+
+	const $sortField = useStore(sort);
+
+	// const onChange = (page) => {
+	// 	window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${'asc'}`
+  // }
 
   const rows = import.meta.env.PUBLIC_ROWS
 
@@ -54,7 +62,7 @@ function SearchBody () {
   // Use the useEffect hook to fetch data when the component mounts
   useEffect(() => {
     fetchData()
-  }, []) // The empty dependency array ensures this effect runs once when the component mounts
+  }, [$sortField]) // The empty dependency array ensures this effect runs once when the component mounts
 
 	return (
 		<Suspense fallback={<Loading />}>
