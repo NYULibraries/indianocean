@@ -2,6 +2,7 @@
 import DefaultLayout from '../layouts/DefaultLayout.astro'
 import SearchResult from '../components/Search/SearchResult'
 import SearchPagination from '../components/Search/SearchTools/SearchPagination'
+import Unfound from '../components/Unfound.jsx'
 
 interface Document {
   entity_id: string
@@ -43,7 +44,8 @@ const currentPage = 1
   title={pageTitle}
   description={pageDescription}
 >
-  <header>
+  {data ?
+	<header>
     <h2 class="page-title">{pageTitle}</h2>
   </header>
   <div class="widget">
@@ -58,4 +60,7 @@ const currentPage = 1
 		  { numFound > 12 && ( <SearchPagination currentPage={currentPage} numFound={numFound} rows={rows} client:load /> ) }
     </div>
   </div>
+	:
+	<Unfound/>
+	}
 </DefaultLayout>

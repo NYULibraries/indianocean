@@ -21,7 +21,7 @@ function SearchBody () {
   // Get the value of 'page' from the query string
   const pageNumber = url.searchParams.get('page') ? parseInt(url.searchParams.get('page'), 10) : 1
 
-  const rows = 12
+  const rows = import.meta.env.PUBLIC_ROWS
 
   // Create an asynchronous function to fetch the data
   const fetchData = async () => {
