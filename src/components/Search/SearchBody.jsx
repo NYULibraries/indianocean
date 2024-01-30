@@ -17,10 +17,6 @@ function SearchBody () {
 
 	const $sortField = useStore(sort);
 
-	// const onChange = (page) => {
-	// 	window.location.href = `/search?q=${search}&page=${page}&sortField=${$sortField}&sortDir=${'asc'}`
-  // }
-
   const rows = import.meta.env.PUBLIC_ROWS
 
   // Create an asynchronous function to fetch the data
@@ -41,11 +37,9 @@ function SearchBody () {
 
 			const fl = fields.join()
 
-      const sortField = 'ss_longlabel'
-
       const sortDir = 'asc'
 
-			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${sortField}%20${sortDir}`
+			const apiUrl = `${discoveryUrl}/select?q=${search}&wt=json&q=*&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&fq=ss_language:${language}&sort=${$sortField}%20${sortDir}`
 
 			const response = await fetch(apiUrl)
 
