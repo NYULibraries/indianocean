@@ -7,19 +7,11 @@ import SearchPagination from './SearchTools/SearchPagination'
 import Loading from '../Loading'
 import theme from '../Styles/themeConfig'
 import FilterDropdown from '../Content/Filter/FilterDropdown'
+import {search, pageNumber} from '../../utils/url'
 
 function SearchBody () {
 
   const [ data, setData ] = useState([])
-
-  // Get the URL of the current page
-  const url = new URL(window.location.href)
-
-  // Get the value of 'q' from the query string
-  const search = url.searchParams.get('q') ? url.searchParams.get('q') : '*:*'
-
-  // Get the value of 'page' from the query string
-  const pageNumber = url.searchParams.get('page') ? parseInt(url.searchParams.get('page'), 10) : 1
 
   const rows = import.meta.env.PUBLIC_ROWS
 
