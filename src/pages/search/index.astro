@@ -3,8 +3,8 @@
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import SearchBody from '../../components/Search/SearchBody'
 
-const pageTitle = 'Browse titles'
-const pageDescription = 'Powered by NYU Digital Library Technology Services'
+const pageTitle = import.meta.env.PUBLIC_PAGETITLE
+const pageDescription = import.meta.env.PUBLIC_POWEREDBYDESC
 
 ---
 

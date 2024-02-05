@@ -10,8 +10,7 @@ const {
   description = import.meta.env.PUBLIC_POWEREDBYDESC,
   url = import.meta.env.PUBLIC_URL,
 	type = import.meta.env.PUBLIC_TYPE,
-  image = '',
-  author = 'NYU Digital Library Technology Services',
+  author = import.meta.env.PUBLIC_DEFAULTAUTHOR,
 } = Astro.props
 
 ---
@@ -23,6 +22,9 @@ const {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/svg+xml" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="author" content={author} />
     <meta property="og:site_name" content={siteName}>
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
@@ -31,13 +33,6 @@ const {
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
-    <SiteMeta
-      title={title}
-      description={description.substring(0, 100)}
-      url={url}
-      image={image}
-      author={author}
-    />
   </head>
   <body class="search">
     <Header />

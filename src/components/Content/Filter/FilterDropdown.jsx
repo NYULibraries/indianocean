@@ -1,3 +1,4 @@
+import React from 'react'
 import { changeSortStore, sort} from '../../../stores/sortField'
 import { useStore } from '@nanostores/react'
 import { search, pageNumber } from '../../../utils/url'
