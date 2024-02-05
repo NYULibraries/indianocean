@@ -7,3 +7,5 @@
 
  // Get the value of 'q' from the query string
  export const pageNumber = url.searchParams.get('page') ? parseInt(url.searchParams.get('page'), 10) : 1
+
+ 

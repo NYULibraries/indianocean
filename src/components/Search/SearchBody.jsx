@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect, Suspense } from 'react'
 import { useStore } from "@nanostores/react"
 import { sort } from '../../stores/sortField'

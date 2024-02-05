@@ -1,11 +1,10 @@
 ---
 import BookLayout from '../../layouts/BookLayout.astro'
 import Book from '../../components/Content/Books/Book';
-
 export async function getStaticPaths() {
 	const viewer = import.meta.env.PUBLIC_VIEWERURL
-	const start = 0
-	const rows = '1000'
+	const start = import.meta.env.PUBLIC_STARTITEMS
+	const rows = import.meta.env.PUBLIC_ALLITEMS
 	const collection = import.meta.env.PUBLIC_COLLECTIONCODE
 	const type = import.meta.env.PUBLIC_BOOK
   const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => response.json());
