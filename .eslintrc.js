@@ -4,7 +4,7 @@ module.exports = {
     es2022: true,
     browser: true,
   },
-  extends: ['eslint:recommended', 'plugin:astro/recommended', 'plugin:astro/jsx-a11y-strict'],
+  extends: ["plugin:prettier/recommended",'eslint:recommended', 'plugin:astro/recommended', 'plugin:astro/jsx-a11y-strict'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
