@@ -3,10 +3,9 @@ import MapPlaceholder from './MapPlaceholder'
 import calculateAvailableHeight from '../../../utils/getAvailableHeight'
 
 const Book = (props) => {
-
 	const { identifier, title, viewer } = props
 
-	const [ isLoaded, setIsLoaded ] = useState(false)
+	const [isLoaded, setIsLoaded] = useState(false)
 
 	const mapLoad = () => {
 		setIsLoaded(true)
@@ -18,13 +17,11 @@ const Book = (props) => {
 
 	return (
 		<>
-      {
-        !isLoaded && <MapPlaceholder height={iFrameHeight} />
-      }
-			<div className={ !isLoaded ? 'mapContainerLoading' : undefined }>
-        <iframe
-          role="application"
-          onLoad={mapLoad}
+			{!isLoaded && <MapPlaceholder height={iFrameHeight} />}
+			<div className={!isLoaded ? 'mapContainerLoading' : undefined}>
+				<iframe
+					role="application"
+					onLoad={mapLoad}
 					style={{ height: iFrameHeight }}
 					title={title}
 					className="widget book"
@@ -35,7 +32,7 @@ const Book = (props) => {
 					webkitallowfullscreen=""
 					src={`${viewer}/maps/${identifier}`}
 				/>
-      </div>
+			</div>
 		</>
 	)
 }
