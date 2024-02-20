@@ -2,14 +2,15 @@
 import '../assets/scss/globals.scss'
 import Header from '../components/Header/Header.astro'
 import Footer from '../components/Footer/Footer.astro'
+import { metatags } from '../utils/Constants/metatags'
 
 const {
-  siteName = import.meta.env.PUBLIC_SITENAME,
-  title = import.meta.env.PUBLIC_PAGETITLE,
-  description = import.meta.env.PUBLIC_POWEREDBYDESC,
+  siteName = metatags.siteName,
+  title = metatags.pageTitle,
+  description = metatags.poweredDesc,
   url = import.meta.env.PUBLIC_URL,
-	type = import.meta.env.PUBLIC_TYPE,
-  author = import.meta.env.PUBLIC_DEFAULTAUTHOR,
+	type = metatags.type,
+  author = metatags.defaultAuthor,
 } = Astro.props
 
 ---

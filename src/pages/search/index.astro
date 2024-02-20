@@ -2,9 +2,10 @@
 
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import SearchBody from '../../components/Search/SearchBody'
+import {metatags} from '../../utils/Constants/metatags'
 
-const pageTitle = import.meta.env.PUBLIC_PAGETITLE
-const pageDescription = import.meta.env.PUBLIC_POWEREDBYDESC
+const pageTitle = metatags.pageTitle
+const pageDescription = metatags.poweredDesc
 
 ---
 

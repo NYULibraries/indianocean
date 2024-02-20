@@ -1,13 +1,14 @@
 ---
 import '../assets/scss/globals.scss'
 import Header from '../components/Header/Header.astro'
+import {metatags} from '../utils/Constants/metatags'
 
 const {
-  siteName = import.meta.env.PUBLIC_SITENAME,
-  title = import.meta.env.PUBLIC_MAPTITLE,
-  description = import.meta.env.PUBLIC_POWEREDBYDESC,
+  siteName = metatags.siteName,
+  title = metatags.mapTitle,
+  description = metatags.poweredDesc,
   url = import.meta.env.PUBLIC_URL,
-	type = import.meta.env.PUBLIC_TYPE,
+	type = metatags.type,
 } = Astro.props
 ---
 
