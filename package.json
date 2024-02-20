@@ -1,45 +1,55 @@
 {
-  "name": "indianocean",
-  "description": "The NYU Indian Ocean Collection for scholars who may need access to the Indian Ocean materials.",
-  "version": "1.0.0",
-  "author": "New York University - Digital Library Technology Services",
-  "homepage": "https://dlib.nyu.edu/indianocean/",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "vite preview --port 8080",
-    "cyptest": "cypress open"
-  },
-  "devDependencies": {
-    "@astrojs/mdx": "^0.15.2",
-    "@astrojs/partytown": "^1.0.3",
-    "@common-web/astro-lambda-edge": "^1.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "astro": "^2.0.1",
-    "astro-icon": "^0.7.3",
-    "cypress": "^13.6.3",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-astro": "^0.23.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^5.1.3",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.8.1",
-    "sass": "^1.49.9",
-    "svgo": "^2.8.0"
-  },
-  "dependencies": {
-    "@astrojs/react": "^2.3.2",
-    "@nanostores/react": "^0.7.1",
-    "antd": "^5.9.3",
-    "astro-compress": "^2.0.15",
-    "lodash.throttle": "^4.1.1",
-    "nanostores": "^0.9.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+	"name": "indianocean",
+	"description": "The NYU Indian Ocean Collection for scholars who may need access to the Indian Ocean materials.",
+	"version": "1.0.0",
+	"author": "New York University - Digital Library Technology Services",
+	"homepage": "https://dlib.nyu.edu/indianocean/",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "vite preview --port 8080",
+		"cyptest": "cypress open",
+		"lint": "npx eslint .",
+		"format": "prettier --check 'src/**/**.{js,jsx,css}'",
+		"prepare": "husky install"
+	},
+	"devDependencies": {
+		"@astrojs/mdx": "^0.15.2",
+		"@astrojs/partytown": "^1.0.3",
+		"@babel/eslint-parser": "^7.23.10",
+		"@babel/preset-react": "^7.23.3",
+		"@common-web/astro-lambda-edge": "^1.0.2",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
+		"astro": "^2.0.1",
+		"astro-icon": "^0.7.3",
+		"cypress": "^13.6.3",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-astro": "^0.23.0",
+		"eslint-plugin-jsx-a11y": "^6.7.1",
+		"eslint-plugin-prettier": "^5.1.3",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"husky": ">=6",
+		"lint-staged": ">=10",
+		"prettier": "3.2.5",
+		"prettier-plugin-astro": "^0.8.1",
+		"sass": "^1.49.9",
+		"svgo": "^2.8.0"
+	},
+	"dependencies": {
+		"@astrojs/react": "^2.3.2",
+		"@nanostores/react": "^0.7.1",
+		"antd": "^5.9.3",
+		"astro-compress": "^2.0.15",
+		"lodash.throttle": "^4.1.1",
+		"nanostores": "^0.9.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix"
+	}
 }
