@@ -38,7 +38,7 @@ Our primary audience will be NYU scholars who may need access to the Indian Ocea
 
 ### Project Team
 
--   Melitte Buchman
+-  Melitte Buchman
 -   Laura Henze
 -   Carol Kassel
 -   Alberto Ortiz Flores
