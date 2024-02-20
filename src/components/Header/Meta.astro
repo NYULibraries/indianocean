@@ -1,0 +1,31 @@
+---
+import { metatags } from '../../utils/Constants/metatags'
+
+const {
+  siteName = metatags.siteName,
+  title = metatags.pageTitle,
+  description = metatags.poweredDesc,
+  url = import.meta.env.PUBLIC_URL,
+	type = metatags.type,
+  author = metatags.defaultAuthor,
+} = Astro.props
+---
+	<head>
+		<title>{title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="author" content={author} />
+    <meta property="og:site_name" content={siteName}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={url}>
+    <meta property="og:type" content={type}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+	</head>

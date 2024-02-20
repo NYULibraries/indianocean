@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useStore } from "@nanostores/react";
 import { sort } from "../../stores/sortField";
 import { ConfigProvider } from "antd";
