@@ -1,10 +1,10 @@
 ---
+import { nav } from "../../../utils/Constants/nav";
 import Logo from "../../Assets/Logo.astro";
 import FooterPartnerItems from "./FooterPartnerItems.astro";
 
-const FooterLogo = JSON.parse(import.meta.env.PUBLIC_FOOTERLOGO);
-const partners = JSON.parse(import.meta.env.PUBLIC_FOOTERPARTNERS);
-
+const FooterLogo = nav.img;
+const partners = nav.partners;
 
 ---
 
@@ -12,9 +12,9 @@ const partners = JSON.parse(import.meta.env.PUBLIC_FOOTERPARTNERS);
     <Logo href={FooterLogo.href} src={FooterLogo.src} alt={FooterLogo.alt} />
   <div class="partner-wrapper">
     {
-      partners.map((item) => (
+      partners.map((item) => {return (
         <FooterPartnerItems id={item.id} url={item.url} label={item.label}/>
-      ))
+      )})
     }
   </div>
 </footer>

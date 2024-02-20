@@ -1,5 +1,5 @@
-import { ConfigProvider, Spin } from 'antd'
-import theme from '../Styles/themeConfig'
+import { ConfigProvider, Spin } from "antd";
+import theme from "../Styles/themeConfig";
 
 const SearchPlaceholder = () => {
 	return (
@@ -8,14 +8,14 @@ const SearchPlaceholder = () => {
 				<Spin
 					size="large"
 					style={{
-						position: 'relative',
-						marginTop: '0%',
-						marginLeft: '10%',
+						position: "relative",
+						marginTop: "0%",
+						marginLeft: "10%"
 					}}
 				/>
 			</div>
 		</ConfigProvider>
-	)
-}
+	);
+};
 
-export default SearchPlaceholder
+export default SearchPlaceholder;

@@ -1,24 +1,24 @@
-import { Spin } from 'antd'
+import { Spin } from "antd";
 
 const MapPlaceholder = (props) => {
-	const { height } = props
+	const { height } = props;
 	return (
 		<div
 			className="mapPlaceholder"
 			style={{
-				height: `${height}px`,
+				height: `${height}px`
 			}}
 		>
 			<Spin
 				size="large"
 				style={{
-					position: 'relative',
-					marginTop: '0%',
-					marginLeft: '0%',
+					position: "relative",
+					marginTop: "0%",
+					marginLeft: "0%"
 				}}
 			/>
 		</div>
-	)
-}
+	);
+};
 
-export default MapPlaceholder
+export default MapPlaceholder;

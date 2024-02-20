@@ -12,15 +12,15 @@
   const button = document.querySelector('button')
 	const navbar = document.querySelector('.navbar-collapse')
 	let collapsed = true
-	if (button && navbar) {
-	  button.addEventListener('click', (event) => {
-      event.preventDefault()
-		  if (collapsed) {
-		    navbar.style.height = '238px'
-		  } else {
-		    navbar.style.height='0px'
-		  }
-		  collapsed = !collapsed
-    })
-  }
+	if (button && navbar) 
+  button.addEventListener('click', (event) => {
+     event.preventDefault()
+	  if (collapsed) 
+    navbar.style.height = '238px'
+   else 
+    navbar.style.height='0px'
+  
+	  collapsed = !collapsed
+   })
+ 
 </script>

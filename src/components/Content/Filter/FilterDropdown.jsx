@@ -1,15 +1,14 @@
-import React from 'react'
-import { changeSortStore, sort } from '../../../stores/sortField'
-import { useStore } from '@nanostores/react'
-import { search, pageNumber } from '../../../utils/url'
+import { changeSortStore, sort } from "../../../stores/sortField";
+import { useStore } from "@nanostores/react";
+import { search, pageNumber } from "../../../utils/url";
 
 const FilterDropdown = () => {
-	const $sortField = useStore(sort)
+	const $sortField = useStore(sort);
 
 	const changeSortType = (e) => {
-		window.history.pushState({}, '', `/search?q=${search}&page=${pageNumber}&sortField=${e}&sortDir=${'asc'}`)
-		changeSortStore(e)
-	}
+		window.history.pushState({}, "", `/search?q=${search}&page=${pageNumber}&sortField=${e}&sortDir=${"asc"}`);
+		changeSortStore(e);
+	};
 
 	return (
 		<div className="filters">
@@ -17,7 +16,9 @@ const FilterDropdown = () => {
 				id="browse-select"
 				aria-label="Search Sort Results"
 				defaultValue={$sortField}
-				onChange={(e) => changeSortType(e.target.value)}
+				onChange={(e) => {
+					return changeSortType(e.target.value);
+				}}
 			>
 				<option data-sort-dir="asc" value="ss_longlabel">
 					Sort by Title
@@ -33,7 +34,7 @@ const FilterDropdown = () => {
 				</option>
 			</select>
 		</div>
-	)
-}
+	);
+};
 
-export default FilterDropdown
+export default FilterDropdown;
