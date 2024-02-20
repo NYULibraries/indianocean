@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react'
-import MapPlaceholder from './MapPlaceholder'
-import calculateAvailableHeight from '../../../utils/getAvailableHeight'
+import { useState } from "react";
+import MapPlaceholder from "./MapPlaceholder";
+import calculateAvailableHeight from "../../../utils/getAvailableHeight";
 
 const Book = (props) => {
-	const { identifier, title, viewer } = props
+	const { identifier, title, viewer } = props;
 
-	const [isLoaded, setIsLoaded] = useState(false)
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	const mapLoad = () => {
-		setIsLoaded(true)
-	}
+		setIsLoaded(true);
+	};
 
-	window.addEventListener('resize', calculateAvailableHeight)
+	window.addEventListener("resize", calculateAvailableHeight);
 
-	const iFrameHeight = calculateAvailableHeight()
+	const iFrameHeight = calculateAvailableHeight();
 
 	return (
 		<>
 			{!isLoaded && <MapPlaceholder height={iFrameHeight} />}
-			<div className={!isLoaded ? 'mapContainerLoading' : undefined}>
+			<div className={!isLoaded ? "mapContainerLoading" : undefined}>
 				<iframe
 					role="application"
 					onLoad={mapLoad}
@@ -34,7 +34,7 @@ const Book = (props) => {
 				/>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default Book
+export default Book;
