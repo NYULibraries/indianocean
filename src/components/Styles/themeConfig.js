@@ -1,6 +1,4 @@
-import type { ThemeConfig } from "antd";
-
-const theme: ThemeConfig = {
+const theme = {
 	components: {
 		Pagination: {
 			colorPrimary: "#ffffff",

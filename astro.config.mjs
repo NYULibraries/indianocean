@@ -9,8 +9,8 @@ export default defineConfig({
     port: 3000,
     host: true
   },
-  // site: 'https://dlib.nyu.edu/indianocean',
-  // base: '/indianocean',
+  site: 'https://dlib.nyu.edu/indianocean',
+//   base: '/indianocean',
   integrations: [ mdx(), react() ],
   // adapter: lambdaAdapter()
 });
