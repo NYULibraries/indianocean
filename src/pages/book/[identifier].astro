@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 	const rows = import.meta.env.PUBLIC_ALLITEMS
 	const collection = import.meta.env.PUBLIC_COLLECTIONCODE
 	const type = import.meta.env.PUBLIC_BOOK
-  const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => {return response.json()});
+  	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json() });
 	return data.response.docs.map(doc => {
     return {
       params: {
@@ -30,6 +30,7 @@ const viewer = import.meta.env.PUBLIC_VIEWERURL
 
 <BookLayout
   title={title}
-  description={pageDescription}>
+  description={pageDescription}
+>
 	<Book viewer={viewer} title={title} identifier={identifier} client:only/>
 </BookLayout>

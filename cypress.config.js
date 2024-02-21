@@ -1,4 +1,3 @@
-// Const { defineConfig } = await import("cypress");
 import { defineConfig } from "cypress";
 
 module.exports = defineConfig({
