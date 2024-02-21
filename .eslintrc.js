@@ -29,7 +29,19 @@ const baseRules = {
 	"dot-notation": "error",
 	// React rules
 	"react/react-in-jsx-scope": "off",
-	"react/jsx-uses-react": "off"
+	"react/jsx-uses-react": "off",
+	// Stylistic
+	"@stylistic/block-spacing": ["error", "always"],
+	"@stylistic/comma-spacing": ["error", { before: false, after: true }],
+	"@stylistic/computed-property-spacing": ["error", "never"],
+	"@stylistic/eol-last": ["error", "always"],
+	"@stylistic/function-call-spacing": ["error", "never"],
+	"@stylistic/jsx-closing-bracket-location": [1, "line-aligned"],
+	"@stylistic/jsx-curly-newline": ["error", "consistent"],
+	"@stylistic/jsx-curly-spacing": ["error", { when: "never" }],
+	"@stylistic/jsx-equals-spacing": [2, "never"],
+	// "@stylistic/jsx/jsx-indent": [1, 2, { checkAttributes: true, indentLogicalExpressions: true }],
+	// "@stylistic/jsx/jsx-max-props-per-line": [1, { maximum: 2 }]
 };
 module.exports = {
 	env: {
@@ -37,6 +49,7 @@ module.exports = {
 		es2022: true,
 		browser: true
 	},
+	plugins: ["@stylistic"],
 	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
 	parserOptions: {
 		ecmaVersion: "latest",
