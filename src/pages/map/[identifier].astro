@@ -1,31 +1,31 @@
 ---
-import MapLayout from '../../layouts/MapLayout.astro'
+import MapLayout from '../../layouts/MapLayout.astro';
 import Map from '../../components/Content/Maps/Map';
 
 export async function getStaticPaths() {
-	const viewer = import.meta.env.PUBLIC_VIEWERURL
-	const start = 0
-	const rows = '1000'
-	const collection = import.meta.env.PUBLIC_COLLECTIONCODE
-	const type = import.meta.env.PUBLIC_MAP
-  	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json() });
+	const viewer = import.meta.env.PUBLIC_VIEWERURL;
+	const start = 0;
+	const rows = '1000';
+	const collection = import.meta.env.PUBLIC_COLLECTIONCODE;
+	const type = import.meta.env.PUBLIC_MAP;
+	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json(); });
 	return data.response.docs.map(doc => {
     return {
-      params: {
-				identifier: doc.identifier
+      "params": {
+				"identifier": doc.identifier
 			},
-      props: { doc },
+      "props": { doc },
     };
   });
 }
 
-const { identifier } = Astro.params
+const { identifier } = Astro.params;
 
-const pageDescription = 'maps'
+const pageDescription = 'maps';
 
-const { title } = Astro.props
+const { title } = Astro.props;
 
-const viewer = import.meta.env.PUBLIC_VIEWERURL
+const viewer = import.meta.env.PUBLIC_VIEWERURL;
 
 ---
 
@@ -35,4 +35,3 @@ const viewer = import.meta.env.PUBLIC_VIEWERURL
 >
 	<Map viewer={viewer} title={title} identifier={identifier} client:only/>
 </MapLayout>
-

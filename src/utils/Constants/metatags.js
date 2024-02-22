@@ -7,4 +7,3 @@ export const metatags = {
 	poweredDesc: "Powered by NYU Digital Library Technology Services",
 	type: "website"
 };
-const a = [1, 2];

@@ -1,16 +1,17 @@
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react'
-import mdx from '@astrojs/mdx';
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
+	output: "static",
 	server: {
-    port: 3000,
-    host: true
-  },
-  site: 'https://dlib.nyu.edu/indianocean',
-//   base: '/indianocean',
-  integrations: [ mdx(), react() ],
-  // adapter: lambdaAdapter()
+		port: 3000,
+		host: true
+	},
+	//   Site: 'https://dlib.nyu.edu/indianocean',
+	//   Base: '/indianocean',
+	integrations: [mdx(), react()]
+	// Adapter: lambdaAdapter()
 });
+ 
