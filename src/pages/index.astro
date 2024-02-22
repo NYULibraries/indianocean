@@ -1,65 +1,62 @@
 ---
-import DefaultLayout from '../layouts/DefaultLayout.astro'
-import SearchResult from '../components/Search/SearchResult'
-import SearchPagination from '../components/Search/SearchTools/SearchPagination'
-import Unfound from '../components/Unfound.jsx'
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import SearchResult from '../components/Search/SearchResult';
+import SearchPagination from '../components/Search/SearchTools/SearchPagination';
+import Unfound from '../components/Unfound.jsx';
 
 interface Document {
-  entity_id: string
-  ss_representative_image: string
-  bundle: string
-  ss_identifier: string
-  ss_book_identifier: string
-  ss_title: string
-  sm_author: string[]
-  sm_publisher: string[]
-  ss_spublisher: string
-  ss_pubdate: string
-  sm_collection_partner_label: string[]
-  sm_subject_label: string[]
-  ss_publocation: string
-  sm_field_publication_location: string[]
-  sm_field_identifier: string;
-  ss_title_long: string;
+  "entity_id": string
+  "ss_representative_image": string
+  "bundle": string
+  "ss_identifier": string
+  "ss_book_identifier": string
+  "ss_title": string
+  "sm_author": string[]
+  "sm_publisher": string[]
+  "ss_spublisher": string
+  "ss_pubdate": string
+  "sm_collection_partner_label": string[]
+  "sm_subject_label": string[]
+  "ss_publocation": string
+  "sm_field_publication_location": string[]
+  "sm_field_identifier": string;
+  "ss_title_long": string;
 }
 
-const discovery = import.meta.env.PUBLIC_DISCOVERYURL
-const pageTitle = import.meta.env.PUBLIC_PAGETITLE
-const pageDescription = ''
-const start = 1
-const rows = import.meta.env.PUBLIC_ROWS
-const sortField = 'ss_sauthor'
-const sortDir = 'asc'
-const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE
-const q = "*:*"
-const fl = "*"
-const apiUrl = `${discovery}/select?wt=json&q=${q}&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=${sortField}%20${sortDir}`
-const data = await fetch(apiUrl).then((res) => { return res.json() })
-const documents: Document[] = data.response.docs
-const numFound = Number(data.response.numFound)
-const currentPage = 1
+const discovery = import.meta.env.PUBLIC_DISCOVERYURL;
+const pageTitle = import.meta.env.PUBLIC_PAGETITLE;
+const pageDescription = '';
+const start = 1;
+const rows = import.meta.env.PUBLIC_ROWS;
+const sortField = 'ss_sauthor';
+const sortDir = 'asc';
+const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE;
+const q = "*:*";
+const fl = "*";
+const apiUrl = `${discovery}/select?wt=json&q=${q}&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=${sortField}%20${sortDir}`;
+const data = await fetch(apiUrl).then((res) => { return res.json(); });
+const documents: Document[] = data.response.docs;
+const numFound = Number(data.response.numFound);
+const currentPage = 1;
 
 ---
 <DefaultLayout
   title={pageTitle}
   description={pageDescription}
 >
-  {data ?
-	<header>
+  {data ? <header>
     <h2 class="page-title">{pageTitle}</h2>
   </header>
   <div class="widget">
     <div class="item-list flex-container">
       {
-        documents.map(document => { return <SearchResult client:load data={document} key={document.entity_id} /> })
+        documents.map(document => { return <SearchResult client:load data={document} key={document.entity_id} />; })
       }
       <article class="item"></article>
       <article class="item"></article>
     </div>
     <div>
-		  { numFound > 12 && ( <SearchPagination currentPage={currentPage} numFound={numFound} rows={rows} client:load /> ) }
+		{ numFound > 12 && (<SearchPagination currentPage={currentPage} numFound={numFound} rows={rows} client:load />) }
     </div>
-  </div>
-	:
-	<Unfound/>}
+  </div>	: <Unfound/>}
 </DefaultLayout>

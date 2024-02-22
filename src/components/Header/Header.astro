@@ -3,12 +3,12 @@ import { metatags } from "../../utils/Constants/metatags";
 import { nav } from "../../utils/Constants/nav";
 import NavigationItem from "../Navigation/NavigationItem.astro";
 import NavigationMobileMenu from "../Navigation/NavigationMobileMenu.astro";
-import SearchForm from '../Search/SearchTools/SearchForm'
+import SearchForm from '../Search/SearchTools/SearchForm';
 
-const appUrl = import.meta.env.PUBLIC_APPURL
-const siteName = metatags.siteName
+const appUrl = import.meta.env.PUBLIC_APPURL;
+const siteName = metatags.siteName;
 
-const HeaderNavigationItems = nav.navitems
+const HeaderNavigationItems = nav.navitems;
 ---
 <Fragment>
   <div class="header-wrapper">
@@ -30,7 +30,7 @@ const HeaderNavigationItems = nav.navitems
                 className={item.class}
                 label={item.label}
               />
-            ) })
+            ); })
           }
         </ul>
         <div class="search_holder widget navbar-form navbar-right">
