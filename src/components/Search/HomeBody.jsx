@@ -3,16 +3,13 @@ import { useStore } from "@nanostores/react";
 import { sort } from "../../stores/sortField";
 import { ConfigProvider } from "antd";
 import SearchResult from "./SearchResult";
-import SearchHeader from "./SearchLabels/SearchHeader";
-import SearchSubheader from "./SearchLabels/SearchSubheader";
 import SearchPagination from "./SearchTools/SearchPagination";
 import Unfound from "../Unfound";
 import theme from "../Styles/themeConfig";
-import FilterDropdown from "../Content/Filter/FilterDropdown";
-import { search, pageNumber } from "../../utils/url";
-import { fetchBrowse } from "../../utils/getDocuments";
+import { metatags } from "../../utils/Constants/metatags";
+import { fetchIndex } from "../../utils/getDocuments";
 
-function SearchBody() {
+function HomeBody() {
 	const [data, setData] = useState([]);
 
 	const $sortField = useStore(sort);
@@ -22,7 +19,7 @@ function SearchBody() {
 	// Create an asynchronous function to fetch the data
 	const fetchData = async () => {
 		try {
-			const data = await fetchBrowse(search, pageNumber, $sortField);
+			const data = await fetchIndex();
 			setData(data);
 		} catch (error) {
 			// Handle errors here, e.g., display an error message or log the error
@@ -40,9 +37,7 @@ function SearchBody() {
 			<ConfigProvider theme={theme}>
 				<>
 					<header>
-						{data?.response?.numFound > 0 && <FilterDropdown />}
-						<SearchHeader query={search} />
-						<SearchSubheader response={data} />
+						<h2 className="page-title">{metatags.pageTitle}</h2>
 					</header>
 					<br />
 					<div className="item-list flex-container">
@@ -53,7 +48,7 @@ function SearchBody() {
 						<article className="item"></article>
 					</div>
 					{data?.response?.numFound > rows && (
-						<SearchPagination currentPage={pageNumber} numFound={data?.response?.numFound} rows={rows} />
+						<SearchPagination currentPage={1} numFound={data?.response?.numFound} rows={rows} />
 					)}
 				</>
 			</ConfigProvider>
@@ -61,4 +56,4 @@ function SearchBody() {
 	);
 }
 
-export default SearchBody;
+export default HomeBody;

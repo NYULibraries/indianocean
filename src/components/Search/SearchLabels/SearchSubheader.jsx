@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
+
 function SearchSubheader(props) {
 	const response = props.response?.response;
-
 	if (response) {
 		const { numFound, start } = response;
 		const documentsLength = response.docs.length;
@@ -21,4 +22,7 @@ function SearchSubheader(props) {
 	}
 }
 
+// SearchSubheader.propTypes = {
+// 	response: PropTypes.object.isRequired
+// };
 export default SearchSubheader;

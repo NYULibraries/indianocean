@@ -1,8 +1,9 @@
 import { useState } from "react";
 import MapPlaceholder from "./MapPlaceholder";
 import calculateAvailableHeight from "../../../utils/getAvailableHeight";
+import PropTypes from "prop-types";
 
-const Book = (props) => {
+const Map = (props) => {
 	const { identifier, title, viewer } = props;
 
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -37,4 +38,9 @@ const Book = (props) => {
 	);
 };
 
-export default Book;
+Map.propTypes = {
+	identifier: PropTypes.string.isRequired,
+	title: PropTypes.string,
+	viewer: PropTypes.string.isRequired
+};
+export default Map;

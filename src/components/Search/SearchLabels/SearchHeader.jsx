@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function SearchHeader(props) {
 	const { query } = props;
 
@@ -10,4 +12,7 @@ function SearchHeader(props) {
 	);
 }
 
+SearchHeader.propTypes = {
+	query: PropTypes.string.isRequired
+};
 export default SearchHeader;

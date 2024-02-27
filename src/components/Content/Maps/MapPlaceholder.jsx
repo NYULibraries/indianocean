@@ -1,4 +1,5 @@
 import { Spin } from "antd";
+import PropTypes from "prop-types";
 
 const MapPlaceholder = (props) => {
 	const { height } = props;
@@ -19,6 +20,10 @@ const MapPlaceholder = (props) => {
 			/>
 		</div>
 	);
+};
+
+MapPlaceholder.propTypes = {
+	height: PropTypes.number.isRequired
 };
 
 export default MapPlaceholder;
