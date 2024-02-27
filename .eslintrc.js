@@ -22,7 +22,7 @@ const baseRules = {
 	"block-scoped-var": "error",
 	camelcase: [
 		"error",
-		{ properties: "always", ignoreDestructuring: false, ignoreImports: false, ignoreGlobals: false }
+		{ properties: "never", ignoreDestructuring: false, ignoreImports: true, ignoreGlobals: false }
 	],
 	"capitalized-comments": ["error", "always"],
 	curly: ["error", "multi", "consistent"],

@@ -1,5 +1,6 @@
 import { ConfigProvider, Pagination } from "antd";
 import theme from "../../Styles/themeConfig";
+import PropTypes from "prop-types";
 
 const onChange = (page) => {
 	const searchParams = new URLSearchParams(window.location.href);
@@ -29,4 +30,9 @@ function SearchPagination(props) {
 	);
 }
 
+SearchPagination.propTypes = {
+	currentPage: PropTypes.number.isRequired,
+	numFound: PropTypes.number.isRequired,
+	rows: PropTypes.string.isRequired
+};
 export default SearchPagination;

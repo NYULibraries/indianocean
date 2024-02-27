@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
 import SearchPlaceholder from "../Search/SearchPlaceholder";
+import PropTypes from "prop-types";
 
 function SearchResult(props) {
 	const document = props.data;
@@ -83,5 +84,7 @@ function SearchResult(props) {
 		</article>
 	);
 }
-
+SearchResult.propTypes = {
+	data: PropTypes.object.isRequired
+};
 export default SearchResult;

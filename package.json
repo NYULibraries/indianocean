@@ -4,6 +4,9 @@
 	"version": "1.0.0",
 	"author": "New York University - Digital Library Technology Services",
 	"homepage": "https://dlib.nyu.edu/indianocean/",
+	"engines": {
+		"node": ">=18.14.1"
+	},
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
@@ -36,7 +39,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"husky": ">=6",
 		"lint-staged": ">=10",
-		"prettier": "3.2.5",
+		"prettier": "^3.2.5",
 		"prettier-plugin-astro": "^0.8.1",
 		"sass": "^1.49.9",
 		"svgo": "^2.8.0"
@@ -48,6 +51,7 @@
 		"astro-compress": "^2.0.15",
 		"lodash.throttle": "^4.1.1",
 		"nanostores": "^0.9.3",
+		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
