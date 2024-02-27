@@ -7,10 +7,9 @@ const {
 } = Astro.props;
 
 const siteName = metatags.siteName;
-const url = import.meta.env.PUBLIC_URL;
+const url = import.meta.env.PUBLIC_APPURL;
 const type = metatags.type;
 const author = metatags.defaultAuthor;
-const a = 's';
 ---
 <head>
 	<title>{title}</title>
