@@ -18,8 +18,8 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"@astrojs/mdx": "^0.15.2",
-		"@astrojs/partytown": "^1.0.3",
+		"@astrojs/mdx": "^2.1.1",
+		"@astrojs/partytown": "^2.0.4",
 		"@babel/eslint-parser": "^7.23.10",
 		"@babel/preset-react": "^7.23.3",
 		"@common-web/astro-lambda-edge": "^1.0.2",
@@ -45,7 +45,7 @@
 		"svgo": "^2.8.0"
 	},
 	"dependencies": {
-		"@astrojs/react": "^2.3.2",
+		"@astrojs/react": "^3.0.10",
 		"@nanostores/react": "^0.7.1",
 		"antd": "^5.9.3",
 		"astro-compress": "^2.0.15",
