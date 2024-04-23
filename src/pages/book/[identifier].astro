@@ -1,6 +1,8 @@
 ---
 import BookLayout from "../../layouts/BookLayout.astro";
 import Book from "../../components/Content/Books/Book";
+import { env } from "../../utils/Constants/env";
+
 export async function getStaticPaths() {
 	const viewer = "https://sites.dlib.nyu.edu/viewer";
 	const start = 0;
@@ -24,7 +26,7 @@ const pageDescription = "books";
 
 const { title } = Astro.props;
 
-const viewer = import.meta.env.PUBLIC_VIEWERURL;
+const viewer = env.PUBLIC_VIEWERURL;
 
 ---
 

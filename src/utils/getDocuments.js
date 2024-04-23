@@ -1,9 +1,11 @@
+import { env } from "../utils/Constants/env";
+
 export async function fetchIndex() {
 	try {
-		const discoveryUrl = import.meta.env.PUBLIC_DISCOVERYURL;
-		const rows = import.meta.env.PUBLIC_ROWS;
+		const discoveryUrl = env.PUBLIC_DISCOVERYURL;
+		const rows = env.PUBLIC_ROWS;
 		const start = 1;
-		const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE;
+		const collectionCode = env.PUBLIC_COLLECTIONCODE;
 		const sortField = "ss_sauthor";
 		const sortDir = "asc";
 		const q = "*:*";
@@ -19,11 +21,11 @@ export async function fetchIndex() {
 }
 export async function fetchBrowse(search, pageNumber, sortType) {
 	try {
-		const discoveryUrl = import.meta.env.PUBLIC_DISCOVERYURL;
-		const rows = import.meta.env.PUBLIC_ROWS;
+		const discoveryUrl = env.PUBLIC_DISCOVERYURL;
+		const rows = env.PUBLIC_ROWS;
 		const start = (pageNumber - 1) * rows;
-		const collectionCode = import.meta.env.PUBLIC_COLLECTIONCODE;
-		const language = import.meta.env.PUBLIC_LANGUAGE;
+		const collectionCode = env.PUBLIC_COLLECTIONCODE;
+		const language = env.PUBLIC_LANGUAGE;
 		const fields = ["*"];
 		const fl = fields.join();
 		const sortDir = "asc";

@@ -11,11 +11,11 @@
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro build",
-		"preview": "vite preview --port 8080",
+		"preview": "npx astro preview",
 		"cyptest": "cypress open",
 		"lint": "npx eslint .",
 		"format": "prettier --check 'src/**/**.{js,jsx,css}'",
-		"prepare": "husky install"
+		"prepare": "husky init"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^2.1.1",

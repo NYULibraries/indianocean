@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
+import { env } from "../../utils/Constants/env";
 import SearchPlaceholder from "../Search/SearchPlaceholder";
 import PropTypes from "prop-types";
 
@@ -8,7 +9,7 @@ function SearchResult(props) {
 
 	const [isLoaded, setIsLoaded] = useState(false);
 
-	const viewerUrl = import.meta.env.PUBLIC_VIEWERURL;
+	const viewerUrl = env.PUBLIC_VIEWERURL;
 
 	const imageLoad = () => {
 		setIsLoaded(true);

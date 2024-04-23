@@ -7,6 +7,7 @@ import SearchPagination from "./SearchTools/SearchPagination";
 import Unfound from "../Unfound";
 import theme from "../Styles/themeConfig";
 import { metatags } from "../../utils/Constants/metatags";
+import { env } from "../../utils/Constants/env";
 import { fetchIndex } from "../../utils/getDocuments";
 
 function HomeBody() {
@@ -14,7 +15,7 @@ function HomeBody() {
 
 	const $sortField = useStore(sort);
 
-	const rows = import.meta.env.PUBLIC_ROWS;
+	const rows = env.PUBLIC_ROWS;
 
 	// Create an asynchronous function to fetch the data
 	const fetchData = async () => {

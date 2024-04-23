@@ -1,5 +1,6 @@
 ---
-import { metatags } from '../../utils/Constants/metatags';
+import { metatags } from "../../utils/Constants/metatags";
+import { env } from "../../utils/Constants/env";
 
 const {
   title,
@@ -7,7 +8,7 @@ const {
 } = Astro.props;
 
 const siteName = metatags.siteName;
-const url = import.meta.env.PUBLIC_APPURL;
+const url = env.PUBLIC_APPURL;
 const type = metatags.type;
 const author = metatags.defaultAuthor;
 ---
