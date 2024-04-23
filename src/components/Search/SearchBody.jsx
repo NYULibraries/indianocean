@@ -10,6 +10,7 @@ import Unfound from "../Unfound";
 import theme from "../Styles/themeConfig";
 import FilterDropdown from "../Content/Filter/FilterDropdown";
 import { search, pageNumber } from "../../utils/url";
+import { env } from "../../utils/Constants/env";
 import { fetchBrowse } from "../../utils/getDocuments";
 
 function SearchBody() {
@@ -17,13 +18,14 @@ function SearchBody() {
 
 	const $sortField = useStore(sort);
 
-	const rows = import.meta.env.PUBLIC_ROWS;
+	const rows = env.PUBLIC_ROWS;
 
 	// Create an asynchronous function to fetch the data
 	const fetchData = async () => {
 		try {
 			const data = await fetchBrowse(search, pageNumber, $sortField);
 			setData(data);
+			console.log(data);
 		} catch (error) {
 			// Handle errors here, e.g., display an error message or log the error
 			console.error("Error fetching data:", error);

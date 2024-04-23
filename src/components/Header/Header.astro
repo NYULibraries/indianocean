@@ -3,9 +3,8 @@ import { metatags } from "../../utils/Constants/metatags";
 import { nav } from "../../utils/Constants/nav";
 import NavigationItem from "../Navigation/NavigationItem.astro";
 import NavigationMobileMenu from "../Navigation/NavigationMobileMenu.astro";
-import SearchForm from '../Search/SearchTools/SearchForm';
+import SearchForm from "../Search/SearchTools/SearchForm";
 
-const appUrl = import.meta.env.PUBLIC_APPURL;
 const siteName = metatags.siteName;
 
 const HeaderNavigationItems = nav.navitems;
@@ -13,7 +12,7 @@ const HeaderNavigationItems = nav.navitems;
 <Fragment>
   <div class="header-wrapper">
     <header class="header-main container-fluid" role="banner">
-      <h1 class="sitename"><a href={appUrl}>{siteName}</a></h1>
+      <h1 class="sitename"><a href="/">{siteName}</a></h1>
     </header>
   </div>
   <nav class="navbar navbar-default" role="navigation">

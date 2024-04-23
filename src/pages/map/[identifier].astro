@@ -1,13 +1,14 @@
 ---
 import MapLayout from "../../layouts/MapLayout.astro";
 import Map from "../../components/Content/Maps/Map";
+import { env } from "../../utils/Constants/env";
 
 export async function getStaticPaths() {
-	const viewer = import.meta.env.PUBLIC_VIEWERURL;
+	const viewer = env.PUBLIC_VIEWERURL;
 	const start = 0;
 	const rows = "1000";
-	const collection = import.meta.env.PUBLIC_COLLECTIONCODE;
-	const type = import.meta.env.PUBLIC_MAP;
+	const collection = env.PUBLIC_COLLECTIONCODE;
+	const type = env.PUBLIC_MAP;
 	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json(); });
 	return data.response.docs.map(doc => {
     return {
@@ -25,7 +26,7 @@ const pageDescription = "maps";
 
 const { title } = Astro.props;
 
-const viewer = import.meta.env.PUBLIC_VIEWERURL;
+const viewer = env.PUBLIC_VIEWERURL;
 
 ---
 
