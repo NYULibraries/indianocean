@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 function SearchSubheader(props) {
 	const response = props.response?.response;
 	if (response) {
@@ -22,7 +20,4 @@ function SearchSubheader(props) {
 	}
 }
 
-// SearchSubheader.propTypes = {
-// 	response: PropTypes.object.isRequired
-// };
 export default SearchSubheader;
