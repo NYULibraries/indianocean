@@ -1,13 +1,17 @@
 import { changeSortStore, sort } from "../../../stores/sortField";
 import { useStore } from "@nanostores/react";
-import { search, pageNumber } from "../../../utils/url";
+import { changePageNumStore, pageNum } from "../../../stores/pageNum";
+import { search } from "../../../stores/search";
 
 const FilterDropdown = () => {
 	const $sortField = useStore(sort);
+	const $searchField = useStore(search);
+	const $pageNumField = useStore(pageNum);
 
 	const changeSortType = (e) => {
-		window.history.pushState({}, "", `/search?q=${search}&page=${pageNumber}&sortField=${e}&sortDir=${"asc"}`);
+		window.history.pushState({}, "", `/search?q=${$searchField}&page=${1}&sortField=${e}&sortDir=${"asc"}`);
 		changeSortStore(e);
+		changePageNumStore(1);
 	};
 
 	return (
