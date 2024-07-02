@@ -1,8 +1,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useStore } from "@nanostores/react";
-import { sort } from "../../stores/sortField";
-import { pageNum } from "../../stores/pageNum";
-import { search } from "../../stores/search";
+import { changeSortStore, sort } from "../../stores/sortField";
+import { changePageNumStore, pageNum } from "../../stores/pageNum";
+import { changeSearchStore, search } from "../../stores/search";
 import { ConfigProvider } from "antd";
 import SearchResult from "./SearchResult";
 import SearchPagination from "./SearchTools/SearchPagination";
@@ -31,23 +31,26 @@ function HomeBody() {
 			console.error("Error fetching data:", error);
 		}
 	};
-		const fetchData2 = async () => {
-			try {
-				const data = await fetchBrowse($searchField, $pageNumField, $sortField);
-				setData(data);
-			} catch (error) {
-				// Handle errors here, e.g., display an error message or log the error
-				console.error("Error fetching data:", error);
-			}
-		};
+	const fetchData2 = async () => {
+		try {
+			const data = await fetchBrowse($searchField, $pageNumField, $sortField);
+			setData(data);
+		} catch (error) {
+			// Handle errors here, e.g., display an error message or log the error
+			console.error("Error fetching data:", error);
+		}
+	};
 
 	useEffect(() => {
 		fetchData();
+		changeSearchStore("*:*");
+		changePageNumStore(1);
+		changeSortStore("ss_longlabel");
 	}, []);
 
 	useEffect(() => {
 		fetchData2();
-	}, [$pageNumField]);
+	}, [$searchField, $pageNumField]);
 
 	return (
 		<Suspense fallback={<Unfound />}>

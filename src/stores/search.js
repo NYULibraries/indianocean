@@ -1,5 +1,6 @@
 import { atom } from "nanostores";
-import { url } from "../utils/url";
+
+const url = new URL(window.location.href);
 
 const urlSearchField = url.searchParams.get("q");
 

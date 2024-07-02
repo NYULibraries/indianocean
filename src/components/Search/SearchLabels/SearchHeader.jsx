@@ -12,6 +12,9 @@ function SearchHeader(props) {
 	);
 }
 
+SearchHeader.defaultProps = {
+	query: "*:*"
+};
 SearchHeader.propTypes = {
 	query: PropTypes.string.isRequired
 };

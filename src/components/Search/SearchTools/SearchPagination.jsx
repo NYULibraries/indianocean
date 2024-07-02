@@ -1,7 +1,7 @@
 import { ConfigProvider, Pagination } from "antd";
 import theme from "../../Styles/themeConfig";
 import PropTypes from "prop-types";
-import { changePageNumStore} from "../../../stores/pageNum";
+import { changePageNumStore } from "../../../stores/pageNum";
 
 function SearchPagination(props) {
 	const { currentPage, numFound, rows } = props;
@@ -25,7 +25,8 @@ function SearchPagination(props) {
 				total={numFound}
 				onChange={onChange}
 				style={{
-					textAlign: "center"
+					textAlign: "center",
+					paddingTop: "3%"
 				}}
 			/>
 		</ConfigProvider>
