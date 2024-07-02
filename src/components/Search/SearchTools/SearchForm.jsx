@@ -1,36 +1,40 @@
-import { changeSearchStore } from "../../../stores/search";
+import { search, changeSearchStore } from "../../../stores/search";
 import { changePageNumStore } from "../../../stores/pageNum";
+import { useStore } from "@nanostores/react";
+import { useEffect, useRef } from "react";
 
 function SearchForm() {
-	const appUrl = "";
-	const actionPath = `${appUrl}/search`;
-	// Get the URL of the current page
-	const url = new URL(window.location.href);
-	// Get the value of 'q' from the query string
-	let value = url.searchParams.get("q") ? url.searchParams.get("q") : "";
+	const $searchField = useStore(search);
+
+	const inputRef = useRef(null);
 
 	const handleSubmit = (e) => {
-		e.preventDefault(); // Prevent the default form submission
-		const searchQuery = e.target.elements.q.value;
-		window.history.pushState(null, "", `${actionPath}?q=${searchQuery}`); // Update the URL
-		changeSearchStore(searchQuery); // Update the search atom
-		changePageNumStore(1); // Reset the page number atom
+		e.preventDefault();
+		const searchQuery = e.target.elements.q.value ? e.target.elements.q.value : "*:*";
+		if (inputRef.current) inputRef.current.blur();
+		changeSearchStore(searchQuery);
+		changePageNumStore(1);
 	};
 
 	const title = "Enter the terms you wish to search for.";
 	const label = "Search";
 	const placeholder = "Search titles, subjects, authors...";
-	if (value === "*:*") value = "";
+
+	useEffect(() => {
+		if (inputRef.current && $searchField != "*:*") inputRef.current.value = $searchField;
+	}, [$searchField]);
+
 	return (
 		<form onSubmit={handleSubmit} role="search">
 			<input
 				id="q"
 				name="q"
 				type="text"
-				defaultValue={value}
+				defaultValue={$searchField == "*:*" ? "" : $searchField}
 				placeholder={placeholder}
 				title={title}
 				aria-label={label}
+				ref={inputRef}
 			/>
 			<input type="submit" className="submit-search" aria-label="Submit Search" />
 		</form>

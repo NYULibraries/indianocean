@@ -1,8 +1,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useStore } from "@nanostores/react";
-import { sort } from "../../stores/sortField";
-import { pageNum } from "../../stores/pageNum";
-import { search } from "../../stores/search";
+import { sort, changeSortStore } from "../../stores/sortField";
+import { pageNum, changePageNumStore } from "../../stores/pageNum";
+import { search, changeSearchStore } from "../../stores/search";
 import { ConfigProvider } from "antd";
 import SearchResult from "./SearchResult";
 import SearchHeader from "./SearchLabels/SearchHeader";
@@ -10,12 +10,12 @@ import SearchSubheader from "./SearchLabels/SearchSubheader";
 import SearchPagination from "./SearchTools/SearchPagination";
 import Unfound from "../Unfound";
 import theme from "../Styles/themeConfig";
-import FilterDropdown from "../Content/Filter/FilterDropdown";
 import { env } from "../../utils/Constants/env";
 import { fetchBrowse } from "../../utils/getDocuments";
+import { updateUrl } from "../../utils/url";
 
 function SearchBody() {
-	const [data, setData] = useState([]);
+	const [data, setData] = useState([{}]);
 
 	const $sortField = useStore(sort);
 	const $searchField = useStore(search);
@@ -29,24 +29,52 @@ function SearchBody() {
 			const data = await fetchBrowse($searchField, $pageNumField, $sortField);
 			setData(data);
 		} catch (error) {
-			// Handle errors here, e.g., display an error message or log the error
 			console.error("Error fetching data:", error);
 		}
 	};
 
-	// Use the useEffect hook to fetch data when the component mounts
 	useEffect(() => {
+		const storedSort = sessionStorage.getItem("sortField");
+		const storedSearch = sessionStorage.getItem("searchField");
+		const storedPage = parseInt(sessionStorage.getItem("pageNum"));
+
+		if (storedSort && storedSearch && !isNaN(storedPage)) {
+			changeSortStore(storedSort);
+			changeSearchStore(storedSearch);
+			changePageNumStore(storedPage);
+		}
+		const handlePopState = () => {
+			const urlParams = new URLSearchParams(window.location.search);
+			const search = decodeURIComponent(urlParams.get("q")) || "";
+			const page = parseInt(urlParams.get("page")) || 1;
+			const sortField = urlParams.get("sortField") || "";
+
+			changeSearchStore(search);
+			changePageNumStore(page);
+			changeSortStore(sortField);
+		};
+		window.addEventListener("popstate", handlePopState);
+
+		return () => {
+			window.removeEventListener("popstate", handlePopState);
+		};
+	}, []);
+
+	useEffect(() => {
+		sessionStorage.setItem("sortField", $sortField);
+		sessionStorage.setItem("searchField", $searchField);
+		sessionStorage.setItem("pageNum", $pageNumField);
+		updateUrl($searchField, $pageNumField, $sortField);
 		fetchData();
-	}, [$searchField, $pageNumField, $sortField]); // The empty dependency array ensures this effect runs once when the component mounts
+	}, [$searchField, $pageNumField, $sortField]);
 
 	return (
 		<Suspense fallback={<Unfound />}>
 			<ConfigProvider theme={theme}>
 				<>
 					<header>
-						{data?.response?.numFound > 0 && <FilterDropdown />}
 						<SearchHeader query={$searchField} />
-						<SearchSubheader response={data} />
+						{data?.response && <SearchSubheader response={data} />}
 					</header>
 					<br />
 					<div className="item-list flex-container">

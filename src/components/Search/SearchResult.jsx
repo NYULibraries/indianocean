@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
+import { useStore } from "@nanostores/react";
 import { env } from "../../utils/Constants/env";
+import { changeSearchStore, search } from "../../stores/search";
 import SearchPlaceholder from "../Search/SearchPlaceholder";
 import PropTypes from "prop-types";
+import { sort } from "../../stores/sortField";
 
 function SearchResult(props) {
 	const document = props.data;
-
 	const [isLoaded, setIsLoaded] = useState(false);
+
+	const $sortField = useStore(sort);
+	const $searchField = useStore(search);
 
 	const viewerUrl = env.PUBLIC_VIEWERURL;
 
@@ -74,8 +79,21 @@ function SearchResult(props) {
 				<div className="md_subjects">
 					<span className="md_label">Subjects:</span>
 					{document.sm_subject_label?.map((subject, key) => {
+						if (subject == $searchField) return (
+								<div key={`subject-${key}`} className="md_subject">
+									{subject}
+								</div>
+							);
 						return (
-							<a key={`subject-${key}`} className="md_subject" href={`/search?q=${subject}`}>
+							<a
+								key={`subject-${key}`}
+								className="md_subject"
+								href={`/search?q=${subject}&page=${1}&sortField=${$sortField}&sortDir=${"asc"}`}
+								onClick={(e) => {
+									e.preventDefault();
+									changeSearchStore(subject);
+								}}
+							>
 								{subject}
 							</a>
 						);
