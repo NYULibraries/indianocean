@@ -9,15 +9,19 @@ export async function getStaticPaths() {
 	const rows = 1000;
 	const collection = "io";
 	const type = "dlts_book";
-	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json(); });
+	const data = await fetch(
+		`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`
+	).then((response) => {
+		return response.json();
+	});
 	return data.response.docs.map((doc) => {
-    return {
-      "params": {
-				"identifier": doc.identifier
+		return {
+			params: {
+				identifier: doc.identifier
 			},
-      "props": { doc },
-    };
-  });
+			props: { doc }
+		};
+	});
 }
 
 const { identifier } = Astro.params;
@@ -27,12 +31,8 @@ const pageDescription = "books";
 const { title } = Astro.props;
 
 const viewer = env.PUBLIC_VIEWERURL;
-
 ---
 
-<BookLayout
-  title={title}
-  description={pageDescription}
->
-	<Book viewer={viewer} title={title} identifier={identifier} client:only/>
+<BookLayout title={title} description={pageDescription}>
+	<Book viewer={viewer} title={title} identifier={identifier} client:only />
 </BookLayout>

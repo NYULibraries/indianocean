@@ -5,10 +5,14 @@ function calculateAvailableHeight() {
 	let height = document.documentElement.clientHeight;
 	for (let i = 0; i < children.length; i++) {
 		height -= children[i].offsetHeight;
-		if (height <= 0) break;
+		if (height <= 0) {
+			break;
+		}
 	}
 
-	if (iframe) iframe.style.height = `${height}px`;
+	if (iframe) {
+		iframe.style.height = `${height}px`;
+	}
 	return height;
 }
 

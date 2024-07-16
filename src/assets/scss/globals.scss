@@ -147,16 +147,16 @@ body {
 			color: lighten($brand-primary, 7%);
 		}
 	}
+	.md_subject_selected {
+		text-decoration: underline;
+		pointer-events: none;
+		cursor: default;
+	}
 	.md_subject:not(:last-child)::after {
 		content: ",\00a0";
+		text-decoration: none;
 	}
-	.md_subject_selected{
-		// color: black;
-		font-weight: bolder;
-		text-decoration: underline;
-	}
-	.md_provider {
-	}
+
 	.thumbs {
 		width: 26%; // max-width: 90px;
 		margin-right: 4%;

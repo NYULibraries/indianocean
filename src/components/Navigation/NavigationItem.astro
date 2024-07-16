@@ -3,21 +3,18 @@ const { route, className, label } = Astro.props;
 ---
 
 <li>
-  <a
-    href={route}
-    class={className}
-  >{label}</a>
+	<a href={route} class={className}>{label}</a>
 </li>
 
 <script>
 	const navItems = document.querySelectorAll("li a");
-	navItems.forEach(item=>{
-		item.addEventListener("click", (e)=>{
+	navItems.forEach((item) => {
+		item.addEventListener("click", (e) => {
 			e.preventDefault();
 			sessionStorage.clear();
 			console.log("clear");
-			if (e.currentTarget.getAttribute('href')) {
-				const targetUrl = e.currentTarget.getAttribute('href');
+			if (e.currentTarget.getAttribute("href")) {
+				const targetUrl = e.currentTarget.getAttribute("href");
 				setTimeout(() => {
 					window.location.href = targetUrl;
 				}, 100);

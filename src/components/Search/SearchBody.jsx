@@ -1,6 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { useStore } from "@nanostores/react";
-import { sort, changeSortStore } from "../../stores/sortField";
+import { sort, changeSortStore, changeSortSubjectStore, sortedBySubject } from "../../stores/sortField";
 import { pageNum, changePageNumStore } from "../../stores/pageNum";
 import { search, changeSearchStore } from "../../stores/search";
 import { ConfigProvider } from "antd";
@@ -20,6 +20,7 @@ function SearchBody() {
 	const $sortField = useStore(sort);
 	const $searchField = useStore(search);
 	const $pageNumField = useStore(pageNum);
+	const $sortedBySubject = useStore(sortedBySubject);
 
 	const rows = env.PUBLIC_ROWS;
 
@@ -66,6 +67,16 @@ function SearchBody() {
 		sessionStorage.setItem("pageNum", $pageNumField);
 		updateUrl($searchField, $pageNumField, $sortField);
 		fetchData();
+		changeSortSubjectStore(false);
+		const subjects = document.querySelectorAll(".md_subject");
+		subjects.forEach((subject) => {
+			if ($sortedBySubject) {
+				return;
+			}
+			if ($searchField == subject.textContent) {
+				changeSortSubjectStore(true);
+			}
+		});
 	}, [$searchField, $pageNumField, $sortField]);
 
 	return (

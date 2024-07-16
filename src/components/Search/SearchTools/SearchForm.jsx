@@ -8,20 +8,24 @@ function SearchForm() {
 
 	const inputRef = useRef(null);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const searchQuery = e.target.elements.q.value ? e.target.elements.q.value : "*:*";
-		if (inputRef.current) inputRef.current.blur();
-		changeSearchStore(searchQuery);
-		changePageNumStore(1);
-	};
-
 	const title = "Enter the terms you wish to search for.";
 	const label = "Search";
 	const placeholder = "Search titles, subjects, authors...";
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const searchQuery = e.target.elements.q.value ? e.target.elements.q.value : "*:*";
+		if (inputRef.current) {
+			inputRef.current.blur();
+		}
+		changeSearchStore(searchQuery);
+		changePageNumStore(1);
+	};
+
 	useEffect(() => {
-		if (inputRef.current && $searchField != "*:*") inputRef.current.value = $searchField;
+		if (inputRef.current && $searchField != "*:*" && $searchField) {
+			inputRef.current.value = $searchField;
+		}
 	}, [$searchField]);
 
 	return (
