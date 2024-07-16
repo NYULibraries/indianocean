@@ -9,15 +9,19 @@ export async function getStaticPaths() {
 	const rows = "1000";
 	const collection = env.PUBLIC_COLLECTIONCODE;
 	const type = env.PUBLIC_MAP;
-	const data = await fetch(`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`).then(response => { return response.json(); });
-	return data.response.docs.map(doc => {
-    return {
-      "params": {
-				"identifier": doc.identifier
+	const data = await fetch(
+		`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`
+	).then((response) => {
+		return response.json();
+	});
+	return data.response.docs.map((doc) => {
+		return {
+			params: {
+				identifier: doc.identifier
 			},
-      "props": { doc },
-    };
-  });
+			props: { doc }
+		};
+	});
 }
 
 const { identifier } = Astro.params;
@@ -27,12 +31,8 @@ const pageDescription = "maps";
 const { title } = Astro.props;
 
 const viewer = env.PUBLIC_VIEWERURL;
-
 ---
 
-<MapLayout
-  title={title}
-  description={pageDescription}
->
-	<Map viewer={viewer} title={title} identifier={identifier} client:only/>
+<MapLayout title={title} description={pageDescription}>
+	<Map viewer={viewer} title={title} identifier={identifier} client:only />
 </MapLayout>

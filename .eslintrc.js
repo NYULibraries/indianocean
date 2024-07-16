@@ -20,12 +20,9 @@ const baseRules = {
 	// Suggestion rules
 	"arrow-body-style": ["error", "always"],
 	"block-scoped-var": "error",
-	camelcase: [
-		"error",
-		{ properties: "never", ignoreDestructuring: false, ignoreImports: true, ignoreGlobals: false }
-	],
+	camelcase: ["error", { properties: "never", ignoreDestructuring: false, ignoreImports: true, ignoreGlobals: false }],
 	"capitalized-comments": ["error", "always"],
-	curly: ["error", "multi", "consistent"],
+	curly: "error",
 	"dot-notation": "error",
 	// React rules
 	"react/react-in-jsx-scope": "off",
@@ -40,9 +37,6 @@ const baseRules = {
 	"@stylistic/jsx-curly-newline": ["error", "consistent"],
 	"@stylistic/jsx-curly-spacing": ["error", { when: "never" }],
 	"@stylistic/jsx-equals-spacing": [2, "never"],
-	// "@stylistic/jsx/jsx-indent": [1, 2, { checkAttributes: true, indentLogicalExpressions: true }],
-	// "@stylistic/jsx/jsx-max-props-per-line": [1, { maximum: 2 }],
-	// "@stylistic/jsx/jsx-newline": [2, "never"],
 	"@stylistic/key-spacing": ["error", { afterColon: true, mode: "strict" }],
 	"@stylistic/keyword-spacing": ["error", { before: true, after: true }],
 	"@stylistic/lines-around-comment": ["error", { beforeBlockComment: true }],
@@ -56,7 +50,6 @@ const baseRules = {
 	"@stylistic/no-multiple-empty-lines": ["error", { max: 2, maxEOF: 0 }],
 	"@stylistic/no-trailing-spaces": "error",
 	"@stylistic/no-whitespace-before-property": "error",
-	"@stylistic/nonblock-statement-body-position": ["error", "beside"],
 	"@stylistic/operator-linebreak": ["error", "after"],
 	"@stylistic/padded-blocks": ["error", "never"],
 	"@stylistic/rest-spread-spacing": ["error", "never"],
@@ -89,8 +82,8 @@ module.exports = {
 		es2022: true,
 		browser: true
 	},
-	plugins: ["@stylistic"],
-	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+	plugins: ["@stylistic", "prettier"],
+	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier", "plugin:prettier/recommended"],
 	parserOptions: {
 		ecmaVersion: "latest",
 		sourceType: "module"
@@ -98,7 +91,10 @@ module.exports = {
 	settings: {
 		react: { version: "detect" }
 	},
-	rules: baseRules,
+	rules: {
+		...baseRules,
+		"prettier/prettier": "error"
+	},
 	overrides: [
 		{
 			files: ["*.js", "*.jsx"],
@@ -106,7 +102,7 @@ module.exports = {
 			parserOptions: {
 				requireConfigFile: false
 			},
-			extends: ["plugin:react/recommended"],
+			extends: ["plugin:react/recommended", "prettier"],
 			rules: {
 				...baseRules
 			}
@@ -118,7 +114,7 @@ module.exports = {
 				parser: "@typescript-eslint/parser",
 				extraFileExtensions: [".astro"]
 			},
-			extends: ["plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
+			extends: ["plugin:astro/recommended", "plugin:astro/jsx-a11y-strict", "prettier"],
 			rules: {
 				...baseRules
 			}
@@ -126,7 +122,7 @@ module.exports = {
 		{
 			files: ["*.ts"],
 			parser: "@typescript-eslint/parser",
-			extends: ["plugin:@typescript-eslint/recommended"],
+			extends: ["plugin:@typescript-eslint/recommended", "prettier"],
 			rules: {
 				"@typescript-eslint/no-unused-vars": [
 					"error",

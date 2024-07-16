@@ -45,7 +45,7 @@ function HomeBody() {
 		fetchData();
 		changeSearchStore("*:*");
 		changePageNumStore(1);
-		changeSortStore("ss_longlabel");
+		changeSortStore("default");
 	}, []);
 
 	useEffect(() => {

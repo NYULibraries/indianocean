@@ -11,7 +11,9 @@ function SearchPagination(props) {
 		const sortField = searchParams.get("sortField") ? searchParams.get("sortField") : "ss_title";
 		const sortDir = searchParams.get("sortDir") ? searchParams.get("sortDir") : "asc";
 		let q = document.querySelector("#q").value;
-		if (q === "") q = "*:*";
+		if (q === "") {
+			q = "*:*";
+		}
 		window.history.pushState({}, "", `/search?q=${q}&page=${page}&sortField=${sortField}&sortDir=${sortDir}`);
 		changePageNumStore(page);
 	};

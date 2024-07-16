@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
 import { useStore } from "@nanostores/react";
 import { env } from "../../utils/Constants/env";
 import { changeSearchStore, search } from "../../stores/search";
 import SearchPlaceholder from "../Search/SearchPlaceholder";
 import PropTypes from "prop-types";
-import { sort } from "../../stores/sortField";
+import { changeSortStore, sort } from "../../stores/sortField";
 
 function SearchResult(props) {
 	const document = props.data;
@@ -79,11 +79,13 @@ function SearchResult(props) {
 				<div className="md_subjects">
 					<span className="md_label">Subjects:</span>
 					{document.sm_subject_label?.map((subject, key) => {
-						if (subject == $searchField) return (
-								<div key={`subject-${key}`} className="md_subject">
-									{subject}
-								</div>
+						if (subject.toLowerCase() == $searchField.toLowerCase()) {
+							return (
+								<a key={`subject-${key}`} className="md_subject" aria-disabled="true">
+									<span className="md_subject_selected">{subject}</span>
+								</a>
 							);
+						}
 						return (
 							<a
 								key={`subject-${key}`}
@@ -92,6 +94,7 @@ function SearchResult(props) {
 								onClick={(e) => {
 									e.preventDefault();
 									changeSearchStore(subject);
+									changeSortStore("default");
 								}}
 							>
 								{subject}
