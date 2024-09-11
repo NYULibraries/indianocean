@@ -28,7 +28,7 @@ function SearchPagination(props) {
 				onChange={onChange}
 				style={{
 					textAlign: "center",
-					paddingTop: "3%"
+					marginTop: "2em"
 				}}
 			/>
 		</ConfigProvider>
