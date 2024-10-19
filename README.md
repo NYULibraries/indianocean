@@ -1,41 +1,40 @@
-Indian Ocean Digital Collections 
-========
+# Indian Ocean Digital Collection
+
+NYU Indian Ocean Collection, for scholars who may need access to the Indian Ocean materials.
 
 ## Prerequisites
 
-In order to clone the repository, and build.
+Node version: >=18.14.1
 
-You'll need the following tools:
+## Installation
 
-- [Git](https://git-scm.com)
-- [Docker](https://www.docker.com/)
+In order to run the site locally, clone the repo and run:
 
-Nice to have:
-
-- [Docker Compose](https://docs.docker.com/compose/)
-
-Do not run `npm install`. The file package.json includes a list of scripts to build and deploy.
-
-To build, run any of the script with build-*.
-
-Example:
-
-```
-$ npm run build-local
+```zsh
+npm install
 ```
 
-If `npm` is not available, see `.scripts` in package.json for commands,
+In your local environment, set up your query parameters in an .env file:
 
 ```
-$ rm -rf ./build && docker build -o build . --build-arg APP_ENV=local
+# urls
+PUBLIC_APPURL = <localized_url>
+PUBLIC_DISCOVERYURL = <discovery_api_url>
+PUBLIC_VIEWERURL = <viewer_url>
+
+# item descriptions
+PUBLIC_ROWS = <displayed_items>
+PUBLIC_STARTITEMS = <start_of_query>
+PUBLIC_ALLITEMS = <num_items>
+PUBLIC_COLLECTIONCODE = 'io'
+PUBLIC_LANGUAGE = <language>
+PUBLIC_BOOK = 'dlts_book'
+PUBLIC_MAP = 'dlts_map'
 ```
+## Preview
 
-To see/run the site locally:
+To preview locally run:
 
+```zsh
+npm run dev
 ```
-$ docker-compose up -d
-```
-
-### Test URL
-
-Open the URL http://localhost
