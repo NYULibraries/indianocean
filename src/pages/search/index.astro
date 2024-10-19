@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import SearchLayout from "../../layouts/SearchLayout.astro";
 import SearchBody from "../../components/Search/SearchBody";
 import { metatags } from "../../utils/Constants/metatags";
 
@@ -7,6 +7,6 @@ const pageTitle = metatags.pageTitle;
 const pageDescription = metatags.poweredDesc;
 ---
 
-<DefaultLayout title={pageTitle} description={pageDescription}>
+<SearchLayout title={pageTitle} description={pageDescription}>
 	<SearchBody client:only />
-</DefaultLayout>
+</SearchLayout>
