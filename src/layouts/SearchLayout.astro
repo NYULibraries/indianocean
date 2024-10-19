@@ -3,7 +3,7 @@ import "../assets/scss/globals.scss";
 import Footer from "../components/Footer/Footer.astro";
 import Meta from "../components/Header/Meta.astro";
 import { metatags } from "../utils/Constants/metatags";
-import Homeheader from "../components/Header/Homeheader.astro";
+import Header from "../components/Header/Header.astro";
 
 const title = metatags.pageTitle;
 const description = metatags.poweredDesc;
@@ -14,7 +14,7 @@ const description = metatags.poweredDesc;
 		<Meta title={title} description={description} />
 	</head>
 	<body class="search">
-		<Homeheader />
+		<Header />
 		<main class="main container-fluid" role="main">
 			<slot />
 		</main>
