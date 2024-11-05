@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
 	output: "static",
@@ -9,9 +11,8 @@ export default defineConfig({
 		port: 3000,
 		host: true
 	},
-	//   Site: 'https://dlib.nyu.edu/indianocean',
-	//   Base: '/indianocean',
-	integrations: [mdx(), react()]
+	Site: "https://indianocean.dlib.nyu.edu",
+	Base: "/",
+	integrations: [mdx(), react(), sitemap()]
 	// Adapter: lambdaAdapter()
 });
- 

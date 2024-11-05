@@ -24,7 +24,6 @@ function SearchBody() {
 
 	const rows = env.PUBLIC_ROWS;
 
-	// Create an asynchronous function to fetch the data
 	const fetchData = async () => {
 		try {
 			const data = await fetchBrowse($searchField, $pageNumField, $sortField);
@@ -35,36 +34,40 @@ function SearchBody() {
 	};
 
 	useEffect(() => {
-		const storedSort = sessionStorage.getItem("sortField");
-		const storedSearch = sessionStorage.getItem("searchField");
-		const storedPage = parseInt(sessionStorage.getItem("pageNum"));
+		const handleNavigation = (event) => {
+			const state = event?.state;
+			if (state) {
+				changeSearchStore(state.search);
+				changePageNumStore(state.page);
+				changeSortStore(state.sortType);
+			} else {
+				const urlParams = new URLSearchParams(window.location.search);
+				const search = decodeURIComponent(urlParams.get("q")) || "*:*";
+				const page = parseInt(urlParams.get("page")) || 1;
+				const sortField = urlParams.get("sortField") || "default";
 
-		if (storedSort && storedSearch && !isNaN(storedPage)) {
-			changeSortStore(storedSort);
-			changeSearchStore(storedSearch);
-			changePageNumStore(storedPage);
-		}
-		const handlePopState = () => {
-			const urlParams = new URLSearchParams(window.location.search);
-			const search = decodeURIComponent(urlParams.get("q")) || "";
-			const page = parseInt(urlParams.get("page")) || 1;
-			const sortField = urlParams.get("sortField") || "";
-
-			changeSearchStore(search);
-			changePageNumStore(page);
-			changeSortStore(sortField);
+				changeSearchStore(search);
+				changePageNumStore(page);
+				changeSortStore(sortField);
+			}
+			fetchData();
 		};
-		window.addEventListener("popstate", handlePopState);
+
+		// Listen for both popstate (back/forward) and pushstate events
+		window.addEventListener("popstate", handleNavigation);
+
+		// Initial load
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has("q")) {
+			handleNavigation({ state: null });
+		}
 
 		return () => {
-			window.removeEventListener("popstate", handlePopState);
+			window.removeEventListener("popstate", handleNavigation);
 		};
 	}, []);
 
 	useEffect(() => {
-		sessionStorage.setItem("sortField", $sortField);
-		sessionStorage.setItem("searchField", $searchField);
-		sessionStorage.setItem("pageNum", $pageNumField);
 		updateUrl($searchField, $pageNumField, $sortField);
 		fetchData();
 		changeSortSubjectStore(false);

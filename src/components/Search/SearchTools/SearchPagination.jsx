@@ -4,19 +4,34 @@ import PropTypes from "prop-types";
 import { changePageNumStore } from "../../../stores/pageNum";
 
 function SearchPagination(props) {
-	const { currentPage, numFound, rows } = props;
+	const { currentPage = 1, numFound, rows } = props;
 
 	const onChange = (page) => {
 		const searchParams = new URLSearchParams(window.location.search);
 		const sortField = searchParams.get("sortField") ? searchParams.get("sortField") : "ss_title";
 		const sortDir = searchParams.get("sortDir") ? searchParams.get("sortDir") : "asc";
-		let q = document.querySelector("#q").value;
-		if (q === "") {
+		let q = document.querySelector("#q")?.value;
+		if (q === "" || q == undefined) {
 			q = "*:*";
 		}
-		window.history.pushState({}, "", `/search?q=${q}&page=${page}&sortField=${sortField}&sortDir=${sortDir}`);
+		const state = {
+			search: q,
+			page: page,
+			sortType: sortField,
+			sortDir: sortDir
+		};
+		window.history.pushState(
+			state, 
+			"", 
+			`/search?q=${q}&page=${page}&sortField=${sortField}&sortDir=${sortDir}`
+		);
 		changePageNumStore(page);
 	};
+
+	if (!numFound || !rows) {
+		return null;
+	}
+
 	return (
 		<ConfigProvider theme={theme}>
 			<Pagination

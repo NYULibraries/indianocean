@@ -3,8 +3,20 @@ import { env } from "../utils/Constants/env";
 
 export async function fetchIndex() {
 	try {
+		// Try to get cached data first
+		const cachedData = localStorage.getItem("indexCache");
+		if (cachedData) {
+			const parsed = JSON.parse(cachedData);
+			const cacheTime = parsed.timestamp;
+			// Cache for 1 hour (3600000 milliseconds)
+			if (Date.now() - cacheTime < 3600000) {
+				return parsed.data;
+			}
+		}
+
+		// If no cache or expired, fetch new data
 		const discoveryUrl = env.PUBLIC_DISCOVERYURL;
-		const rows = env.PUBLIC_ROWS;
+		const rows = 12;
 		const start = 1;
 		const collectionCode = env.PUBLIC_COLLECTIONCODE;
 		const sortField = "ss_sauthor";
@@ -14,6 +26,16 @@ export async function fetchIndex() {
 		const apiUrl = `${discoveryUrl}/select?wt=json&q=${q}&fl=${fl}&fq=sm_collection_code:${collectionCode}&rows=${rows}&start=${start}&sort=${sortField}%20${sortDir}`;
 		const response = await fetch(apiUrl);
 		const data = await response.json();
+
+		// Cache the new data
+		localStorage.setItem(
+			"indexCache",
+			JSON.stringify({
+				data,
+				timestamp: Date.now()
+			})
+		);
+
 		return data;
 	} catch (e) {
 		console.error(e);
