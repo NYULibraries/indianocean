@@ -36,7 +36,7 @@ function SearchResult(props) {
 					<div className={isLoaded ? "clipper" : "clipperNoshadow imagePlaceholder"}>
 						<a href={`/${type}/${identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
 							<img
-								width="150"
+								// width="150"
 								src={`${viewerUrl}/api/image/${bundle}/${identifier}/1/full/150,175/0/default.jpg`}
 								alt=""
 								title={label}
