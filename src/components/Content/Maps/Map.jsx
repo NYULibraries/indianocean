@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MapPlaceholder from "./MapPlaceholder";
 import calculateAvailableHeight from "../../../utils/getAvailableHeight";
 import PropTypes from "prop-types";
@@ -12,7 +12,13 @@ const Map = (props) => {
 		setIsLoaded(true);
 	};
 
-	window.addEventListener("resize", calculateAvailableHeight);
+	useEffect(() => {
+		window.addEventListener("resize", calculateAvailableHeight);
+
+		return () => {
+			window.removeEventListener("resize", calculateAvailableHeight);
+		};
+	}, []);
 
 	const iFrameHeight = calculateAvailableHeight();
 
