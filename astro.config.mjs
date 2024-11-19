@@ -11,8 +11,8 @@ export default defineConfig({
 		port: 3000,
 		host: true
 	},
-	Site: "https://indianocean.dlib.nyu.edu",
-	Base: "/",
-	integrations: [mdx(), react(), sitemap()]
+	base: "/",
+	integrations: [mdx(), react(), sitemap()],
+	site: 'https://indianocean.dlib.nyu.edu'
 	// Adapter: lambdaAdapter()
 });
