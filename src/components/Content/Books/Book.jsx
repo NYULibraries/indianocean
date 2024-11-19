@@ -7,20 +7,23 @@ const Book = (props) => {
 	const { identifier, title, viewer } = props;
 
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [iFrameHeight, setIFrameHeight] = useState(calculateAvailableHeight());
 
 	const mapLoad = () => {
 		setIsLoaded(true);
 	};
 
 	useEffect(() => {
-		window.addEventListener("resize", calculateAvailableHeight);
+		const handleResize = () => {
+			setIFrameHeight(calculateAvailableHeight());
+		};
+
+		window.addEventListener("resize", handleResize);
 		
 		return () => {
-			window.removeEventListener("resize", calculateAvailableHeight);
+			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
-
-	const iFrameHeight = calculateAvailableHeight();
 
 	return (
 		<>
