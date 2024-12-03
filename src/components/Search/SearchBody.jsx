@@ -42,9 +42,7 @@ function SearchBody() {
 				changeSortStore(state.sortType);
 			} else {
 				const urlParams = new URLSearchParams(window.location.search);
-				const search = urlParams.has('q') 
-					? decodeURIComponent(urlParams.get("q")) 
-					: "*:*";
+				const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
 				const page = parseInt(urlParams.get("page")) || 1;
 				const sortField = urlParams.get("sortField") || "default";
 
@@ -52,7 +50,6 @@ function SearchBody() {
 				changePageNumStore(page);
 				changeSortStore(sortField);
 			}
-			fetchData();
 		};
 
 		// Listen for both popstate (back/forward) and pushstate events
@@ -65,16 +62,12 @@ function SearchBody() {
 		}
 
 		return () => {
-			// Cleanup when component unmounts
 			window.removeEventListener("popstate", handleNavigation);
-			// Reset session storage to default values
-			sessionStorage.setItem("searchField", "*:*");
-			sessionStorage.setItem("pageNum", "1");
-			sessionStorage.setItem("sortField", "default");
 		};
 	}, []);
 
 	useEffect(() => {
+		console.log($pageNumField, $searchField, $sortField);
 		updateUrl($searchField, $pageNumField, $sortField);
 		fetchData();
 		changeSortSubjectStore(false);
