@@ -67,7 +67,6 @@ function SearchBody() {
 	}, []);
 
 	useEffect(() => {
-		console.log($pageNumField, $searchField, $sortField);
 		updateUrl($searchField, $pageNumField, $sortField);
 		fetchData();
 		changeSortSubjectStore(false);
