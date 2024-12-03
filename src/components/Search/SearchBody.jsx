@@ -65,7 +65,12 @@ function SearchBody() {
 		}
 
 		return () => {
+			// Cleanup when component unmounts
 			window.removeEventListener("popstate", handleNavigation);
+			// Reset session storage to default values
+			sessionStorage.setItem("searchField", "*:*");
+			sessionStorage.setItem("pageNum", "1");
+			sessionStorage.setItem("sortField", "default");
 		};
 	}, []);
 

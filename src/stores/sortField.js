@@ -4,7 +4,7 @@ const url = new URL(window.location.href);
 const urlSortField = url.searchParams.get("sortField");
 const storedSort = sessionStorage.getItem("sortField");
 
-export const sort = atom(storedSort || urlSortField || "default");
+export const sort = atom(storedSort || (urlSortField ? urlSortField : "default"));
 
 export function changeSortStore(type) {
 	sort.set(type);
