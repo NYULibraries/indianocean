@@ -1,7 +1,12 @@
-// Get the URL of the current page
 export function updateUrl(search, page, sortType) {
-	// Handle initial /search redirect
-	if (window.location.pathname === "/search" && !window.location.search) {
+	// Handle initial /search redirect - check for empty search OR if we're at default values with no user interaction yet
+	if (
+		(window.location.pathname === "/search" || window.location.pathname === "/search/") &&
+		(!window.location.search || window.location.search === "?q=*:*&page=1&sortField=default&sortDir=asc") &&
+		search === "*:*" &&
+		page === 1 &&
+		sortType === "default"
+	) {
 		const initialState = {
 			search: "*:*",
 			page: 1,
@@ -29,7 +34,6 @@ export function updateUrl(search, page, sortType) {
 		page: page || 1,
 		sortType: sortType || "default"
 	};
-
 	window.history.pushState(
 		state,
 		"",
