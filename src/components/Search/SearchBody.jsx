@@ -42,7 +42,9 @@ function SearchBody() {
 				changeSortStore(state.sortType);
 			} else {
 				const urlParams = new URLSearchParams(window.location.search);
-				const search = decodeURIComponent(urlParams.get("q")) || "*:*";
+				const search = urlParams.has('q') 
+					? decodeURIComponent(urlParams.get("q")) 
+					: "*:*";
 				const page = parseInt(urlParams.get("page")) || 1;
 				const sortField = urlParams.get("sortField") || "default";
 
