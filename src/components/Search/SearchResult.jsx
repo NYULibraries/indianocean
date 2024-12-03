@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
 import { useStore } from "@nanostores/react";
 import { env } from "../../utils/Constants/env";
@@ -7,7 +7,10 @@ import SearchPlaceholder from "../Search/SearchPlaceholder";
 import PropTypes from "prop-types";
 import { changeSortStore, sort } from "../../stores/sortField";
 
-function SearchResult(props) {
+// Move static computation outside component
+const getBundleType = (bundle) => bundle.substring(0, bundle.length - 1);
+
+const SearchResult = memo(function SearchResult(props) {
 	const document = props.data;
 	const [isLoaded, setIsLoaded] = useState(false);
 
@@ -16,17 +19,23 @@ function SearchResult(props) {
 
 	const viewerUrl = env.PUBLIC_VIEWERURL;
 
-	const imageLoad = () => {
+	// Memoize callback
+	const imageLoad = useCallback(() => {
 		setIsLoaded(true);
-	};
+	}, []);
 
 	const bundle = getDocumentTypeByBundle(document.bundle);
-
-	const type = bundle.substring(0, bundle.length - 1); // Remove the trailing 's' from the bundle name
-
+	const type = getBundleType(bundle);
 	const identifier = document.sm_field_identifier[0];
 
 	const label = document.ss_title_long;
+
+	// Memoize subject click handler
+	const handleSubjectClick = useCallback((subject) => (e) => {
+		e.preventDefault();
+		changeSearchStore(subject);
+		changeSortStore("default");
+	}, []);
 
 	return (
 		<article className="item" key={identifier}>
@@ -79,23 +88,18 @@ function SearchResult(props) {
 				<div className="md_subjects">
 					<span className="md_label">Subjects:</span>
 					{document.sm_subject_label?.map((subject, key) => {
-						if (subject.toLowerCase() == $searchField.toLowerCase()) {
-							return (
-								<a key={`subject-${key}`} className="md_subject" aria-disabled="true">
-									<span className="md_subject_selected">{subject}</span>
-								</a>
-							);
-						}
-						return (
+						const isSelected = subject.toLowerCase() === $searchField.toLowerCase();
+						
+						return isSelected ? (
+							<a key={`subject-${key}`} className="md_subject" aria-disabled="true">
+								<span className="md_subject_selected">{subject}</span>
+							</a>
+						) : (
 							<a
 								key={`subject-${key}`}
 								className="md_subject"
-								href={`/search?q=${subject}&page=${1}&sortField=${$sortField}&sortDir=${"asc"}`}
-								onClick={(e) => {
-									e.preventDefault();
-									changeSearchStore(subject);
-									changeSortStore("default");
-								}}
+								href={`/search?q=${subject}&page=1&sortField=${$sortField}&sortDir=asc`}
+								onClick={handleSubjectClick(subject)}
 							>
 								{subject}
 							</a>
@@ -105,7 +109,8 @@ function SearchResult(props) {
 			</div>
 		</article>
 	);
-}
+});
+
 SearchResult.propTypes = {
 	data: PropTypes.object.isRequired
 };
