@@ -20,6 +20,7 @@ function SearchForm() {
 		}
 		changeSearchStore(searchQuery);
 		changePageNumStore(1);
+		window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
 	};
 
 	useEffect(() => {
