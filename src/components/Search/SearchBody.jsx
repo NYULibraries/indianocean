@@ -40,6 +40,9 @@ function SearchBody() {
 				changeSearchStore(state.search);
 				changePageNumStore(state.page);
 				changeSortStore(state.sortType);
+				fetchBrowse(state.search, state.page, state.sortType)
+					.then(setData)
+					.catch(error => console.error("Error fetching data:", error));
 			} else {
 				const urlParams = new URLSearchParams(window.location.search);
 				const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
@@ -49,10 +52,12 @@ function SearchBody() {
 				changeSearchStore(search);
 				changePageNumStore(page);
 				changeSortStore(sortField);
+				fetchBrowse(search, page, sortField)
+					.then(setData)
+					.catch(error => console.error("Error fetching data:", error));
 			}
 		};
 
-		// Listen for both popstate (back/forward) and pushstate events
 		window.addEventListener("popstate", handleNavigation);
 
 		// Initial load
@@ -61,10 +66,8 @@ function SearchBody() {
 			handleNavigation({ state: null });
 		}
 
-		// Cleanup function
 		return () => {
 			window.removeEventListener("popstate", handleNavigation);
-			// Reset all stores when unmounting
 			resetSort();
 			resetPage();
 			resetSearch();
