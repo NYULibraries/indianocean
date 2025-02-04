@@ -1,5 +1,5 @@
 export function updateUrl(search, page, sortType) {
-	// Handle initial /search redirect - check for empty search OR if we're at default values with no user interaction yet
+	// Handle initial /search redirect
 	if (
 		(window.location.pathname === "/search" || window.location.pathname === "/search/") &&
 		(!window.location.search || window.location.search === "?q=*:*&page=1&sortField=default&sortDir=asc") &&
@@ -13,19 +13,7 @@ export function updateUrl(search, page, sortType) {
 			sortType: "default"
 		};
 
-		// Replace the current history entry instead of pushing a new one
 		window.history.replaceState(initialState, "", `/search?q=*:*&page=1&sortField=default&sortDir=asc`);
-		return;
-	}
-
-	// Regular URL update logic
-	const currentParams = new URLSearchParams(window.location.search);
-	const currentSearch = decodeURIComponent(currentParams.get("q")) || "*:*";
-	const currentPage = parseInt(currentParams.get("page")) || 1;
-	const currentSort = currentParams.get("sortField") || "default";
-
-	// If nothing has changed, don't create a new history entry
-	if (currentSearch === search && currentPage === page && currentSort === sortType) {
 		return;
 	}
 
@@ -34,9 +22,11 @@ export function updateUrl(search, page, sortType) {
 		page: page || 1,
 		sortType: sortType || "default"
 	};
-	window.history.pushState(
+
+	// Always use replaceState instead of pushState to avoid duplicate entries
+	window.history.replaceState(
 		state,
 		"",
-		`/search?q=${state.search === "*:*" ? "*:*" : encodeURIComponent(state.search)}&page=${encodeURIComponent(state.page)}&sortField=${encodeURIComponent(state.sortType)}&sortDir=${"asc"}`
+		`/search?q=${state.search === "*:*" ? "*:*" : encodeURIComponent(state.search)}&page=${encodeURIComponent(state.page)}&sortField=${encodeURIComponent(state.sortType)}&sortDir=asc`
 	);
 }

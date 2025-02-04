@@ -1,8 +1,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useStore } from "@nanostores/react";
-import { sort, changeSortStore, changeSortSubjectStore, sortedBySubject } from "../../stores/sortField";
-import { pageNum, changePageNumStore } from "../../stores/pageNum";
-import { search, changeSearchStore } from "../../stores/search";
+import { sort, changeSortStore, changeSortSubjectStore, sortedBySubject, resetSort } from "../../stores/sortField";
+import { pageNum, changePageNumStore, resetPage } from "../../stores/pageNum";
+import { search, changeSearchStore, resetSearch } from "../../stores/search";
 import { ConfigProvider } from "antd";
 import SearchResult from "./SearchResult";
 import SearchHeader from "./SearchLabels/SearchHeader";
@@ -61,8 +61,13 @@ function SearchBody() {
 			handleNavigation({ state: null });
 		}
 
+		// Cleanup function
 		return () => {
 			window.removeEventListener("popstate", handleNavigation);
+			// Reset all stores when unmounting
+			resetSort();
+			resetPage();
+			resetSearch();
 		};
 	}, []);
 
