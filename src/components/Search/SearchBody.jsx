@@ -34,6 +34,22 @@ function SearchBody() {
 	};
 
 	useEffect(() => {
+		// Check for saved search parameters
+		const savedSearch = sessionStorage.getItem('searchField');
+		const savedPage = sessionStorage.getItem('pageNum');
+		const savedSort = sessionStorage.getItem('sortField');
+		
+		if (savedSearch) {
+			changeSearchStore(savedSearch);
+			changePageNumStore(parseInt(savedPage) || 1);
+			changeSortStore(savedSort || 'default');
+			
+			// Clear saved parameters after using them
+			sessionStorage.removeItem('searchField');
+			sessionStorage.removeItem('pageNum');
+			sessionStorage.removeItem('sortField');
+		}
+
 		const handleNavigation = (event) => {
 			const state = event?.state;
 			if (state) {
