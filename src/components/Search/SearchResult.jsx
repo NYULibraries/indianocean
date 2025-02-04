@@ -36,7 +36,15 @@ const SearchResult = memo(function SearchResult(props) {
 		changeSearchStore(subject);
 		changeSortStore("default");
 		
-		window.location.href = `/search?q=${subject}&page=1&sortField=default&sortDir=asc`;
+		const newUrl = `/search?q=${subject}&page=1&sortField=default&sortDir=asc`;
+		window.history.pushState(
+			{ search: subject, page: 1, sortType: "default" },
+			"",
+			newUrl
+		);
+		window.dispatchEvent(new PopStateEvent('popstate', { 
+			state: { search: subject, page: 1, sortType: "default" }
+		}));
 	}, []);
 
 	return (
