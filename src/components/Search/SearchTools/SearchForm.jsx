@@ -19,6 +19,13 @@ function SearchForm() {
 		}
 		changeSearchStore(searchQuery);
 		changePageNumStore(1);
+		
+		// Redirect to search page if were already on a book or map
+		if (window.location.pathname.includes('/book/') || window.location.pathname.includes('/map/')) {
+			window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+			return;
+		}
+		
 		const newUrl = `/search?q=${encodeURIComponent(searchQuery)}`;
 		window.history.pushState(
 			{ search: searchQuery, page: 1, sortType: "default" },

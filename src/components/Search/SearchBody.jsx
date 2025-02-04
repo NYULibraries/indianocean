@@ -42,7 +42,7 @@ function SearchBody() {
 				changeSortStore(state.sortType);
 				fetchBrowse(state.search, state.page, state.sortType)
 					.then(setData)
-					.catch(error => console.error("Error fetching data:", error));
+					.catch((error) => console.error("Error fetching data:", error));
 			} else {
 				const urlParams = new URLSearchParams(window.location.search);
 				const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
@@ -54,7 +54,7 @@ function SearchBody() {
 				changeSortStore(sortField);
 				fetchBrowse(search, page, sortField)
 					.then(setData)
-					.catch(error => console.error("Error fetching data:", error));
+					.catch((error) => console.error("Error fetching data:", error));
 			}
 		};
 
