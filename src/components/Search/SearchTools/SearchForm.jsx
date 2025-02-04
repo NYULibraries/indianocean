@@ -22,7 +22,12 @@ function SearchForm() {
 		
 		// Redirect to search page if were already on a book or map
 		if (window.location.pathname.includes('/book/') || window.location.pathname.includes('/map/')) {
-			window.location.href = `/search?q=${encodeURIComponent(searchQuery)}&page=1&sortField=default&sortDir=asc`;
+			// Save search parameters to sessionStorage before redirecting
+			sessionStorage.setItem('searchField', searchQuery);
+			sessionStorage.setItem('pageNum', '1');
+			sessionStorage.setItem('sortField', 'default');
+			
+			window.location.href = `/search`;
 			return;
 		}
 		
