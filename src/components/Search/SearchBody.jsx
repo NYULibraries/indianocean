@@ -49,7 +49,7 @@ function SearchBody() {
 			sessionStorage.removeItem("pageNum");
 			sessionStorage.removeItem("sortField");
 
-			// Fetch data immediately with saved parameters
+			// Fetch data immediately with saved parameters, fetch here resolves redirect queries
 			fetchBrowse(savedSearch, parseInt(savedPage) || 1, savedSort || "default")
 				.then(setData)
 				.catch((error) => console.error("Error fetching data:", error));
@@ -62,6 +62,7 @@ function SearchBody() {
 				changeSearchStore(state.search);
 				changePageNumStore(state.page);
 				changeSortStore(state.sortType);
+				// Fetches here ensure history stack works
 				fetchBrowse(state.search, state.page, state.sortType)
 					.then(setData)
 					.catch((error) => console.error("Error fetching data:", error));
@@ -74,6 +75,7 @@ function SearchBody() {
 				changeSearchStore(search);
 				changePageNumStore(page);
 				changeSortStore(sortField);
+				// Fetches here ensure history stack works
 				fetchBrowse(search, page, sortField)
 					.then(setData)
 					.catch((error) => console.error("Error fetching data:", error));
