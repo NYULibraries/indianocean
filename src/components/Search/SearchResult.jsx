@@ -36,15 +36,29 @@ const SearchResult = memo(function SearchResult(props) {
 		changeSearchStore(subject);
 		changeSortStore("default");
 		
+		// Check if we're on the home page
+		const currentPath = window.location.pathname;
+		if (currentPath === "/") {
+			// Save search parameters before redirecting
+			sessionStorage.setItem("searchField", subject);
+			sessionStorage.setItem("pageNum", "1");
+			sessionStorage.setItem("sortField", "default");
+			
+			window.location.href = `/search`;
+			return;
+		}
+		
 		const newUrl = `/search?q=${subject}&page=1&sortField=default&sortDir=asc`;
 		window.history.pushState(
 			{ search: subject, page: 1, sortType: "default" },
 			"",
 			newUrl
 		);
-		window.dispatchEvent(new PopStateEvent('popstate', { 
-			state: { search: subject, page: 1, sortType: "default" }
-		}));
+		window.dispatchEvent(
+			new PopStateEvent("popstate", {
+				state: { search: subject, page: 1, sortType: "default" }
+			})
+		);
 	}, []);
 
 	return (

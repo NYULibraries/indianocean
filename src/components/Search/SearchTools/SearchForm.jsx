@@ -19,27 +19,28 @@ function SearchForm() {
 		}
 		changeSearchStore(searchQuery);
 		changePageNumStore(1);
-		
-		// Redirect to search page if were already on a book or map
-		if (window.location.pathname.includes('/book/') || window.location.pathname.includes('/map/')) {
+
+		// Check current route
+		const currentPath = window.location.pathname;
+
+		// Redirect if on home, book, or map pages
+		if (currentPath === "/" || currentPath.includes("/book/") || currentPath.includes("/map/")) {
 			// Save search parameters to sessionStorage before redirecting
-			sessionStorage.setItem('searchField', searchQuery);
-			sessionStorage.setItem('pageNum', '1');
-			sessionStorage.setItem('sortField', 'default');
-			
+			sessionStorage.setItem("searchField", searchQuery);
+			sessionStorage.setItem("pageNum", "1");
+			sessionStorage.setItem("sortField", "default");
+
 			window.location.href = `/search`;
 			return;
 		}
-		
+
 		const newUrl = `/search?q=${encodeURIComponent(searchQuery)}`;
-		window.history.pushState(
-			{ search: searchQuery, page: 1, sortType: "default" },
-			"",
-			newUrl
+		window.history.pushState({ search: searchQuery, page: 1, sortType: "default" }, "", newUrl);
+		window.dispatchEvent(
+			new PopStateEvent("popstate", {
+				state: { search: searchQuery, page: 1, sortType: "default" }
+			})
 		);
-		window.dispatchEvent(new PopStateEvent('popstate', { 
-			state: { search: searchQuery, page: 1, sortType: "default" }
-		}));
 	};
 
 	useEffect(() => {
