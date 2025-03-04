@@ -35,19 +35,25 @@ function SearchBody() {
 
 	useEffect(() => {
 		// Check for saved search parameters
-		const savedSearch = sessionStorage.getItem('searchField');
-		const savedPage = sessionStorage.getItem('pageNum');
-		const savedSort = sessionStorage.getItem('sortField');
-		
+		const savedSearch = sessionStorage.getItem("searchField");
+		const savedPage = sessionStorage.getItem("pageNum");
+		const savedSort = sessionStorage.getItem("sortField");
+
 		if (savedSearch) {
 			changeSearchStore(savedSearch);
 			changePageNumStore(parseInt(savedPage) || 1);
-			changeSortStore(savedSort || 'default');
-			
+			changeSortStore(savedSort || "default");
+
 			// Clear saved parameters after using them
-			sessionStorage.removeItem('searchField');
-			sessionStorage.removeItem('pageNum');
-			sessionStorage.removeItem('sortField');
+			sessionStorage.removeItem("searchField");
+			sessionStorage.removeItem("pageNum");
+			sessionStorage.removeItem("sortField");
+
+			// Fetch data immediately with saved parameters
+			fetchBrowse(savedSearch, parseInt(savedPage) || 1, savedSort || "default")
+				.then(setData)
+				.catch((error) => console.error("Error fetching data:", error));
+			return;
 		}
 
 		const handleNavigation = (event) => {
@@ -76,11 +82,8 @@ function SearchBody() {
 
 		window.addEventListener("popstate", handleNavigation);
 
-		// Initial load
-		const urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.has("q")) {
-			handleNavigation({ state: null });
-		}
+		// Initial load - read from url
+		handleNavigation({ state: null });
 
 		return () => {
 			window.removeEventListener("popstate", handleNavigation);
