@@ -44,55 +44,54 @@ function SearchBody() {
 			changePageNumStore(parseInt(savedPage) || 1);
 			changeSortStore(savedSort || "default");
 
-			// Clear saved parameters after using them
-			sessionStorage.removeItem("searchField");
-			sessionStorage.removeItem("pageNum");
-			sessionStorage.removeItem("sortField");
-
-			// Fetch data immediately with saved parameters, fetch here resolves redirect queries
+			// Fetch first, then clear
 			fetchBrowse(savedSearch, parseInt(savedPage) || 1, savedSort || "default")
-				.then(setData)
+				.then(data => {
+					setData(data);
+					// Only clear after successful fetch
+					sessionStorage.removeItem("searchField");
+					sessionStorage.removeItem("pageNum");
+					sessionStorage.removeItem("sortField");
+				})
 				.catch((error) => console.error("Error fetching data:", error));
-			return;
+		} else {
+			// Handle URL-based navigation as fallback
+			const handleNavigation = (event) => {
+				const state = event?.state;
+				if (state) {
+					changeSearchStore(state.search);
+					changePageNumStore(state.page);
+					changeSortStore(state.sortType);
+					// Fetches here ensure history stack works
+					fetchBrowse(state.search, state.page, state.sortType)
+						.then(setData)
+						.catch((error) => console.error("Error fetching data:", error));
+				} else {
+					const urlParams = new URLSearchParams(window.location.search);
+					const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
+					const page = parseInt(urlParams.get("page")) || 1;
+					const sortField = urlParams.get("sortField") || "default";
+
+					changeSearchStore(search);
+					changePageNumStore(page);
+					changeSortStore(sortField);
+					// Fetches here ensure history stack works
+					fetchBrowse(search, page, sortField)
+						.then(setData)
+						.catch((error) => console.error("Error fetching data:", error));
+				}
+			};
+
+			window.addEventListener("popstate", handleNavigation);
+			handleNavigation({ state: null });
+
+			return () => {
+				window.removeEventListener("popstate", handleNavigation);
+				resetSort();
+				resetPage();
+				resetSearch();
+			};
 		}
-
-		const handleNavigation = (event) => {
-			const state = event?.state;
-			if (state) {
-				changeSearchStore(state.search);
-				changePageNumStore(state.page);
-				changeSortStore(state.sortType);
-				// Fetches here ensure history stack works
-				fetchBrowse(state.search, state.page, state.sortType)
-					.then(setData)
-					.catch((error) => console.error("Error fetching data:", error));
-			} else {
-				const urlParams = new URLSearchParams(window.location.search);
-				const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
-				const page = parseInt(urlParams.get("page")) || 1;
-				const sortField = urlParams.get("sortField") || "default";
-
-				changeSearchStore(search);
-				changePageNumStore(page);
-				changeSortStore(sortField);
-				// Fetches here ensure history stack works
-				fetchBrowse(search, page, sortField)
-					.then(setData)
-					.catch((error) => console.error("Error fetching data:", error));
-			}
-		};
-
-		window.addEventListener("popstate", handleNavigation);
-
-		// Initial load - read from url
-		handleNavigation({ state: null });
-
-		return () => {
-			window.removeEventListener("popstate", handleNavigation);
-			resetSort();
-			resetPage();
-			resetSearch();
-		};
 	}, []);
 
 	useEffect(() => {
