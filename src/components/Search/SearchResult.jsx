@@ -39,16 +39,13 @@ const SearchResult = memo(function SearchResult(props) {
 		// Check if we're on the home page
 		const currentPath = window.location.pathname;
 		if (currentPath === "/") {
-			// Save search parameters before redirecting
-			sessionStorage.setItem("searchField", subject);
-			sessionStorage.setItem("pageNum", "1");
-			sessionStorage.setItem("sortField", "default");
-			
-			window.location.href = `/search`;
+			// Just redirect, no need for sessionStorage
+			window.location.href = `/search?q=${encodeURIComponent(subject)}&page=1&sortField=default&sortDir=asc`;
 			return;
 		}
 		
-		const newUrl = `/search?q=${subject}&page=1&sortField=default&sortDir=asc`;
+		// Already on search page - update URL and trigger popstate
+		const newUrl = `/search?q=${encodeURIComponent(subject)}&page=1&sortField=default&sortDir=asc`;
 		window.history.pushState(
 			{ search: subject, page: 1, sortType: "default" },
 			"",

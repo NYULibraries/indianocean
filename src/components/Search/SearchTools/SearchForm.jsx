@@ -23,22 +23,26 @@ function SearchForm() {
 		// Check current route
 		const currentPath = window.location.pathname;
 
-		// Redirect if on home, book, or map pages
-		if (currentPath === "/" || currentPath.includes("/book/") || currentPath.includes("/map/")) {
-			// Save search parameters to sessionStorage before redirecting
-			sessionStorage.setItem("searchField", searchQuery);
-			sessionStorage.setItem("pageNum", "1");
-			sessionStorage.setItem("sortField", "default");
+		// Create the state object that will be used for both redirect and pushState
+		const newState = {
+			search: searchQuery,
+			page: 1,
+			sortType: "default"
+		};
 
-			window.location.href = `/search`;
+		// Create the new URL
+		const newUrl = `/search?q=${encodeURIComponent(searchQuery)}`;
+
+		if (currentPath === "/" || currentPath.includes("/book/") || currentPath.includes("/map/")) {
+			window.location.href = newUrl;
 			return;
 		}
 
-		const newUrl = `/search?q=${encodeURIComponent(searchQuery)}`;
-		window.history.pushState({ search: searchQuery, page: 1, sortType: "default" }, "", newUrl);
+		// For the search page itself, use pushState
+		window.history.pushState(newState, "", newUrl);
 		window.dispatchEvent(
 			new PopStateEvent("popstate", {
-				state: { search: searchQuery, page: 1, sortType: "default" }
+				state: newState
 			})
 		);
 	};
