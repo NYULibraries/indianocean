@@ -46,13 +46,14 @@ function SearchBody() {
 				(urlParams.get("sortDir") === "asc" || !urlParams.get("sortDir"));
 
 			if (!window.location.search || isDefaultQuery) {
-				resetSearch(); // sets search to "*:*"
-				resetPage(); // sets page to 1
-				resetSort(); // sets sort to "default" and sortedBySubject to true
-				console.log("a");
+				// reset to default query
+				resetSearch(); 
+				resetPage(); 
+				resetSort(); 
 				return;
 			}
 
+			// If there is a query then 
 			if (state) {
 				changeSearchStore(state.search);
 				changePageNumStore(state.page);

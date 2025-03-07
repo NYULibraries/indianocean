@@ -51,8 +51,12 @@ function SearchForm() {
 	};
 
 	useEffect(() => {
-		if (inputRef.current && $searchField != "*:*" && $searchField) {
-			inputRef.current.value = $searchField;
+		if (inputRef.current && $searchField) {
+			if ($searchField == "*:*") {
+				inputRef.current.value = "";
+			} else {
+				inputRef.current.value = $searchField;
+			}
 		}
 	}, [$searchField]);
 
