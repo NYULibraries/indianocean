@@ -34,64 +34,80 @@ function SearchBody() {
 	};
 
 	useEffect(() => {
-		// Check for saved search parameters
-		const savedSearch = sessionStorage.getItem("searchField");
-		const savedPage = sessionStorage.getItem("pageNum");
-		const savedSort = sessionStorage.getItem("sortField");
+		const handleNavigation = (event) => {
+			const state = event?.state;
 
+			// Check if we're at search root (no query params) or default query
+			const urlParams = new URLSearchParams(window.location.search);
+			const isDefaultQuery =
+				urlParams.get("q") === "*:*" &&
+				(urlParams.get("page") === "1" || !urlParams.get("page")) &&
+				(urlParams.get("sortField") === "default" || !urlParams.get("sortField")) &&
+				(urlParams.get("sortDir") === "asc" || !urlParams.get("sortDir"));
+
+			if (!window.location.search || isDefaultQuery) {
+				resetSearch(); // sets search to "*:*"
+				resetPage(); // sets page to 1
+				resetSort(); // sets sort to "default" and sortedBySubject to true
+				console.log("a");
+				return;
+			}
+
+			if (state) {
+				changeSearchStore(state.search);
+				changePageNumStore(state.page);
+				changeSortStore(state.sortType);
+				fetchBrowse(state.search, state.page, state.sortType)
+					.then(setData)
+					.catch((error) => console.error("Error fetching data:", error));
+			} else {
+				const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
+				const page = parseInt(urlParams.get("page")) || 1;
+				const sortField = urlParams.get("sortField") || "default";
+
+				changeSearchStore(search);
+				changePageNumStore(page);
+				changeSortStore(sortField);
+				fetchBrowse(search, page, sortField)
+					.then(setData)
+					.catch((error) => console.error("Error fetching data:", error));
+			}
+		};
+
+		// Always set up the popstate listener first
+		window.addEventListener("popstate", handleNavigation);
+
+		// Check for session storage
+		const savedSearch = sessionStorage.getItem("searchField");
 		if (savedSearch) {
+			// Handle initial load with session storage
+			const savedPage = sessionStorage.getItem("pageNum");
+			const savedSort = sessionStorage.getItem("sortField");
+
 			changeSearchStore(savedSearch);
 			changePageNumStore(parseInt(savedPage) || 1);
 			changeSortStore(savedSort || "default");
 
-			// Fetch first, then clear
 			fetchBrowse(savedSearch, parseInt(savedPage) || 1, savedSort || "default")
-				.then(data => {
+				.then((data) => {
 					setData(data);
-					// Only clear after successful fetch
+					// Clear session storage after successful fetch
 					sessionStorage.removeItem("searchField");
 					sessionStorage.removeItem("pageNum");
 					sessionStorage.removeItem("sortField");
 				})
 				.catch((error) => console.error("Error fetching data:", error));
 		} else {
-			// Handle URL-based navigation as fallback
-			const handleNavigation = (event) => {
-				const state = event?.state;
-				if (state) {
-					changeSearchStore(state.search);
-					changePageNumStore(state.page);
-					changeSortStore(state.sortType);
-					// Fetches here ensure history stack works
-					fetchBrowse(state.search, state.page, state.sortType)
-						.then(setData)
-						.catch((error) => console.error("Error fetching data:", error));
-				} else {
-					const urlParams = new URLSearchParams(window.location.search);
-					const search = urlParams.has("q") ? decodeURIComponent(urlParams.get("q")) : "*:*";
-					const page = parseInt(urlParams.get("page")) || 1;
-					const sortField = urlParams.get("sortField") || "default";
-
-					changeSearchStore(search);
-					changePageNumStore(page);
-					changeSortStore(sortField);
-					// Fetches here ensure history stack works
-					fetchBrowse(search, page, sortField)
-						.then(setData)
-						.catch((error) => console.error("Error fetching data:", error));
-				}
-			};
-
-			window.addEventListener("popstate", handleNavigation);
+			// Handle initial load without session storage
 			handleNavigation({ state: null });
-
-			return () => {
-				window.removeEventListener("popstate", handleNavigation);
-				resetSort();
-				resetPage();
-				resetSearch();
-			};
 		}
+
+		return () => {
+			window.removeEventListener("popstate", handleNavigation);
+			resetSort();
+			resetPage();
+			resetSearch();
+		};
 	}, []);
 
 	useEffect(() => {

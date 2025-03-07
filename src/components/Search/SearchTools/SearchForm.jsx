@@ -34,6 +34,9 @@ function SearchForm() {
 		const newUrl = `/search?q=${encodeURIComponent(searchQuery)}`;
 
 		if (currentPath === "/" || currentPath.includes("/book/") || currentPath.includes("/map/")) {
+			sessionStorage.setItem("searchField", searchQuery);
+			sessionStorage.setItem("pageNum", "1");
+			sessionStorage.setItem("sortField", "default");
 			window.location.href = newUrl;
 			return;
 		}

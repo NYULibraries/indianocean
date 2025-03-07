@@ -31,6 +31,13 @@ function HomeBody() {
 	};
 
 	useEffect(() => {
+		// Clear session storage when on home page
+		if (window.location.pathname === '/') {
+			sessionStorage.removeItem("searchField");
+			sessionStorage.removeItem("pageNum");
+			sessionStorage.removeItem("sortField");
+		}
+
 		initialFetch();
 	}, []);
 
