@@ -110,7 +110,10 @@ const SearchResult = memo(function SearchResult(props) {
 				<div className="md_subjects">
 					<span className="md_label">Subjects:</span>
 					{document.sm_subject_label?.map((subject, key) => {
-						const isSelected = subject.toLowerCase() === $searchField.toLowerCase();
+						// Only check isSelected on search page
+						const isSelected = window.location.pathname === '/search' 
+							? subject.toLowerCase() === $searchField.toLowerCase()
+							: false;
 						
 						return isSelected ? (
 							<a key={`subject-${key}`} className="md_subject" aria-disabled="true">

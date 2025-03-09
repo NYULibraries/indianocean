@@ -51,8 +51,9 @@ function SearchForm() {
 	};
 
 	useEffect(() => {
-		if (inputRef.current && $searchField) {
-			if ($searchField == "*:*") {
+		// Only update input value on search page
+		if (window.location.pathname === "/search" && inputRef.current && $searchField) {
+			if ($searchField === "*:*") {
 				inputRef.current.value = "";
 			} else {
 				inputRef.current.value = $searchField;
@@ -66,7 +67,7 @@ function SearchForm() {
 				id="q"
 				name="q"
 				type="text"
-				defaultValue={$searchField == "*:*" ? "" : $searchField}
+				defaultValue={window.location.pathname === "/search" ? ($searchField === "*:*" ? "" : $searchField) : ""}
 				placeholder={placeholder}
 				title={title}
 				aria-label={label}
