@@ -1,0 +1,20 @@
+---
+import "../assets/scss/globals.scss";
+import Header from "../components/Header/Header.astro";
+import Meta from "../components/Header/Meta.astro";
+import { metatags } from "../utils/Constants/metatags";
+
+const title = metatags.mapTitle;
+const description = metatags.poweredDesc;
+---
+
+<html lang="en" dir="ltr">
+	<Meta title={title} description={description} />
+	<body class="book">
+		<Header />
+		<slot />
+		<style lang="scss" is:global>
+			@import "../assets/scss/globals.scss";
+		</style>
+	</body></html
+>

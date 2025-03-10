@@ -1,0 +1,7 @@
+---
+const { id, url, label } = Astro.props;
+---
+
+<div class={`partner-${id}`}>
+	<a href={url} title={label} target="_blank">{label}</a>
+</div>
