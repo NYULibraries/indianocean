@@ -4,7 +4,7 @@ import Header from "../components/Header/Header.astro";
 import Meta from "../components/Header/Meta.astro";
 import { metatags } from "../utils/Constants/metatags";
 
-const title = metatags.mapTitle;
+const { title } = Astro.props;
 const description = metatags.poweredDesc;
 ---
 
@@ -13,8 +13,5 @@ const description = metatags.poweredDesc;
 	<body class="book">
 		<Header />
 		<slot />
-		<style lang="scss" is:global>
-			@import "../assets/scss/globals.scss";
-		</style>
 	</body></html
 >

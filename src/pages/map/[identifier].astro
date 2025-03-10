@@ -29,9 +29,9 @@ export async function getStaticPaths() {
 
 const { identifier } = Astro.params;
 
-const pageDescription = "maps";
-
 const { title } = Astro.props;
+
+const pageDescription = "maps";
 
 const viewer = env.PUBLIC_VIEWERURL;
 ---
