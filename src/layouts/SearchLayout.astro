@@ -5,7 +5,7 @@ import Meta from "../components/Header/Meta.astro";
 import { metatags } from "../utils/Constants/metatags";
 import Header from "../components/Header/Header.astro";
 
-const title = metatags.pageTitle;
+const title = metatags.searchTitle;
 const description = metatags.poweredDesc;
 ---
 
@@ -19,8 +19,5 @@ const description = metatags.poweredDesc;
 			<slot />
 		</main>
 		<Footer />
-		<style lang="scss" is:global>
-			@import "../assets/scss/globals.scss";
-		</style>
 	</body></html
 >

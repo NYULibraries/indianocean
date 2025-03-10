@@ -1,6 +1,6 @@
 ---
 layout: ../layouts/MarkdownLayout.astro
-title: About
+title: Indian Ocean Digital Collection - About
 ---
 
 ### Why the Indian Ocean?
