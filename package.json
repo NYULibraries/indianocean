@@ -16,7 +16,7 @@
 		"lint": "npx eslint .",
 		"fixlint": "npx eslint . --fix",
 		"format": "prettier --check 'src/**/**.{js,jsx,css}'",
-		"prepare": "husky init"
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^2.1.1",
@@ -61,5 +61,6 @@
 	},
 	"lint-staged": {
 		"*.js": "eslint --cache --fix"
-	}
+	},
+	"type": "module"
 }
