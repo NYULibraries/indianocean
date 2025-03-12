@@ -1,6 +1,6 @@
 ---
 layout: ../layouts/MarkdownLayout.astro
-title: About
+title: Indian Ocean Digital Collection - About
 ---
 
 ### Why the Indian Ocean?
@@ -45,3 +45,5 @@ Our primary audience will be NYU scholars who may need access to the Indian Ocea
 -   Joseph Pawletko
 -   Ekaterina Pechekhonova
 -   Rasan Rasch
+-   Derrick Xu
+-   Damon Chu
