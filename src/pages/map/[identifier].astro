@@ -29,13 +29,13 @@ export async function getStaticPaths() {
 
 const { identifier } = Astro.params;
 
-const pageDescription = "maps";
-
 const { title } = Astro.props;
+
+const pageDescription = "maps";
 
 const viewer = env.PUBLIC_VIEWERURL;
 ---
 
 <MapLayout title={title} description={pageDescription}>
-	<Map viewer={viewer} title={title} identifier={identifier} client:only />
+	<Map viewer={viewer} title={title} identifier={identifier} client:only="react" />
 </MapLayout>

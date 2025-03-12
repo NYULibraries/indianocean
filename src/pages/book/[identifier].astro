@@ -29,13 +29,13 @@ export async function getStaticPaths() {
 
 const { identifier } = Astro.params;
 
-const pageDescription = "books";
-
 const { title } = Astro.props;
+
+const pageDescription = "books";
 
 const viewer = env.PUBLIC_VIEWERURL;
 ---
 
 <BookLayout title={title} description={pageDescription}>
-	<Book viewer={viewer} title={title} identifier={identifier} client:only />
+	<Book viewer={viewer} title={title} identifier={identifier} client:only="react" />
 </BookLayout>

@@ -28,3 +28,8 @@ yarn-error.log*
 .eslintcache
 
 notes.md
+
+# Cypress
+cypress/screenshots/*
+cypress/videos/
+cypress/downloads/
