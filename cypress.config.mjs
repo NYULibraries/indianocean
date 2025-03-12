@@ -1,9 +1,10 @@
 import { defineConfig } from "cypress";
 
-module.exports = defineConfig({
+export default defineConfig({
 	e2e: {
 		baseUrl: "http://localhost:3000",
-		testIsolation: false
+		testIsolation: false,
+		supportFile: false
 	},
 
 	component: {
