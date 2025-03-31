@@ -13,10 +13,12 @@
 		"build": "astro build",
 		"preview": "npx astro preview",
 		"cyptest": "cypress open",
+		"cyptest-run": "cypress run",
+		"test": "start-server-and-test 'npm run dev' http://localhost:3000 'cypress run'",
 		"lint": "npx eslint .",
 		"fixlint": "npx eslint . --fix",
 		"format": "prettier --check 'src/**/**.{js,jsx,css}'",
-		"prepare": "husky init"
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^2.1.1",
@@ -43,6 +45,7 @@
 		"prettier": "^3.2.5",
 		"prettier-plugin-astro": "^0.14.0",
 		"sass": "^1.49.9",
+		"start-server-and-test": "^2.0.10",
 		"svgo": "^2.8.0",
 		"typescript": "^5.6.3"
 	},
@@ -61,5 +64,6 @@
 	},
 	"lint-staged": {
 		"*.js": "eslint --cache --fix"
-	}
+	},
+	"type": "module"
 }

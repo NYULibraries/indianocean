@@ -37,5 +37,5 @@ const viewer = env.PUBLIC_VIEWERURL;
 ---
 
 <BookLayout title={title} description={pageDescription}>
-	<Book viewer={viewer} title={title} identifier={identifier} client:only />
+	<Book viewer={viewer} title={title} identifier={identifier} client:only="react" />
 </BookLayout>
