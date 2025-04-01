@@ -25,7 +25,7 @@ describe("Navigation checks", () => {
 		it("Should visit search page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", search);
+			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 
@@ -43,7 +43,7 @@ describe("Navigation checks", () => {
 		it("Should visit search page and check url", () => {
 			cy.get(".footer-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", search);
+			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 
@@ -80,7 +80,7 @@ describe("Navigation checks", () => {
 		it("Should visit search page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", search);
+			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 });
