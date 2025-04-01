@@ -45,3 +45,5 @@ Our primary audience will be NYU scholars who may need access to the Indian Ocea
 -   Joseph Pawletko
 -   Ekaterina Pechekhonova
 -   Rasan Rasch
+-   Derrick Xu
+-   Damon Chu
