@@ -1,4 +1,6 @@
+const baseUrl = Cypress.config("baseUrl");
+
 export const waitTime = 1500;
-export const home = "http://localhost:3000/";
-export const about = "http://localhost:3000/about";
-export const search = "http://localhost:3000/search";
+export const homeURL = `${baseUrl}/`;
+export const aboutURL = `${baseUrl}/about`;
+export const searchURL = `${baseUrl}/search`;

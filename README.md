@@ -43,6 +43,8 @@ npm run dev
 
 Indian Ocean uses Cypress v13.6 which utilizes both e2e and component tests. 
 
+Ensure local server is running at specified base url in cypress.config when running npm run dev before running any test commands.
+
 ### To visualize without Cypress GUI run
 
 #### To run all tests

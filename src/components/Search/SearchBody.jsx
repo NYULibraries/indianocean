@@ -27,6 +27,7 @@ function SearchBody() {
 	const fetchData = async () => {
 		try {
 			const data = await fetchBrowse($searchField, $pageNumField, $sortField);
+			console.log(data)
 			setData(data);
 		} catch (error) {
 			console.error("Error fetching data:", error);

@@ -1,4 +1,4 @@
-import { waitTime, home, about, search } from "../support/constants";
+import { waitTime, homeURL, aboutURL, searchURL } from "../support/constants";
 
 describe("Navigation checks", () => {
 	describe("initialize", () => {
@@ -15,17 +15,17 @@ describe("Navigation checks", () => {
 		it("Should visit home page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(0).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", home);
+			cy.url({ timeout: 1000 }).should("eq", homeURL);
 		});
 		it("Should visit about page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(1).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", about);
+			cy.url({ timeout: 1000 }).should("eq", aboutURL);
 		});
 		it("Should visit search page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
+			cy.url({ timeout: 1000 }).should("eq", `${searchURL}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 
@@ -33,17 +33,17 @@ describe("Navigation checks", () => {
 		it("Should visit home page and check url", () => {
 			cy.get(".footer-nav").find("li").eq(0).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", home);
+			cy.url({ timeout: 1000 }).should("eq", homeURL);
 		});
 		it("Should visit about page and check url", () => {
 			cy.get(".footer-nav").find("li").eq(1).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", about);
+			cy.url({ timeout: 1000 }).should("eq", aboutURL);
 		});
 		it("Should visit search page and check url", () => {
 			cy.get(".footer-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
+			cy.url({ timeout: 1000 }).should("eq", `${searchURL}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 
@@ -58,7 +58,7 @@ describe("Navigation checks", () => {
 		it("Should visit home page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(0).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", home);
+			cy.url({ timeout: 1000 }).should("eq", homeURL);
 		});
 		it("Should reset mobile viewport", () => {
 			cy.viewport(767, 600);
@@ -69,7 +69,7 @@ describe("Navigation checks", () => {
 		it("Should visit about page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(1).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", about);
+			cy.url({ timeout: 1000 }).should("eq", aboutURL);
 		});
 		it("Should reset mobile viewport", () => {
 			cy.viewport(767, 600);
@@ -80,7 +80,7 @@ describe("Navigation checks", () => {
 		it("Should visit search page and check url", () => {
 			cy.get(".navbar-nav").find("li").eq(2).click();
 			cy.wait(waitTime);
-			cy.url({ timeout: 1000 }).should("eq", `${search}?q=*:*&page=1&sortField=default&sortDir=asc`);
+			cy.url({ timeout: 1000 }).should("eq", `${searchURL}?q=*:*&page=1&sortField=default&sortDir=asc`);
 		});
 	});
 });

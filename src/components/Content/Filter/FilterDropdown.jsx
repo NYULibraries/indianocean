@@ -40,7 +40,7 @@ const FilterDropdown = () => {
 					Sort by Author
 				</option>
 				{!$sortedBySubject && (
-					<option data-sort-dir="asc" value="ss_ssubject">
+					<option data-sort-dir="asc" value="ss_subject">
 						Sort by Subject
 					</option>
 				)}
