@@ -72,7 +72,7 @@ describe("Search page visit", () => {
 		// 		});
 		// });
 		it("Should check items after being sorted by place", () => {
-			cy.get("#browse-select").select(4);
+			cy.get("#browse-select").select(3);
 			cy.url().should("include", `${searchURL}?q=*:*&page=1&sortField=ss_publocation&sortDir=asc`);
 			cy.wait(waitTime);
 			let pubs = [];
