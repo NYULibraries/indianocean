@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
@@ -36,6 +37,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
@@ -52,8 +54,9 @@ jobs:
 
       - name: Debug Environment and Secrets
         run: |
-          echo "Current environment: ${{ github.event.environment }}"
-          echo "Environment name: ${{ env.ENVIRONMENT_NAME }}"
+          echo "Current environment: ${{ github.event.environment || 'Not set' }}"
+          echo "Environment name from job: ${{ env.ENVIRONMENT_NAME || 'Not set' }}"
+          echo "GitHub ref: ${{ github.ref }}"
           if [ -n "${{ secrets.AWS_S3 }}" ]; then
             echo "AWS_S3 secret is set"
           else
