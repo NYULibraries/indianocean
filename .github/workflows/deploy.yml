@@ -28,7 +28,8 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/stage' && 'stage' ||  github.ref == 'refs/heads/develop' && 'stage' }}
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/develop'
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'stage' }}
 
     steps:
       - uses: actions/checkout@v3
