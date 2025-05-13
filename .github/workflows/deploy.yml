@@ -28,8 +28,16 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/develop'
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'stage' }}
+    strategy:
+      matrix:
+        include:
+          - branch: main
+            environment: production
+          - branch: stage
+            environment: stage
+          - branch: develop
+            environment: stage
+    environment: ${{ matrix.environment }}
 
     steps:
       - uses: actions/checkout@v3
@@ -55,9 +63,15 @@ jobs:
 
       - name: Debug Environment and Secrets
         run: |
-          echo "Current environment: ${{ github.event.environment || 'Not set' }}"
-          echo "Environment name from job: ${{ env.ENVIRONMENT_NAME || 'Not set' }}"
-          echo "GitHub ref: ${{ github.ref }}"
+          echo "=== Debug Information ==="
+          echo "GitHub Ref: ${{ github.ref }}"
+          echo "Matrix Branch: ${{ matrix.branch }}"
+          echo "Matrix Environment: ${{ matrix.environment }}"
+          echo "Job Environment: ${{ env.ENVIRONMENT_NAME }}"
+          echo "GitHub Event Environment: ${{ github.event.environment }}"
+          echo "GitHub Event Name: ${{ github.event_name }}"
+          echo "GitHub Event Action: ${{ github.event.action }}"
+          echo "=== Secrets Check ==="
           if [ -n "${{ secrets.AWS_S3 }}" ]; then
             echo "AWS_S3 secret is set"
           else
