@@ -58,21 +58,21 @@ describe("Search page visit", () => {
 					expect(alphabeticalOrder).to.be.true;
 				});
 		});
-		it("Should check items after being sorted by subject", () => {
-			cy.get("#browse-select").select(3);
-			cy.url().should("include", `${searchURL}?q=*:*&page=1&sortField=ss_ssubject&sortDir=asc`);
-			cy.wait(waitTime);
-			let subjects = [];
-			cy.get(".flex-container")
-				.find("a.md_subject")
-				.each(($subject) => {
-					subjects.push($subject.text());
-					const alphabeticalOrder = isSortedAlphabetically(subjects);
-					expect(alphabeticalOrder).to.be.true;
-				});
-		});
+		// it("Should check items after being sorted by subject", () => {
+		// 	cy.get("#browse-select").select(3);
+		// 	cy.url().should("include", `${searchURL}?q=*:*&page=1&sortField=ss_ssubject&sortDir=asc`);
+		// 	cy.wait(waitTime);
+		// 	let subjects = [];
+		// 	cy.get(".flex-container")
+		// 		.find("a.md_subject")
+		// 		.each(($subject) => {
+		// 			subjects.push($subject.text());
+		// 			const alphabeticalOrder = isSortedAlphabetically(subjects);
+		// 			expect(alphabeticalOrder).to.be.true;
+		// 		});
+		// });
 		it("Should check items after being sorted by place", () => {
-			cy.get("#browse-select").select(4);
+			cy.get("#browse-select").select(3);
 			cy.url().should("include", `${searchURL}?q=*:*&page=1&sortField=ss_publocation&sortDir=asc`);
 			cy.wait(waitTime);
 			let pubs = [];
