@@ -50,6 +50,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Debug Environment and Secrets
+        run: |
+          echo "Current environment: ${{ github.event.environment }}"
+          echo "Environment name: ${{ env.ENVIRONMENT_NAME }}"
+          if [ -n "${{ secrets.AWS_S3 }}" ]; then
+            echo "AWS_S3 secret is set"
+          else
+            echo "AWS_S3 secret is empty"
+          fi
+          echo "Available secrets:"
+          env | grep -i secret
+
       - name: Deploy to S3 and Invalidate CloudFront
         run: |
           aws s3 sync dist/ s3://${{ secrets.AWS_S3 }} --delete
