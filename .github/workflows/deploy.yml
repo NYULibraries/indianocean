@@ -28,16 +28,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            environment: production
-          - branch: stage
-            environment: stage
-          - branch: develop
-            environment: stage
-    environment: ${{ matrix.environment }}
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'stage' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -65,8 +56,7 @@ jobs:
         run: |
           echo "=== Debug Information ==="
           echo "GitHub Ref: ${{ github.ref }}"
-          echo "Matrix Branch: ${{ matrix.branch }}"
-          echo "Matrix Environment: ${{ matrix.environment }}"
+          echo "Current Environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'stage' }}"
           echo "Job Environment: ${{ env.ENVIRONMENT_NAME }}"
           echo "GitHub Event Environment: ${{ github.event.environment }}"
           echo "GitHub Event Name: ${{ github.event_name }}"
