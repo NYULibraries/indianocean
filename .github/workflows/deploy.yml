@@ -70,7 +70,19 @@ jobs:
           echo "Available secrets:"
           env | grep -i secret
 
-      - name: Deploy to S3 and Invalidate CloudFront
+      - name: Debug S3 Bucket
+        env:
+          S3_BUCKET: ${{ secrets.AWS_S3 }}
         run: |
-          aws s3 sync dist/ s3://${{ secrets.AWS_S3 }} --delete
+          if [[ $S3_BUCKET =~ ^[a-zA-Z0-9.\-_]{1,255}$ ]]; then
+            echo "S3 bucket name is valid"
+          else
+            echo "S3 bucket name is invalid"
+          fi
+
+      - name: Deploy to S3 and Invalidate CloudFront
+        env:
+          S3_BUCKET: ${{ secrets.AWS_S3 }}
+        run: |
+          aws s3 sync dist/ s3://${S3_BUCKET} --delete
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT }} --paths "/*"
