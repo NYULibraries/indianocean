@@ -1,12 +1,12 @@
-import { atom } from "nanostores";
+import { atom } from 'nanostores';
 
 // Get initial state from URL on page load/refresh
 function getInitialSearch() {
 	try {
 		const url = new URL(window.location.href);
-		return url.searchParams.get("q") || "*:*";
+		return url.searchParams.get('q') || '*:*';
 	} catch {
-		return "*:*";
+		return '*:*';
 	}
 }
 
@@ -17,5 +17,5 @@ export function changeSearchStore(type) {
 }
 
 export function resetSearch() {
-	search.set("*:*");
+	search.set('*:*');
 }

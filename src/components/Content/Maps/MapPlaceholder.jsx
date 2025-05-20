@@ -1,21 +1,22 @@
-import { Spin } from "antd";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Spin } from 'antd';
+import PropTypes from 'prop-types';
 
 const MapPlaceholder = (props) => {
 	const { height } = props;
 	return (
 		<div
-			className="mapPlaceholder"
+			className='mapPlaceholder'
 			style={{
 				height: `${height}px`
 			}}
 		>
 			<Spin
-				size="large"
+				size='large'
 				style={{
-					position: "relative",
-					marginTop: "0%",
-					marginLeft: "0%"
+					position: 'relative',
+					marginTop: '0%',
+					marginLeft: '0%'
 				}}
 			/>
 		</div>

@@ -1,7 +1,7 @@
 {
 	"name": "indianocean",
 	"description": "The NYU Indian Ocean Collection for scholars who may need access to the Indian Ocean materials.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "New York University - Digital Library Technology Services",
 	"homepage": "https://dlib.nyu.edu/indianocean/",
 	"engines": {
@@ -43,7 +43,7 @@
 		"husky": ">=6",
 		"lint-staged": ">=10",
 		"prettier": "^3.2.5",
-		"prettier-plugin-astro": "^0.14.0",
+		"prettier-plugin-astro": "^0.14.1",
 		"sass": "^1.49.9",
 		"start-server-and-test": "^2.0.10",
 		"svgo": "^2.8.0",
@@ -63,7 +63,10 @@
 		"react-router-dom": "^6.23.1"
 	},
 	"lint-staged": {
-		"*.js": "eslint --cache --fix"
+		"*.{js,jsx,ts,tsx,astro}": [
+			"npm run lint",
+			"npm run format"
+		]
 	},
 	"type": "module"
 }

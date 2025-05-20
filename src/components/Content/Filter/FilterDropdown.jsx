@@ -1,7 +1,7 @@
-import { changeSortStore, sort, sortedBySubject } from "../../../stores/sortField";
-import { useStore } from "@nanostores/react";
-import { changePageNumStore } from "../../../stores/pageNum";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
+import { changeSortStore, sort, sortedBySubject } from '../../../stores/sortField';
+import { useStore } from '@nanostores/react';
+import { changePageNumStore } from '../../../stores/pageNum';
 
 const FilterDropdown = () => {
 	const $sortField = useStore(sort);
@@ -20,26 +20,26 @@ const FilterDropdown = () => {
 	}, [$sortField]);
 
 	return (
-		<div className="filters">
+		<div className='filters'>
 			<select
-				id="browse-select"
-				aria-label="Search Sort Results"
+				id='browse-select'
+				aria-label='Search Sort Results'
 				defaultValue={$sortField}
 				onChange={(e) => {
 					return changeSortType(e.target.value);
 				}}
 				ref={selectRef}
 			>
-				<option data-sort-dir="asc" value="default">
+				<option data-sort-dir='asc' value='default'>
 					Sort by Relevance
 				</option>
-				<option data-sort-dir="asc" value="ss_longlabel">
+				<option data-sort-dir='asc' value='ss_longlabel'>
 					Sort by Title
 				</option>
-				<option data-sort-dir="asc" value="ss_sauthor">
+				<option data-sort-dir='asc' value='ss_sauthor'>
 					Sort by Author
 				</option>
-				<option data-sort-dir="asc" value="ss_publocation">
+				<option data-sort-dir='asc' value='ss_publocation'>
 					Sort by Place
 				</option>
 			</select>

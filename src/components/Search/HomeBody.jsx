@@ -1,10 +1,10 @@
-import { useState, useEffect, Suspense } from "react";
-import { ConfigProvider } from "antd";
-import SearchResult from "./SearchResult";
-import Unfound from "../Unfound";
-import theme from "../Styles/themeConfig";
-import { fetchIndex } from "../../utils/getDocuments";
-import { metatags } from "../../utils/Constants/metatags";
+import React, { useState, useEffect, Suspense } from 'react';
+import { ConfigProvider } from 'antd';
+import SearchResult from './SearchResult';
+import Unfound from '../Unfound';
+import theme from '../Styles/themeConfig';
+import { fetchIndex } from '../../utils/getDocuments';
+import { metatags } from '../../utils/Constants/metatags';
 
 function HomeBody() {
 	const [data, setData] = useState([{}]);
@@ -15,8 +15,8 @@ function HomeBody() {
 			if (cachedData) {
 				const parsed = JSON.parse(cachedData);
 				setData(parsed.data);
-				
-				// one hour cache
+
+				// One hour cache
 				if (Date.now() - parsed.timestamp > 3600000) {
 					const freshData = await fetchIndex();
 					setData(freshData);
@@ -26,16 +26,16 @@ function HomeBody() {
 				setData(freshData);
 			}
 		} catch (error) {
-			console.error("Error fetching data:", error);
+			console.error('Error fetching data:', error);
 		}
 	};
 
 	useEffect(() => {
 		// Clear session storage when on home page
 		if (window.location.pathname === '/') {
-			sessionStorage.removeItem("searchField");
-			sessionStorage.removeItem("pageNum");
-			sessionStorage.removeItem("sortField");
+			sessionStorage.removeItem('searchField');
+			sessionStorage.removeItem('pageNum');
+			sessionStorage.removeItem('sortField');
 		}
 
 		initialFetch();
@@ -46,15 +46,15 @@ function HomeBody() {
 			<ConfigProvider theme={theme}>
 				<>
 					<header>
-						<h2 className="page-title">{metatags.pageTitle}</h2>
+						<h2 className='page-title'>{metatags.pageTitle}</h2>
 					</header>
 					<br />
-					<div className="item-list flex-container">
+					<div className='item-list flex-container'>
 						{data?.response?.docs.map((document) => {
 							return <SearchResult data={document} key={document.entity_id} />;
 						})}
-						<article className="item"></article>
-						<article className="item"></article>
+						<article className='item'></article>
+						<article className='item'></article>
 					</div>
 				</>
 			</ConfigProvider>

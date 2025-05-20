@@ -1,15 +1,15 @@
 ---
-import { nav } from "../../../utils/Constants/nav";
-import Logo from "../../Assets/Logo.astro";
-import FooterPartnerItems from "./FooterPartnerItems.astro";
+import { nav } from '../../../utils/Constants/nav';
+import Logo from '../../Assets/Logo.astro';
+import FooterPartnerItems from './FooterPartnerItems.astro';
 
 const FooterLogo = nav.img;
 const partners = nav.partners;
 ---
 
-<footer class="footer-main container-fluid" role="contentinfo">
+<footer class='footer-main container-fluid' role='contentinfo'>
 	<Logo href={FooterLogo.href} src={FooterLogo.src} alt={FooterLogo.alt} />
-	<div class="partner-wrapper">
+	<div class='partner-wrapper'>
 		{
 			partners.map((item) => {
 				return <FooterPartnerItems id={item.id} url={item.url} label={item.label} />;
