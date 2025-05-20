@@ -1,16 +1,17 @@
-import { ConfigProvider, Spin } from "antd";
-import theme from "../Styles/themeConfig";
+import React from 'react';
+import { ConfigProvider, Spin } from 'antd';
+import theme from '../Styles/themeConfig';
 
 const SearchPlaceholder = () => {
 	return (
 		<ConfigProvider theme={theme}>
-			<div className="searchplaceholder">
+			<div className='searchplaceholder'>
 				<Spin
-					size="large"
+					size='large'
 					style={{
-						position: "relative",
-						marginTop: "0%",
-						marginLeft: "10%"
+						position: 'relative',
+						marginTop: '0%',
+						marginLeft: '10%'
 					}}
 				/>
 			</div>

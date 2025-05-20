@@ -1,2 +1,3 @@
 /dist/
 /cypress/
+src/env.d.ts
