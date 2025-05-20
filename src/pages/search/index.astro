@@ -1,12 +1,12 @@
 ---
-import SearchLayout from "../../layouts/SearchLayout.astro";
-import SearchBody from "../../components/Search/SearchBody";
-import { metatags } from "../../utils/Constants/metatags";
+import SearchLayout from '../../layouts/SearchLayout.astro';
+import SearchBody from '../../components/Search/SearchBody';
+import { metatags } from '../../utils/Constants/metatags';
 
 const pageTitle = metatags.pageTitle;
 const pageDescription = metatags.poweredDesc;
 ---
 
 <SearchLayout title={pageTitle} description={pageDescription}>
-	<SearchBody client:only="react" />
+	<SearchBody client:only='react' />
 </SearchLayout>

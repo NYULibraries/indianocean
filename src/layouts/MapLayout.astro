@@ -1,17 +1,17 @@
 ---
-import "../assets/scss/globals.scss";
-import Header from "../components/Header/Header.astro";
-import Meta from "../components/Header/Meta.astro";
-import { metatags } from "../utils/Constants/metatags";
+import '../assets/scss/globals.scss';
+import Header from '../components/Header/Header.astro';
+import Meta from '../components/Header/Meta.astro';
+import { metatags } from '../utils/Constants/metatags';
 
 const { title } = Astro.props;
 const description = metatags.poweredDesc;
 ---
 
-<html lang="en" dir="ltr">
+<html lang='en' dir='ltr'>
 	<Meta title={title} description={description} />
-	<body class="book">
+	<body class='book'>
 		<Header />
 		<slot />
-	</body></html
->
+	</body>
+</html>
