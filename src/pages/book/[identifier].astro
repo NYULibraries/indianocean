@@ -1,14 +1,14 @@
 ---
-import BookLayout from "../../layouts/BookLayout.astro";
-import Book from "../../components/Content/Books/Book";
-import { env } from "../../utils/Constants/env";
+import BookLayout from '../../layouts/BookLayout.astro';
+import Book from '../../components/Content/Books/Book';
+import { env } from '../../utils/Constants/env';
 
 export async function getStaticPaths() {
-	const viewer = "https://sites.dlib.nyu.edu/viewer";
+	const viewer = 'https://sites.dlib.nyu.edu/viewer';
 	const start = 0;
 	const rows = 1000;
-	const collection = "io";
-	const type = "dlts_book";
+	const collection = 'io';
+	const type = 'dlts_book';
 	const data = await fetch(
 		`${viewer}/api/v1/objects?collection=${collection}&type=${type}&start=${start}&rows=${rows}`
 	).then((response) => {
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 			params: {
 				identifier: doc.identifier
 			},
-			props: { 
+			props: {
 				doc,
 				title: doc.title
 			}
@@ -31,11 +31,11 @@ const { identifier } = Astro.params;
 
 const { title } = Astro.props;
 
-const pageDescription = "books";
+const pageDescription = 'books';
 
 const viewer = env.PUBLIC_VIEWERURL;
 ---
 
 <BookLayout title={title} description={pageDescription}>
-	<Book viewer={viewer} title={title} identifier={identifier} client:only="react" />
+	<Book viewer={viewer} title={title} identifier={identifier} client:only='react' />
 </BookLayout>

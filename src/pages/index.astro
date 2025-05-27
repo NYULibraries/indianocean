@@ -1,12 +1,12 @@
 ---
-import DefaultLayout from "../layouts/DefaultLayout.astro";
-import HomeBody from  "../components/Search/HomeBody"
-import { metatags } from "../utils/Constants/metatags";
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import HomeBody from '../components/Search/HomeBody';
+import { metatags } from '../utils/Constants/metatags';
 
 const pageTitle = metatags.pageTitle;
 const pageDescription = metatags.poweredDesc;
 ---
 
 <DefaultLayout title={pageTitle} description={pageDescription}>
-	<HomeBody client:only="react" />
+	<HomeBody client:only='react' />
 </DefaultLayout>

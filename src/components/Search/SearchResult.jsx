@@ -1,14 +1,16 @@
-import { useState, memo, useCallback } from "react";
-import { getDocumentTypeByBundle } from "../../utils/getDocumentTypeByBundle";
-import { useStore } from "@nanostores/react";
-import { env } from "../../utils/Constants/env";
-import { changeSearchStore, search } from "../../stores/search";
-import SearchPlaceholder from "../Search/SearchPlaceholder";
-import PropTypes from "prop-types";
-import { changeSortStore, sort } from "../../stores/sortField";
+import React, { useState, memo, useCallback } from 'react';
+import { getDocumentTypeByBundle } from '../../utils/getDocumentTypeByBundle';
+import { useStore } from '@nanostores/react';
+import { env } from '../../utils/Constants/env';
+import { changeSearchStore, search } from '../../stores/search';
+import SearchPlaceholder from '../Search/SearchPlaceholder';
+import PropTypes from 'prop-types';
+import { changeSortStore, sort } from '../../stores/sortField';
 
 // Move static computation outside component
-const getBundleType = (bundle) => bundle.substring(0, bundle.length - 1);
+const getBundleType = (bundle) => {
+	return bundle.substring(0, bundle.length - 1);
+};
 
 const SearchResult = memo(function SearchResult(props) {
 	const document = props.data;
@@ -31,67 +33,69 @@ const SearchResult = memo(function SearchResult(props) {
 	const label = document.ss_title_long;
 
 	// Memoize subject click handler
-	const handleSubjectClick = useCallback((subject) => (e) => {
-		e.preventDefault();
-		changeSearchStore(subject);
-		changeSortStore("default");
-		
-		// Check if we're on the home page
-		const currentPath = window.location.pathname;
-		if (currentPath === "/") {
-			// Save search parameters before redirecting
-			sessionStorage.setItem("searchField", subject);
-			sessionStorage.setItem("pageNum", "1");
-			sessionStorage.setItem("sortField", "default");
-			
-			window.location.assign(`/search?q=${encodeURIComponent(subject)}`);
-			return;
-		}
-		
-		// Already on search page - update URL and trigger popstate
-		const newState = { search: subject, page: 1, sortType: "default" };
-		const newUrl = `/search?q=${encodeURIComponent(subject)}`;
-		window.history.pushState(newState, "", newUrl);
-		window.dispatchEvent(
-			new PopStateEvent("popstate", {
-				state: newState
-			})
-		);
+	const handleSubjectClick = useCallback((subject) => {
+		return (e) => {
+			e.preventDefault();
+			changeSearchStore(subject);
+			changeSortStore('default');
+
+			// Check if we're on the home page
+			const currentPath = window.location.pathname;
+			if (currentPath === '/') {
+				// Save search parameters before redirecting
+				sessionStorage.setItem('searchField', subject);
+				sessionStorage.setItem('pageNum', '1');
+				sessionStorage.setItem('sortField', 'default');
+
+				window.location.assign(`/search?q=${encodeURIComponent(subject)}`);
+				return;
+			}
+
+			// Already on search page - update URL and trigger popstate
+			const newState = { search: subject, page: 1, sortType: 'default' };
+			const newUrl = `/search?q=${encodeURIComponent(subject)}`;
+			window.history.pushState(newState, '', newUrl);
+			window.dispatchEvent(
+				new PopStateEvent('popstate', {
+					state: newState
+				})
+			);
+		};
 	}, []);
 
 	return (
-		<article className="item" key={identifier}>
-			<div className="card">
-				<div className="thumbs">
+		<article className='item' key={identifier}>
+			<div className='card'>
+				<div className='thumbs'>
 					{!isLoaded && <SearchPlaceholder />}
-					<div className={isLoaded ? "clipper" : "clipperNoshadow imagePlaceholder"}>
-						<a href={`/${type}/${identifier}`} aria-hidden="true" role="presentation" tabIndex="-1">
+					<div className={isLoaded ? 'clipper' : 'clipperNoshadow imagePlaceholder'}>
+						<a href={`/${type}/${identifier}`} aria-hidden='true' role='presentation' tabIndex='-1'>
 							<img
-								// width="150"
+								// Width="150"
 								src={`${viewerUrl}/api/image/${bundle}/${identifier}/1/full/150,175/0/default.jpg`}
-								alt=""
+								alt=''
 								title={label}
 								onLoad={imageLoad}
-								role="presentation"
+								role='presentation'
 							/>
 						</a>
 					</div>
 				</div>
-				<h1 className="md_title">
+				<h1 className='md_title'>
 					<a href={`/${type}/${identifier}`}>{label}</a>
 				</h1>
-				<div className="md_authors">
-					<span className="md_label">Author:</span>
+				<div className='md_authors'>
+					<span className='md_label'>Author:</span>
 					{document.sm_author?.map((author, key) => {
 						return (
-							<span key={`author-${key}`} className="md_author">
+							<span key={`author-${key}`} className='md_author'>
 								{author}
 							</span>
 						);
 					})}
 				</div>
-				<div className="md_publisher">
-					<span className="md_label">Publisher:</span>
+				<div className='md_publisher'>
+					<span className='md_label'>Publisher:</span>
 					{document.sm_field_publication_location?.map((location, key) => {
 						return <span key={`location-${key}`}>{location}</span>;
 					})}
@@ -101,28 +105,27 @@ const SearchResult = memo(function SearchResult(props) {
 					})}
 					, {document.ss_pubdate}
 				</div>
-				<div className="md_provider">
-					<span className="md_label">Provider:</span>
+				<div className='md_provider'>
+					<span className='md_label'>Provider:</span>
 					{document.sm_collection_partner_label?.map((collectionPartner, key) => {
 						return <span key={`partner-${key}`}>{collectionPartner}</span>;
 					})}
 				</div>
-				<div className="md_subjects">
-					<span className="md_label">Subjects:</span>
+				<div className='md_subjects'>
+					<span className='md_label'>Subjects:</span>
 					{document.sm_subject_label?.map((subject, key) => {
 						// Only check isSelected on search page
-						const isSelected = window.location.pathname === '/search' 
-							? subject.toLowerCase() === $searchField.toLowerCase()
-							: false;
-						
+						const isSelected =
+							window.location.pathname === '/search' ? subject.toLowerCase() === $searchField.toLowerCase() : false;
+
 						return isSelected ? (
-							<a key={`subject-${key}`} className="md_subject" aria-disabled="true">
-								<span className="md_subject_selected">{subject}</span>
+							<a key={`subject-${key}`} className='md_subject' aria-disabled='true'>
+								<span className='md_subject_selected'>{subject}</span>
 							</a>
 						) : (
 							<a
 								key={`subject-${key}`}
-								className="md_subject"
+								className='md_subject'
 								href={`/search?q=${subject}&page=1&sortField=${$sortField}&sortDir=asc`}
 								onClick={handleSubjectClick(subject)}
 							>

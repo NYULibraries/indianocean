@@ -1,21 +1,22 @@
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function SearchHeader(props) {
 	const { query } = props;
 
-	if (query === "*:*") {
-		return <h2 className="page-title">Browse titles</h2>;
+	if (query === '*:*') {
+		return <h2 className='page-title'>Browse titles</h2>;
 	}
 
 	return (
-		<h2 className="page-title">
-			Search Results for: <span className="s-query">{query}</span>
+		<h2 className='page-title'>
+			Search Results for: <span className='s-query'>{query}</span>
 		</h2>
 	);
 }
 
 SearchHeader.defaultProps = {
-	query: "*:*"
+	query: '*:*'
 };
 SearchHeader.propTypes = {
 	query: PropTypes.string.isRequired
