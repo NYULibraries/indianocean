@@ -65,18 +65,18 @@ function SearchForm() {
 	}, [$searchField]);
 
 	return (
-		<form onSubmit={handleSubmit} role='search'>
+		<form onSubmit={handleSubmit} role="search">
 			<input
-				id='q'
-				name='q'
-				type='text'
+				id="q"
+				name="q"
+				type="text"
 				defaultValue={window.location.pathname === '/search' ? ($searchField === '*:*' ? '' : $searchField) : ''}
 				placeholder={placeholder}
 				title={title}
 				aria-label={label}
 				ref={inputRef}
 			/>
-			<input type='submit' className='submit-search' aria-label='Submit Search' />
+			<input type="submit" className="submit-search" aria-label="Submit Search" />
 		</form>
 	);
 }

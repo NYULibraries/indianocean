@@ -141,12 +141,12 @@ function SearchBody() {
 						{data?.response && <SearchSubheader response={data} />}
 					</header>
 					<br />
-					<div className='item-list flex-container'>
+					<div className="item-list flex-container">
 						{data?.response?.docs.map((document) => {
 							return <SearchResult data={document} key={document.entity_id} />;
 						})}
-						<article className='item'></article>
-						<article className='item'></article>
+						<article className="item"></article>
+						<article className="item"></article>
 					</div>
 					{data?.response?.numFound > rows && (
 						<SearchPagination currentPage={$pageNumField} numFound={data?.response?.numFound} rows={rows} />

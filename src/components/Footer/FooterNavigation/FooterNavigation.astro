@@ -6,22 +6,22 @@ import NavigationItem from '../../Navigation/NavigationItem.astro';
 const FooterNavigationItems = nav.navitems;
 ---
 
-<footer class='footer-main container-fluid'>
+<footer class="footer-main container-fluid">
 	<nav>
-		<ul class='footer-nav'>
+		<ul class="footer-nav">
 			{
 				FooterNavigationItems.map((item) => {
 					const { route, class: className, label } = item;
 					return <NavigationItem route={route} className={className} label={label} />;
 				})
 			}
-			<li class='accessibility-link'>
-				<a class='external' href=' https://www.nyu.edu/footer/accessibility.html' target='_blank'>
+			<li class="accessibility-link">
+				<a class="external" href=" https://www.nyu.edu/footer/accessibility.html" target="_blank">
 					Accessibility <ExternalSvg />
 				</a>
 			</li>
-			<li class='feedback-link'>
-				<a href='https://nyu.qualtrics.com/jfe/form/SV_8zQOuCi9g0JUVsV?site=indianocean&l=f' target='_blank'>
+			<li class="feedback-link">
+				<a href="https://nyu.qualtrics.com/jfe/form/SV_8zQOuCi9g0JUVsV?site=indianocean&l=f" target="_blank">
 					Send Feedback <ExternalSvg />
 				</a>
 			</li>

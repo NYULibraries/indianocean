@@ -30,18 +30,18 @@ const Book = (props) => {
 			{!isLoaded && <MapPlaceholder height={iFrameHeight} />}
 			<div className={!isLoaded ? 'mapContainerLoading' : undefined}>
 				<iframe
-					role='application'
+					role="application"
 					onLoad={mapLoad}
 					style={{
 						height: iFrameHeight
 					}}
 					title={title}
-					className='widget book'
-					id='book'
-					name='book'
-					allowFullScreen=''
-					mozallowfullscreen=''
-					webkitallowfullscreen=''
+					className="widget book"
+					id="book"
+					name="book"
+					allowFullScreen=""
+					mozallowfullscreen=""
+					webkitallowfullscreen=""
 					src={`${viewer}/books/${identifier}`}
 				/>
 			</div>
