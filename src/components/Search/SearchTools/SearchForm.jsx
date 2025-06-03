@@ -7,7 +7,7 @@ function SearchForm() {
 	const $searchField = useStore(search);
 	const inputRef = useRef(null);
 
-	const title = 'Enter the terms you wish to search for.';
+	const title = 'Enter the terms you wish to search for';
 	const label = 'Search';
 	const placeholder = 'Search titles, subjects, authors...';
 
