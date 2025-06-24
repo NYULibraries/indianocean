@@ -36,6 +36,6 @@ const pageDescription = 'maps';
 const viewer = env.PUBLIC_VIEWERURL;
 ---
 
-<MapLayout title={title} description={pageDescription}>
-	<Map viewer={viewer} title={title} identifier={identifier} client:only='react' />
+<MapLayout title={title + ' - NYU Libraries'} description={pageDescription}>
+	<Map viewer={viewer} title={title} identifier={identifier} client:only="react" />
 </MapLayout>

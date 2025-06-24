@@ -12,15 +12,15 @@ function SearchSubheader(props) {
 		const displayLength = start + documentsLength;
 
 		return numFound < 1 ? (
-			<div className='col'>
+			<div className="col">
 				<p>Sorry, no results found.</p>
 				<p>Try a different term.</p>
 			</div>
 		) : (
 			<>
-				<div className='resultsnum'>
-					Showing items <span className='start'>{displayStart}</span> -{' '}
-					<span className='docslength'>{displayLength}</span> of <span className='numfound'>{numFound}</span>
+				<div className="resultsnum">
+					Showing items <span className="start">{displayStart}</span> -{' '}
+					<span className="docslength">{displayLength}</span> of <span className="numfound">{numFound}</span>
 				</div>
 				<FilterDropdown />
 			</>

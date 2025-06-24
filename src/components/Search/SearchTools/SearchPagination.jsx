@@ -39,6 +39,8 @@ function SearchPagination(props) {
 				total={numFound}
 				onChange={onChange}
 				style={{
+					display: 'flex',
+					justifyContent: 'center',
 					textAlign: 'center',
 					marginTop: '2em'
 				}}
