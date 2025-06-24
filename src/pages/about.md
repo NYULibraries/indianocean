@@ -1,6 +1,6 @@
 ---
 layout: ../layouts/MarkdownLayout.astro
-title: Indian Ocean Digital Collection - About
+title: 	About - Indian Ocean Digital Collection - NYU Libraries
 ---
 
 ### Why the Indian Ocean?
