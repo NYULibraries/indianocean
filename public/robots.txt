@@ -1,4 +1,5 @@
 User-agent: *
+# Disallow: /
 Allow: /*.css$
 Allow: /*.js$
 Crawl-delay: 5
