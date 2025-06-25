@@ -5,9 +5,9 @@ import theme from '../Styles/themeConfig';
 const SearchPlaceholder = () => {
 	return (
 		<ConfigProvider theme={theme}>
-			<div className='searchplaceholder'>
+			<div className="searchplaceholder">
 				<Spin
-					size='large'
+					size="large"
 					style={{
 						position: 'relative',
 						marginTop: '0%',

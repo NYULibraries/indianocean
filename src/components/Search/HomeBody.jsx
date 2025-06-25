@@ -46,15 +46,15 @@ function HomeBody() {
 			<ConfigProvider theme={theme}>
 				<>
 					<header>
-						<h2 className='page-title'>{metatags.pageTitle}</h2>
+						<h2 className="page-title">Monographs, Maps, Postcards, Prints</h2>
 					</header>
 					<br />
-					<div className='item-list flex-container'>
+					<div className="item-list flex-container">
 						{data?.response?.docs.map((document) => {
 							return <SearchResult data={document} key={document.entity_id} />;
 						})}
-						<article className='item'></article>
-						<article className='item'></article>
+						<article className="item"></article>
+						<article className="item"></article>
 					</div>
 				</>
 			</ConfigProvider>

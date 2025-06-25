@@ -36,6 +36,6 @@ const pageDescription = 'books';
 const viewer = env.PUBLIC_VIEWERURL;
 ---
 
-<BookLayout title={title} description={pageDescription}>
-	<Book viewer={viewer} title={title} identifier={identifier} client:only='react' />
+<BookLayout title={title + ' - NYU Libraries'} description={pageDescription}>
+	<Book viewer={viewer} title={title} identifier={identifier} client:only="react" />
 </BookLayout>
