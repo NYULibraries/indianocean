@@ -37,9 +37,9 @@ const Map = (props) => {
 					className="widget book"
 					id="book"
 					name="book"
-					allowFullScreen=""
-					mozallowfullscreen=""
-					webkitallowfullscreen=""
+					allowFullScreen={true}
+					mozallowfullscreen={true}
+					webkitallowfullscreen={true}
 					src={`${viewer}/maps/${identifier}`}
 				/>
 			</div>
