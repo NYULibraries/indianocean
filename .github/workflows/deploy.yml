@@ -49,6 +49,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          PUBLIC_ENABLE_GA: ${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}
         run: npm run build
 
       - name: Configure AWS Credentials
