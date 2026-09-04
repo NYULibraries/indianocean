@@ -8,6 +8,14 @@ const siteName = metatags.siteName;
 const url = env.PUBLIC_APPURL;
 const type = metatags.type;
 const author = metatags.defaultAuthor;
+const gaId = 'G-K8MQ84PXX3';
+const enableGA = import.meta.env.PUBLIC_ENABLE_GA === 'true';
+const gaInlineScript = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaId}');
+`;
 ---
 
 <head>
@@ -32,4 +40,6 @@ const author = metatags.defaultAuthor;
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
 	<link rel="sitemap" href="/sitemap-index.xml" />
+	{enableGA && <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} is:inline />}
+	{enableGA && <script is:inline set:html={gaInlineScript} />}
 </head>
